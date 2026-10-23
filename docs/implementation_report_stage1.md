@@ -41,7 +41,7 @@ re-runs (also checked on a simulated fresh clone).
 Secondary (not preregistered; accounting corrected in audit, MD-7): with always-on nodes over the
 service window, dynamic energy is ≈ 51 % of seas's total and the total changes by −0.28 % [−0.53, −0.00];
 under ideal power gating the saving disappears (+0.17 %, CI −0.24…+0.62). seas is 0.4 % above the
-relaxation floor for the jobs it completes (EFT 2.4 %), i.e. ≤ 0.2 % of total energy is left for placement,
+relaxation floor for the jobs it completes (EFT 2.4 %), i.e. ≈ 0.2 % of total energy (mean; worst seed 0.7 %) is left for placement in this model,
 while idle power on empty nodes is ≈ 36 %. seas completes 3.2 % more work, −3.6 % dynamic energy per unit of
 completed work. α ∈ {0.25 … 1} gives identical schedules in 27 of 30 seeds (energy within 0.01 %). The miss
 reduction comes from least-slack ordering (EFT-slack matches it); the energy term gives −1.6 % against that
@@ -75,6 +75,14 @@ were rebuilt in LaTeX (`poster/poster.tex`, editable). Logos are not included (n
 * Scaling beyond ~200 nodes is slow in the current implementation (per-decision cost grows with
   queue length × nodes); vectorisation or indexing of candidate evaluation is needed.
 
-Next steps that follow directly from the evidence: (1) power-state-aware placement (placement headroom ≤ 0.2 %, idle on empty nodes ≈ 36 %);
+Next steps that follow directly from the evidence: (1) power-state-aware placement (placement headroom ≈ 0.2 %, idle on empty nodes ≈ 36 %);
 (2) Stage-2 calibration with RAPL/NVML so energies become measured; (3) measured TEE overhead per job
 type (Stage 3a); (4) an exact small-instance bound to size the remaining headroom.
+
+### Known weaknesses a reviewer may raise
+
+* H1's energy result is narrow: the relative difference excludes zero (CI −1.1 … −0.1 %), but the paired
+  difference in joules does not (−1.9 kJ, CI −3.7 … +0.2 kJ); seas is lower than EFT in 20 of 30 seeds.
+* The miss-rate means of `seas` and `eft-slack` coincide (3.7 %), but per seed they agree in 15 of 30.
+* The preregistration is time-stamped only by git history (`86cd5b5` precedes `dc30ad3`), not by an
+  external registry.

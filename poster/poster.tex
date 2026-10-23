@@ -104,27 +104,27 @@
   \node[anchor=north west,inner sep=0] at ([xshift=30mm,yshift=-210mm]current page.north west)
     {\fontsize{24}{28}\selectfont\bfseries\color{navy}KEY FINDINGS\quad{\mdseries\color{muted}Stage 1 · simulated cluster · modelled energy from synthetic profiles · 30 paired seeds · preregistered}};
   \node[anchor=north west,inner sep=0] at ([xshift=30mm,yshift=-226mm]current page.north west) {%
-    \finding{navy}{\HOneMissEft\,\%\,→\,\HOneMissSeas\,\%}{fewer missed deadlines than EFT}{Comes from least-slack-first ordering: the EFT-slack ablation also reaches \HOneMissSeas\,\%.}\hspace{19mm}%
+    \finding{navy}{\HOneMissEft\,\%\,→\,\HOneMissSeas\,\%}{fewer missed deadlines than EFT}{Explained by least-slack-first ordering: the EFT-slack ablation reaches the same mean (\SlackMiss\,\%).}\hspace{19mm}%
     \finding{seas}{\HOneEnergyRel\,\%}{dynamic energy vs EFT}{95\,\% CI [\HOneEnergyLo, \HOneEnergyHi]; H1 supported (Holm $p=\HOnePHolm$). Small: lower in \SeasWinsSeeds{} of \NSeeds{} seeds.}\hspace{19mm}%
-    \finding{amber}{≤\,\HeadroomShare\,\%}{of total energy left for placement}{\seasname{} is close to the placement floor; \IdleEmptyShare\,\% is idle power while nodes are empty.}\hspace{19mm}%
+    \finding{amber}{≈\,\HeadroomShare\,\%}{of total energy left for placement}{Mean (worst seed \HeadroomMax\,\%), in this model; \IdleEmptyShare\,\% is idle power on empty nodes.}\hspace{19mm}%
     \finding{warn}{\HTwoGainZero\,\%\,→\,\HTwoGainMax\,\%}{energy gain as secure jobs rise to 80\,\%}{H2 not supported: security constraints shrink the gain instead of growing it.}};
 \end{tikzpicture}
 
 % ===================== COLUMN 1 =====================
 \begin{lrbox}{\boxA}\begin{minipage}[t][\colH][s]{\colA}\vspace{0pt}\raggedright
 \firstsection{Why it matters}
-Schedulers decide where AI jobs run, but treat \emph{who may see the data} and \emph{what it costs in energy} as separate problems.
+Schedulers treat \emph{who may see the data} and \emph{what a placement costs in energy} as separate problems.
 \begin{itemize}
   \item AI's energy and environmental footprint is large and under-reported [7,\,8,\,9].
-  \item Protected execution costs up to ≈\,7\,\% throughput for LLM inference on confidential H100 GPUs [6]; secure nodes are scarcer and slower.
-  \item Energy-aware schedulers [1–4] assume any node may run any job.
+  \item Protected execution costs up to ≈\,7\,\% throughput for LLM inference on confidential H100 GPUs [6], and confidential GPUs are scarce.
+  \item To our knowledge, energy-aware schedulers [1,\,2,\,4] do not treat security eligibility as a constraint.
 \end{itemize}
 
 \section{Contribution}
 \begin{itemize}
   \item \seasname{}: eligibility first, then energy vs response time; every decision explained.
   \item A preregistered, reproducible benchmark with ablations.
-  \item Evidence of where placement-only energy optimisation stops paying off.
+  \item Evidence, in this simulated setting, of where placement-only energy optimisation stops paying off.
 \end{itemize}
 
 \section{Question \& hypotheses}
@@ -133,7 +133,7 @@ If security eligibility is a hard constraint, how much \emph{modelled} energy ca
 \begin{tabular}{@{}p{13mm}p{\dimexpr\colA-17mm}@{}}
 \textbf{\color{navy}H1} & \seasname{} uses less dynamic energy than EFT \emph{and} is non-inferior on misses (margin \HOneNIMargin\,pp).\\[2mm]
 \textbf{\color{navy}H2} & The gain grows with the share of security-constrained jobs.\\[2mm]
-\textbf{\color{navy}H3} & Both hold under ±25\,\% runtime-estimation error.\\
+\textbf{\color{navy}H3} & The energy gain vs EFT and fewer misses than energy-greedy survive noisy estimates ($\sigma=25\,\%$).\\
 \end{tabular}\par\vspace{3mm}
 \color{muted}Preregistered; paired tests; Holm correction.\par}
 
@@ -144,7 +144,7 @@ Among eligible nodes that still meet the deadline, \seasname{} picks
 \[ n^{*}=\operatorname*{arg\,min}_{n}\ \alpha\,\hat E_{jn}+(1-\alpha)\,\hat R_{jn} \]
 ($\hat E$ energy, $\hat R$ response time, both relative to the best option). Least-slack first, online, non-preemptive; a greedy heuristic.
 \figfile{figC_decision_example}
-\caption{A real decision record (S1, seed 0). The plain GPU would be cheaper but lacks the required TEE; the confidential CPU VMs would miss the deadline; the confidential GPU is chosen.}
+\caption{A logged decision (S1, seed 0). The plain GPU (estimate shown if it ran unprotected) is ineligible; the confidential CPU VMs would miss the deadline; the confidential GPU is chosen.}
 \end{minipage}\end{lrbox}%
 % ===================== COLUMN 2 =====================
 \begin{lrbox}{\boxB}\begin{minipage}[t][\colH][s]{\colB}\vspace{0pt}\raggedright
@@ -176,14 +176,14 @@ Among eligible nodes that still meet the deadline, \seasname{} picks
 \begin{tikzpicture}
   \node[fill=tint,rounded corners=4mm,inner sep=6mm,text width=\colB-12mm,align=left] {%
     {\bfseries\color{navy}H1 supported} (Holm $p=\HOnePHolm$): energy \HOneEnergyRel\,\% [\HOneEnergyLo, \HOneEnergyHi] and misses non-inferior (upper bound \HOneNIUpper\,pp $<$ \HOneNIMargin\,pp).\\[2mm]
-    {\capsize \textbf{Where the gains come from.} Ordering jobs by slack (EFT-slack) cuts misses to \HOneMissSeas\,\% but costs +\AblSlackVsEft\,\% energy; the energy term in \seasname{} then saves \AblSeasVsSlack\,\% against that same ordering. Deadline-blind energy-greedy saves \GreedyEnergyRel\,\% more but misses +\HFourDiff\,pp.}};
+    {\capsize \textbf{Where the gains come from.} Ordering jobs by slack (EFT-slack) cuts misses to \SlackMiss\,\% but costs +\AblSlackVsEft\,\% energy; the energy term in \seasname{} then saves \AblSeasVsSlack\,\% against that same ordering. Deadline-blind energy-greedy uses \GreedyEnergyRel\,\% energy vs \seasname{} but misses +\HFourDiff\,pp more deadlines.}};
 \end{tikzpicture}
 
 \section{Security shrinks the gain (H2)}
 \begin{minipage}[c]{180mm}\includegraphics{figS4_gain_vs_security.pdf}\end{minipage}\hfill
 \begin{minipage}[c]{\dimexpr\colB-186mm}\raggedright
 {\bfseries\color{warn}H2 not supported.}\par\vspace{2mm}
-{\capsize The gain fell from \HTwoGainZero\,\% to \HTwoGainMax\,\% (slope \HTwoSlope\,pp per 100\,\% secure jobs; post hoc two-sided $p\HTwoPTwoSided$). Eligibility removes choices before energy can be optimised.\par}
+{\capsize The gain fell from \HTwoGainZero\,\% to \HTwoGainMax\,\% (slope \HTwoSlope\,pp per 100\,\% secure jobs; post hoc two-sided $p\HTwoPTwoSided$). Interpretation: eligibility removes choices before energy can be optimised.\par}
 \end{minipage}
 \caption{Energy saved vs EFT, mean and 95\,\% CI over 30 paired seeds per level (S4).}
 \end{minipage}\end{lrbox}%
@@ -191,11 +191,11 @@ Among eligible nodes that still meet the deadline, \seasname{} picks
 \begin{lrbox}{\boxC}\begin{minipage}[t][\colH][s]{\colA}\vspace{0pt}\raggedright
 \firstsection{Limits of placement alone}
 \figfile{figE_energy_budget}
-\caption{Where \seasname{}'s modelled energy goes (S1, always-on nodes over the service window). The floor is a relaxation bound: each completed job on its cheapest eligible node.}
+\caption{Exploratory. Where \seasname{}'s modelled energy goes (S1 mean; always-on nodes over the service window). Floor: relaxation bound, each completed job on its cheapest eligible node.}
 \begin{itemize}
   \item Placement only moves dynamic energy, and \seasname{} is within \GapSeas\,\% of its floor (EFT: \GapEft\,\%).
-  \item Under ideal power gating the energy saving disappears (total \TotGatedRel\,\%, CI [\TotGatedLo, \TotGatedHi]).
-  \item Robust to ±25\,\% estimation error (H3 supported, Holm $p=\HThreePHolm$). The weight $\alpha$ barely matters: identical schedules for $\alpha\ge0.25$ in \AlphaSameSeeds{} of \AlphaNSeeds{} seeds.
+  \item Under ideal power gating the energy saving disappears (total \TotGatedRel\,\%, CI [\TotGatedLo, \TotGatedHi]; exploratory).
+  \item Robust to noisy estimates, $\sigma=25\,\%$ (H3 supported, Holm $p=\HThreePHolm$). The weight $\alpha$ barely matters (exploratory): identical schedules for $\alpha\ge0.25$ in \AlphaSameSeeds{} of \AlphaNSeeds{} seeds.
 \end{itemize}
 \vspace{2mm}
 {\bfseries\color{navy}Negative results set the agenda:} the remaining energy is in \emph{when nodes are on}, and in whether the model matches hardware.

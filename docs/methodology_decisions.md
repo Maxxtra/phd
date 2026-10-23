@@ -138,7 +138,7 @@ semantics, and `docs/model.md` presents the formal model with this distinction:
   is a greedy heuristic; it carries no optimality guarantee for total energy or
   makespan. The blueprint's normalised *execution* time ignored queueing delay; using
   response time is necessary because, online, a fast but busy node is not fast.
-* **Lower bound.** We report a relaxation bound `E_LB = Σ_{completed-by-any} min_n E_jn`
+* **Lower bound.** We report, per policy, a relaxation bound `E_LB = Σ_{j completed by that policy} min_{n eligible} E_jn`
   only as a descriptive reference for dynamic energy (it ignores capacity and
   deadlines). No exact MILP is solved in Stage 1; the blueprint's optional
   `milp-bound` is deferred and not claimed.

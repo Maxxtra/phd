@@ -275,6 +275,9 @@ def write_report(root: Path, conf: dict[str, Any], poster_dir: Path) -> None:
     tot = (sb.energy_dyn_J + sb.energy_idle_window_J).mean()
     mac["IdleEmptyShare"] = f"{(sb.energy_idle_window_J - sb.energy_idle_busy_J).mean() / tot * 100:.0f}"
     mac["HeadroomShare"] = f"{(sb.energy_dyn_J - sb.energy_lb_J).mean() / tot * 100:.1f}"
+    per_seed = (sb.energy_dyn_J - sb.energy_lb_J) / (sb.energy_dyn_J + sb.energy_idle_window_J)
+    mac["HeadroomMax"] = f"{per_seed.max() * 100:.1f}"
+    mac["SlackMiss"] = f"{gb[gb.policy_spec == 'eft-slack'].miss_rate.mean() * 100:.1f}"
     s2f = root / "S2" / "runs.csv"
     if s2f.exists():
         s2 = pd.read_csv(s2f)

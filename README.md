@@ -43,18 +43,19 @@ Main scenario S1: 200 AI jobs, 50 % with security requirements; 4 confidential-C
 
 | Hypothesis | Outcome (Holm-corrected across H1–H3) |
 |---|---|
-| **H1** seas uses less dynamic energy than EFT *and* is non-inferior on deadline misses (2 pp margin) | **Supported** (p = 0.040). Energy −0.6 % [95 % CI −1.1, −0.1], lower in 20 of 30 seeds; misses 3.7 % vs 7.8 % |
+| **H1** seas uses less dynamic energy than EFT *and* is non-inferior on deadline misses (2 pp margin) | **Supported** (p = 0.040), narrowly. Energy −0.6 % [95 % CI −1.1, −0.1], lower in 20 of 30 seeds; misses 3.7 % vs 7.8 % |
 | **H2** the energy gain grows with the share of security-constrained jobs | **Not supported.** Post hoc, the opposite: 1.4 % at 0 % secure jobs → 0.2 % at 80 % (two-sided p < 0.001) |
-| **H3** H1's energy gain and a miss-rate advantage over energy-greedy survive ±25 % estimation error | **Supported** (p = 0.002) |
+| **H3** the energy gain vs EFT and a miss-rate advantage over energy-greedy survive noisy runtime estimates (Gaussian, σ = 25 %) | **Supported** (p = 0.002) |
 | H4 (descriptive) deadlines are binding | Yes: deadline-blind energy-greedy uses 4.8 % less energy than seas but misses 11.5 pp more deadlines |
 
 What the numbers mean:
 
-* **The miss-rate reduction comes from least-slack-first ordering.** The `eft-slack` ablation reaches the
-  same 3.7 % (at +1.0 % energy); the energy term in seas then saves 1.6 % relative to that ordering.
+* **The miss-rate reduction is explained by least-slack-first ordering.** The `eft-slack` ablation reaches the
+  same mean miss rate, 3.7 % (at +1.0 % energy); the energy term in seas then saves 1.6 % relative to that ordering.
 * **Placement-only optimisation is close to its floor.** For the jobs it completes, seas's dynamic energy
   is 0.4 % above a relaxation bound (each job on its cheapest eligible node; EFT: 2.4 %). That headroom is
-  ≤ 0.2 % of total always-on energy, whereas idle power while nodes are empty is ≈ 36 %.
+  ≈ 0.2 % of total always-on energy on average (worst seed 0.7 %), whereas idle power while nodes are empty is
+  ≈ 36 % (exploratory, within this model).
 * **Total energy.** With always-on nodes over the service window, dynamic energy is ≈ 51 % of the total and
   seas changes the total by −0.28 % [−0.53, −0.00]. Under ideal power gating the saving disappears
   (+0.17 %, CI −0.24…+0.62). Both are secondary, not preregistered (accounting in

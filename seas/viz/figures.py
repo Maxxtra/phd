@@ -168,7 +168,7 @@ def fig_energy_budget(root: Path, out: Path) -> list[Path]:
     empty = (g.energy_idle_window_J - g.energy_idle_busy_J).mean() / 1e3
     tot = floor + head + busy + empty
     segs = [
-        (floor, "#9DB3CF", "Dynamic-energy floor\n(unavoidable for this work)"),
+        (floor, "#9DB3CF", "Dynamic-energy floor\n(unavoidable in this model)"),
         (head, COL["seas"], "Remaining placement headroom"),
         (busy, "#C9D3DF", "Idle while\nbusy"),
         (empty, "#E69F00", "Idle while empty\n(power-state lever)"),
@@ -189,9 +189,9 @@ def fig_energy_budget(root: Path, out: Path) -> list[Path]:
         val = f"{pct:.1f} %" if pct < 1 else f"{pct:.0f} %"
         if k == 1:
             ax.annotate(
-                f"{lab}: ≤ {val} of total",
+                f"{lab}: ≈ {val} of total (mean)",
                 xy=(x + v / 2, 0.3),
-                xytext=(tot * 0.12, 1.0),
+                xytext=(tot * 0.01, 1.0),
                 fontsize=21,
                 fontweight="bold",
                 color=COL["seas"],
@@ -474,7 +474,7 @@ def fig_explanation(root: Path, out: Path) -> tuple[list[Path], dict[str, Any]]:
     style(21)
     r = pick_explanation(root)
     rows = [("ineligible", c) for c in r["ineligible_detail"]] + [("eligible", c) for c in r["candidates"]]
-    fig, ax = plt.subplots(figsize=(222 * MM, 132 * MM))
+    fig, ax = plt.subplots(figsize=(222 * MM, 124 * MM))
     fig.subplots_adjust(left=0.01, right=0.99, bottom=0.01, top=0.99)
     ax.set_xlim(0, 100)
     ax.set_ylim(0, 100)
