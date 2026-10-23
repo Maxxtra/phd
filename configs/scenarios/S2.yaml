@@ -1,0 +1,7 @@
+id: S2
+status: exploratory
+description: Energy-knob sweep. seas with alpha override in {0,.25,.5,.75,1}; seas-eps with eps in {0.05,0.1,0.25,0.5}.
+cluster: configs/clusters/C-B.yaml
+workload: configs/workloads/baseline-mix.yaml
+policies: [fifo-ff, eft, eft-slack, energy-greedy, "seas(alpha=0)", "seas(alpha=0.25)", "seas(alpha=0.5)", "seas(alpha=0.75)", "seas(alpha=1)", "seas-eps(eps=0.05)", "seas-eps(eps=0.1)", "seas-eps(eps=0.25)", "seas-eps(eps=0.5)"]
+seeds: {start: 0, count: 30}

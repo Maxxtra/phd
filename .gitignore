@@ -1,0 +1,18 @@
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+# Per-run outputs are regenerated; only aggregates and seed-0 traces of figures are committed.
+results/**/seed_*/
+!results/S1/base/eft/seed_0/
+!results/S1/base/seas/seed_0/
+!results/S1/base/eft/seed_0/**
+!results/S1/base/seas/seed_0/**
+results/smoke/
+poster/build/
+*.aux
+*.log
+*.out

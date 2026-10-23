@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seas"
+version = "0.1.0"
+description = "Security-Eligible, Energy-Aware Scheduler: Stage-1 simulator and benchmark for placing AI jobs on heterogeneous CPU/GPU nodes"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Costin-Alexandru Deonise" }]
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.6",
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "scipy>=1.11",
+  "matplotlib>=3.8",
+  "pyyaml>=6",
+  "typer>=0.9",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov", "hypothesis>=6", "ruff>=0.4", "mypy>=1.8", "types-PyYAML", "pandas-stubs"]
+poster = ["qrcode>=7"]
+
+[project.scripts]
+seas = "seas.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["seas*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

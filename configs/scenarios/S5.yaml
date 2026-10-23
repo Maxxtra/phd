@@ -1,0 +1,8 @@
+id: S5
+status: exploratory
+description: Hardware availability. C-A (no confidential GPU), C-B (main), C-C (TEE-rich). Same job streams.
+cluster: configs/clusters/C-B.yaml
+workload: configs/workloads/baseline-mix.yaml
+policies: [fifo-ff, eft, eft-slack, energy-greedy, seas, seas-eps]
+seeds: {start: 0, count: 30}
+sweep: {cluster: [configs/clusters/C-A.yaml, configs/clusters/C-B.yaml, configs/clusters/C-C.yaml]}

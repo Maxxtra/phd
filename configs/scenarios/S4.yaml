@@ -1,0 +1,8 @@
+id: S4
+status: confirmatory          # H2 — FROZEN
+description: Security density sweep (fraction of jobs with security requirements), C-B. CRN across levels.
+cluster: configs/clusters/C-B.yaml
+workload: configs/workloads/baseline-mix.yaml
+policies: [fifo-ff, eft, eft-slack, energy-greedy, seas, seas-eps]
+seeds: {start: 0, count: 30}
+sweep: {security_fraction: [0.0, 0.2, 0.4, 0.6, 0.8]}

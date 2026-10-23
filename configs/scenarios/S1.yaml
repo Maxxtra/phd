@@ -1,0 +1,7 @@
+id: S1
+status: confirmatory          # H1, H4 — FROZEN (hash recorded in docs/preregistration.md)
+description: Baseline mix, 50% security-constrained, cluster C-B, hard deadlines with uniform expiry rule.
+cluster: configs/clusters/C-B.yaml
+workload: configs/workloads/baseline-mix.yaml
+policies: [fifo-ff, eft, eft-slack, energy-greedy, seas, seas-eps]
+seeds: {start: 0, count: 30}

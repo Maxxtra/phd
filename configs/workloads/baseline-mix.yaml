@@ -1,0 +1,29 @@
+# Baseline AI job mix (SYNTHETIC). Frozen for confirmatory scenarios S1, S4, S7.
+# arrival_rate_per_s is set a priori by `seas offered-load` (GPU-pool offered load 0.70
+# on cluster C-B, no policy executed) — see docs/methodology_decisions.md MD-2.
+name: baseline-mix
+n_jobs: 200
+arrival_rate_per_s: 0.26155   # set a priori by `seas offered-load --write` (GPU-pool offered load 0.70 on C-B)
+type_mix: {prep: 0.25, infer_small: 0.35, infer_large: 0.15, finetune: 0.10, pipe_stage: 0.15}
+work:
+  prep:        {dist: lognormal, mu: 2.0, sigma: 0.4}
+  infer_small: {dist: lognormal, mu: 3.0, sigma: 0.4}
+  infer_large: {dist: lognormal, mu: 4.0, sigma: 0.3}
+  finetune:    {dist: lognormal, mu: 4.5, sigma: 0.3}
+  pipe_stage:  {dist: lognormal, mu: 2.5, sigma: 0.4}
+memory_gb: {prep: 2, infer_small: 4, infer_large: 24, finetune: 40, pipe_stage: 8}
+data_gb:
+  prep:        {dist: lognormal, mu: -1.0, sigma: 0.5}
+  infer_small: {dist: lognormal, mu: -1.5, sigma: 0.5}
+  infer_large: {dist: lognormal, mu: 0.0, sigma: 0.5}
+  finetune:    {dist: lognormal, mu: 0.5, sigma: 0.5}
+  pipe_stage:  {dist: lognormal, mu: -1.0, sigma: 0.5}
+deadline_slack: {dist: uniform, lo: 1.5, hi: 4.0}   # multiple of best-case execution time
+deadline_floor_s: 10.0                                # absolute tolerance added to every deadline
+security_fraction: 0.5
+secure_mix: {enc_only: 0.2, tee_cpu: 0.6, tee_gpu: 0.2}
+security_classes:
+  enc_only: [ENC_AT_REST, ENC_IN_TRANSIT]
+  tee_cpu:  [ENC_AT_REST, ENC_IN_TRANSIT, TEE_CPU]
+  tee_gpu:  [ENC_AT_REST, ENC_IN_TRANSIT, TEE_GPU, ATTESTED]
+alpha: 0.5

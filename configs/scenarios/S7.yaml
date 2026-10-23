@@ -1,0 +1,8 @@
+id: S7
+status: confirmatory          # H3 (evaluated at noise_sigma = 0.25) — FROZEN
+description: Execution-time estimation error. Actual compute = estimate * max(0.5, 1 + N(0, sigma^2)); policies see estimates.
+cluster: configs/clusters/C-B.yaml
+workload: configs/workloads/baseline-mix.yaml
+policies: [fifo-ff, eft, eft-slack, energy-greedy, seas, seas-eps]
+seeds: {start: 0, count: 30}
+sweep: {noise_sigma: [0.1, 0.25, 0.5]}

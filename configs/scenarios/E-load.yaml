@@ -1,0 +1,8 @@
+id: E-load
+status: exploratory
+description: Load sweep. Arrival rate scaled relative to the a-priori rate (offered GPU load 0.70 at scale 1).
+cluster: configs/clusters/C-B.yaml
+workload: configs/workloads/baseline-mix.yaml
+policies: [fifo-ff, eft, eft-slack, energy-greedy, seas, seas-eps]
+seeds: {start: 0, count: 30}
+sweep: {arrival_scale: [0.5, 0.75, 1.0, 1.25, 1.5]}

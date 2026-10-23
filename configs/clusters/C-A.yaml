@@ -1,0 +1,86 @@
+# SYNTHETIC profile values (order-of-magnitude placeholders, NOT measurements).
+# Per-slot throughput (work units/s) and per-slot loaded power (W); dynamic power = load - idle.
+# sigma_protected: modelled slowdown for jobs requiring TEE capabilities (GPU 1.07 from the upper end of
+# Zhu et al. 2024 H100 CC throughput overhead; CPU 1.10 is an assumption). See docs/assumptions.md.
+# Secure-GPU scarcity: no confidential GPU (TEE_GPU jobs have no eligible node).
+name: C-A
+default_bandwidth_gbps: 10.0
+nodes:
+- id: cpu-tee-0
+  cls: CPU
+  capacity: 4
+  memory_gb: 128
+  capabilities: [ENC_AT_REST, ENC_IN_TRANSIT, TEE_CPU, ATTESTED]
+  sigma_protected: 1.1
+  power_idle_w: 60
+  profile:
+    prep: {throughput: 2.0, power_load_w: 95}
+    infer_small: {throughput: 0.8, power_load_w: 100}
+    infer_large: {throughput: 0.05, power_load_w: 105}
+    finetune: {throughput: 0.02, power_load_w: 105}
+    pipe_stage: {throughput: 1.0, power_load_w: 95}
+- id: cpu-tee-1
+  cls: CPU
+  capacity: 4
+  memory_gb: 128
+  capabilities: [ENC_AT_REST, ENC_IN_TRANSIT, TEE_CPU, ATTESTED]
+  sigma_protected: 1.1
+  power_idle_w: 60
+  profile:
+    prep: {throughput: 2.0, power_load_w: 95}
+    infer_small: {throughput: 0.8, power_load_w: 100}
+    infer_large: {throughput: 0.05, power_load_w: 105}
+    finetune: {throughput: 0.02, power_load_w: 105}
+    pipe_stage: {throughput: 1.0, power_load_w: 95}
+- id: cpu-tee-2
+  cls: CPU
+  capacity: 4
+  memory_gb: 128
+  capabilities: [ENC_AT_REST, ENC_IN_TRANSIT, TEE_CPU, ATTESTED]
+  sigma_protected: 1.1
+  power_idle_w: 60
+  profile:
+    prep: {throughput: 2.0, power_load_w: 95}
+    infer_small: {throughput: 0.8, power_load_w: 100}
+    infer_large: {throughput: 0.05, power_load_w: 105}
+    finetune: {throughput: 0.02, power_load_w: 105}
+    pipe_stage: {throughput: 1.0, power_load_w: 95}
+- id: cpu-tee-3
+  cls: CPU
+  capacity: 4
+  memory_gb: 128
+  capabilities: [ENC_AT_REST, ENC_IN_TRANSIT, TEE_CPU, ATTESTED]
+  sigma_protected: 1.1
+  power_idle_w: 60
+  profile:
+    prep: {throughput: 2.0, power_load_w: 95}
+    infer_small: {throughput: 0.8, power_load_w: 100}
+    infer_large: {throughput: 0.05, power_load_w: 105}
+    finetune: {throughput: 0.02, power_load_w: 105}
+    pipe_stage: {throughput: 1.0, power_load_w: 95}
+- id: gpu-0
+  cls: GPU
+  capacity: 2
+  memory_gb: 80
+  capabilities: [ENC_AT_REST, ENC_IN_TRANSIT]
+  sigma_protected: 1.07
+  power_idle_w: 70
+  profile:
+    prep: {throughput: 2.5, power_load_w: 170}
+    infer_small: {throughput: 20.0, power_load_w: 220}
+    infer_large: {throughput: 4.0, power_load_w: 270}
+    finetune: {throughput: 1.5, power_load_w: 280}
+    pipe_stage: {throughput: 8.0, power_load_w: 200}
+- id: gpu-1
+  cls: GPU
+  capacity: 2
+  memory_gb: 80
+  capabilities: [ENC_AT_REST, ENC_IN_TRANSIT]
+  sigma_protected: 1.07
+  power_idle_w: 70
+  profile:
+    prep: {throughput: 2.5, power_load_w: 170}
+    infer_small: {throughput: 20.0, power_load_w: 220}
+    infer_large: {throughput: 4.0, power_load_w: 270}
+    finetune: {throughput: 1.5, power_load_w: 280}
+    pipe_stage: {throughput: 8.0, power_load_w: 200}

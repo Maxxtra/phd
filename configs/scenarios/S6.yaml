@@ -1,0 +1,9 @@
+id: S6
+status: correctness
+description: Infeasibility handling. C-A has no TEE_GPU node; finetune memory raised to 160 GB (> any node). Checks reason codes, not performance.
+cluster: configs/clusters/C-A.yaml
+workload: configs/workloads/baseline-mix.yaml
+policies: [fifo-ff, eft, eft-slack, energy-greedy, seas, seas-eps]
+seeds: {start: 0, count: 5}
+overrides:
+  memory_gb: {prep: 2, infer_small: 4, infer_large: 24, finetune: 160, pipe_stage: 8}
