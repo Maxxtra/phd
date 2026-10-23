@@ -1,0 +1,87 @@
+scenario:
+  id: S1
+  status: confirmatory
+  description: Baseline mix, 50% security-constrained, cluster C-B, hard deadlines
+    with uniform expiry rule.
+  cluster: configs/clusters/C-B.yaml
+  workload: configs/workloads/baseline-mix.yaml
+  policies:
+  - fifo-ff
+  - eft
+  - eft-slack
+  - energy-greedy
+  - seas
+  - seas-eps
+  seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  sweep: {}
+  overrides: {}
+  noise: null
+scenario_file: configs/scenarios/S1.yaml
+scenario_sha256: 4742fa256129b04574ce791602aef07b6ceb0f2b2f4fd81266c43cb63309dbb9
+workload_sha256: 0bb5d5eaade46620e8f912fe413b35f3a479172a72faff689322319927f1f049
+cluster_sha256: 229984a2503aacfdfc8ab124ff41695134a0dfb0b7f9ab210b18e2a7d4ae81d4
+seeds_run:
+- 0
+- 1
+- 2
+- 3
+- 4
+- 5
+- 6
+- 7
+- 8
+- 9
+- 10
+- 11
+- 12
+- 13
+- 14
+- 15
+- 16
+- 17
+- 18
+- 19
+- 20
+- 21
+- 22
+- 23
+- 24
+- 25
+- 26
+- 27
+- 28
+- 29
+git_sha: dc30ad37cebb16032e1f1dca2973ce846664d3e0
+seas_version: 0.1.0
+python: 3.13.17
+platform: Linux-6.18.44-fc-v153-x86_64-with-glibc2.39

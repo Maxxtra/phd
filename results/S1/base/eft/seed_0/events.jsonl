@@ -1,0 +1,595 @@
+{"job": "j0000", "t": 0.0, "type": "ARRIVE"}
+{"compute_s": 14.163875046, "deadline": 55.825049445, "end": 14.629226634, "job": "j0000", "mem": 24.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 0.0, "type": "START"}
+{"job": "j0001", "t": 2.917724099, "type": "ARRIVE"}
+{"compute_s": 2.235158762, "deadline": 18.78916017, "end": 5.459585022, "job": "j0001", "mem": 2.0, "node": "gpu-0", "req": [], "t": 2.917724099, "type": "START"}
+{"job": "j0001", "late": false, "node": "gpu-0", "t": 5.459585022, "type": "FINISH"}
+{"job": "j0002", "t": 7.70597538, "type": "ARRIVE"}
+{"compute_s": 16.172652225, "deadline": 50.011028666, "end": 24.617189444, "job": "j0002", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 7.70597538, "type": "START"}
+{"job": "j0003", "t": 8.569861814, "type": "ARRIVE"}
+{"compute_s": 1.087851978, "deadline": 21.989441482, "end": 9.731376085, "job": "j0003", "mem": 4.0, "node": "gpu-0", "req": [], "t": 8.569861814, "type": "START"}
+{"job": "j0004", "t": 9.413849736, "type": "ARRIVE"}
+{"compute_s": 79.488191957, "deadline": 174.620389006, "end": 89.419369949, "job": "j0004", "mem": 40.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 9.413849736, "type": "START"}
+{"job": "j0003", "late": false, "node": "gpu-0", "t": 9.731376085, "type": "FINISH"}
+{"job": "j0000", "late": false, "node": "gpu-0", "t": 14.629226634, "type": "FINISH"}
+{"job": "j0005", "t": 16.295630654, "type": "ARRIVE"}
+{"compute_s": 67.373733376, "deadline": 204.925280971, "end": 84.96167956, "job": "j0005", "mem": 40.0, "node": "gpu-0", "req": [], "t": 16.295630654, "type": "START"}
+{"job": "j0006", "t": 16.547921769, "type": "ARRIVE"}
+{"job": "j0007", "t": 19.990844329, "type": "ARRIVE"}
+{"job": "j0008", "t": 21.120509436, "type": "ARRIVE"}
+{"compute_s": 1.407084574, "deadline": 35.698725174, "end": 22.902549667, "job": "j0008", "mem": 4.0, "node": "gpu-0", "req": [], "t": 21.120509436, "type": "START"}
+{"job": "j0008", "late": false, "node": "gpu-0", "t": 22.902549667, "type": "FINISH"}
+{"job": "j0002", "late": false, "node": "gpu-tee-0", "t": 24.617189444, "type": "FINISH"}
+{"compute_s": 0.970149753, "deadline": 30.323328582, "end": 25.748013046, "job": "j0006", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 24.617189444, "type": "START"}
+{"job": "j0006", "late": false, "node": "gpu-tee-0", "t": 25.748013046, "type": "FINISH"}
+{"compute_s": 12.975466782, "deadline": 59.265557433, "end": 39.748581873, "job": "j0007", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 25.748013046, "type": "START"}
+{"job": "j0009", "t": 29.914069461, "type": "ARRIVE"}
+{"job": "j0010", "t": 37.019589667, "type": "ARRIVE"}
+{"compute_s": 56.653971419, "deadline": 192.65938402, "end": 94.534692827, "job": "j0010", "mem": 40.0, "node": "gpu-0", "req": [], "t": 37.019589667, "type": "START"}
+{"job": "j0011", "t": 37.076394134, "type": "ARRIVE"}
+{"job": "j0007", "late": false, "node": "gpu-tee-0", "t": 39.748581873, "type": "FINISH"}
+{"compute_s": 1.945741102, "deadline": 48.16293825, "end": 41.963842616, "job": "j0009", "mem": 8.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 39.748581873, "type": "START"}
+{"job": "j0009", "late": false, "node": "gpu-tee-0", "t": 41.963842616, "type": "FINISH"}
+{"compute_s": 19.792590396, "deadline": 123.864946873, "end": 63.097840376, "job": "j0011", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 41.963842616, "type": "START"}
+{"job": "j0012", "t": 58.473854762, "type": "ARRIVE"}
+{"compute_s": 5.051684369, "deadline": 86.152390778, "end": 64.076992196, "job": "j0012", "mem": 2.0, "node": "cpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 58.473854762, "type": "START"}
+{"job": "j0013", "t": 61.517602628, "type": "ARRIVE"}
+{"job": "j0014", "t": 62.854350164, "type": "ARRIVE"}
+{"job": "j0011", "late": false, "node": "gpu-tee-0", "t": 63.097840376, "type": "FINISH"}
+{"compute_s": 65.998763591, "deadline": 230.806654816, "end": 129.928237854, "job": "j0013", "mem": 40.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 63.097840376, "type": "START"}
+{"compute_s": 8.000548138, "deadline": 97.169202481, "end": 71.201039647, "job": "j0014", "mem": 2.0, "node": "cpu-tee-0", "req": [], "t": 63.097840376, "type": "START"}
+{"job": "j0012", "late": false, "node": "cpu-tee-0", "t": 64.076992196, "type": "FINISH"}
+{"job": "j0015", "t": 70.38866304, "type": "ARRIVE"}
+{"compute_s": 4.424197128, "deadline": 91.749419767, "end": 75.282432009, "job": "j0015", "mem": 2.0, "node": "cpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 70.38866304, "type": "START"}
+{"job": "j0014", "late": false, "node": "cpu-tee-0", "t": 71.201039647, "type": "FINISH"}
+{"job": "j0016", "t": 73.226105664, "type": "ARRIVE"}
+{"compute_s": 5.049487529, "deadline": 93.791227841, "end": 78.801754225, "job": "j0016", "mem": 2.0, "node": "cpu-tee-0", "req": [], "t": 73.226105664, "type": "START"}
+{"job": "j0017", "t": 73.24899102, "type": "ARRIVE"}
+{"job": "j0015", "late": false, "node": "cpu-tee-0", "t": 75.282432009, "type": "FINISH"}
+{"job": "j0018", "t": 76.413534357, "type": "ARRIVE"}
+{"job": "j0019", "t": 78.783695076, "type": "ARRIVE"}
+{"job": "j0016", "late": false, "node": "cpu-tee-0", "t": 78.801754225, "type": "FINISH"}
+{"job": "j0020", "t": 81.097927055, "type": "ARRIVE"}
+{"job": "j0005", "late": false, "node": "gpu-0", "t": 84.96167956, "type": "FINISH"}
+{"compute_s": 1.849526512, "deadline": 91.189081995, "end": 87.017148167, "job": "j0018", "mem": 4.0, "node": "gpu-0", "req": [], "t": 84.96167956, "type": "START"}
+{"job": "j0018", "late": false, "node": "gpu-0", "t": 87.017148167, "type": "FINISH"}
+{"compute_s": 0.787064858, "deadline": 94.649866694, "end": 87.91707488, "job": "j0020", "mem": 4.0, "node": "gpu-0", "req": [], "t": 87.017148167, "type": "START"}
+{"job": "j0020", "late": false, "node": "gpu-0", "t": 87.91707488, "type": "FINISH"}
+{"job": "j0004", "late": false, "node": "gpu-tee-0", "t": 89.419369949, "type": "FINISH"}
+{"compute_s": 18.165966504, "deadline": 130.419419775, "end": 108.532496582, "job": "j0017", "mem": 24.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 89.419369949, "type": "START"}
+{"job": "j0021", "t": 91.956383388, "type": "ARRIVE"}
+{"compute_s": 1.994747648, "deadline": 108.555802861, "end": 94.242953818, "job": "j0021", "mem": 8.0, "node": "gpu-0", "req": [], "t": 91.956383388, "type": "START"}
+{"job": "j0022", "t": 92.857621831, "type": "ARRIVE"}
+{"job": "j0021", "late": false, "node": "gpu-0", "t": 94.242953818, "type": "FINISH"}
+{"job": "j0019", "reason": "DEADLINE_EXPIRED_WHILE_WAITING", "t": 94.242953818, "type": "EXPIRE"}
+{"compute_s": 1.508187658, "deadline": 108.434221835, "end": 96.032739939, "job": "j0022", "mem": 8.0, "node": "gpu-0", "req": [], "t": 94.242953818, "type": "START"}
+{"job": "j0010", "late": false, "node": "gpu-0", "t": 94.534692827, "type": "FINISH"}
+{"job": "j0022", "late": false, "node": "gpu-0", "t": 96.032739939, "type": "FINISH"}
+{"job": "j0023", "t": 102.435050217, "type": "ARRIVE"}
+{"compute_s": 7.221203506, "deadline": 131.675369766, "end": 111.026759682, "job": "j0023", "mem": 24.0, "node": "gpu-0", "req": [], "t": 102.435050217, "type": "START"}
+{"job": "j0024", "t": 103.678923398, "type": "ARRIVE"}
+{"compute_s": 2.467874918, "deadline": 122.536187161, "end": 106.321457113, "job": "j0024", "mem": 2.0, "node": "gpu-0", "req": [], "t": 103.678923398, "type": "START"}
+{"job": "j0024", "late": false, "node": "gpu-0", "t": 106.321457113, "type": "FINISH"}
+{"job": "j0017", "late": false, "node": "gpu-tee-0", "t": 108.532496582, "type": "FINISH"}
+{"job": "j0025", "t": 109.58951977, "type": "ARRIVE"}
+{"compute_s": 4.476620915, "deadline": 127.323883768, "end": 114.271604732, "job": "j0025", "mem": 2.0, "node": "gpu-0", "req": [], "t": 109.58951977, "type": "START"}
+{"job": "j0023", "late": false, "node": "gpu-0", "t": 111.026759682, "type": "FINISH"}
+{"job": "j0026", "t": 113.631192903, "type": "ARRIVE"}
+{"compute_s": 5.919328372, "deadline": 144.0666786, "end": 120.381727418, "job": "j0026", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 113.631192903, "type": "START"}
+{"job": "j0025", "late": false, "node": "gpu-0", "t": 114.271604732, "type": "FINISH"}
+{"job": "j0027", "t": 115.124467008, "type": "ARRIVE"}
+{"compute_s": 0.738118856, "deadline": 128.76820665, "end": 116.056682889, "job": "j0027", "mem": 4.0, "node": "gpu-0", "req": [], "t": 115.124467008, "type": "START"}
+{"job": "j0027", "late": false, "node": "gpu-0", "t": 116.056682889, "type": "FINISH"}
+{"job": "j0028", "t": 117.732265343, "type": "ARRIVE"}
+{"compute_s": 0.71050484, "deadline": 129.964086981, "end": 118.653487109, "job": "j0028", "mem": 4.0, "node": "gpu-0", "req": [], "t": 117.732265343, "type": "START"}
+{"job": "j0028", "late": false, "node": "gpu-0", "t": 118.653487109, "type": "FINISH"}
+{"job": "j0026", "late": false, "node": "gpu-tee-0", "t": 120.381727418, "type": "FINISH"}
+{"job": "j0029", "t": 125.184764417, "type": "ARRIVE"}
+{"compute_s": 22.624024729, "deadline": 174.4825287, "end": 149.360057472, "job": "j0029", "mem": 24.0, "node": "gpu-0", "req": [], "t": 125.184764417, "type": "START"}
+{"job": "j0013", "late": false, "node": "gpu-tee-0", "t": 129.928237854, "type": "FINISH"}
+{"job": "j0030", "t": 134.276356446, "type": "ARRIVE"}
+{"compute_s": 0.745034518, "deadline": 146.161659867, "end": 135.439921898, "job": "j0030", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 134.276356446, "type": "START"}
+{"job": "j0030", "late": false, "node": "gpu-tee-0", "t": 135.439921898, "type": "FINISH"}
+{"job": "j0031", "t": 137.465909034, "type": "ARRIVE"}
+{"compute_s": 44.426940277, "deadline": 250.192958931, "end": 183.124055072, "job": "j0031", "mem": 40.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 137.465909034, "type": "START"}
+{"job": "j0032", "t": 145.431655351, "type": "ARRIVE"}
+{"compute_s": 0.718021525, "deadline": 156.954829067, "end": 146.373020835, "job": "j0032", "mem": 4.0, "node": "gpu-0", "req": [], "t": 145.431655351, "type": "START"}
+{"job": "j0032", "late": false, "node": "gpu-0", "t": 146.373020835, "type": "FINISH"}
+{"job": "j0033", "t": 148.080533822, "type": "ARRIVE"}
+{"compute_s": 1.11977535, "deadline": 160.279617511, "end": 149.333520462, "job": "j0033", "mem": 8.0, "node": "gpu-0", "req": [], "t": 148.080533822, "type": "START"}
+{"job": "j0033", "late": false, "node": "gpu-0", "t": 149.333520462, "type": "FINISH"}
+{"job": "j0029", "late": false, "node": "gpu-0", "t": 149.360057472, "type": "FINISH"}
+{"job": "j0034", "t": 149.875507056, "type": "ARRIVE"}
+{"compute_s": 1.888671408, "deadline": 168.456109535, "end": 152.079961224, "job": "j0034", "mem": 2.0, "node": "gpu-0", "req": [], "t": 149.875507056, "type": "START"}
+{"job": "j0034", "late": false, "node": "gpu-0", "t": 152.079961224, "type": "FINISH"}
+{"job": "j0035", "t": 154.490835109, "type": "ARRIVE"}
+{"compute_s": 1.244653338, "deadline": 168.095925848, "end": 156.006229925, "job": "j0035", "mem": 4.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 154.490835109, "type": "START"}
+{"job": "j0036", "t": 154.818668102, "type": "ARRIVE"}
+{"compute_s": 1.651442976, "deadline": 168.159009608, "end": 156.636395171, "job": "j0036", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 154.818668102, "type": "START"}
+{"job": "j0035", "late": false, "node": "gpu-0", "t": 156.006229925, "type": "FINISH"}
+{"job": "j0037", "t": 156.101864246, "type": "ARRIVE"}
+{"job": "j0036", "late": false, "node": "gpu-tee-0", "t": 156.636395171, "type": "FINISH"}
+{"compute_s": 8.200817708, "deadline": 197.284748907, "end": 165.466033623, "job": "j0037", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 156.636395171, "type": "START"}
+{"job": "j0038", "t": 159.951427635, "type": "ARRIVE"}
+{"job": "j0039", "t": 160.844759272, "type": "ARRIVE"}
+{"job": "j0040", "t": 165.405563112, "type": "ARRIVE"}
+{"compute_s": 1.170764219, "deadline": 180.101845002, "end": 166.885920294, "job": "j0040", "mem": 8.0, "node": "gpu-0", "req": [], "t": 165.405563112, "type": "START"}
+{"job": "j0037", "late": false, "node": "gpu-tee-0", "t": 165.466033623, "type": "FINISH"}
+{"compute_s": 11.625492499, "deadline": 193.786534589, "end": 177.769762249, "job": "j0038", "mem": 24.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 165.466033623, "type": "START"}
+{"job": "j0040", "late": false, "node": "gpu-0", "t": 166.885920294, "type": "FINISH"}
+{"job": "j0041", "t": 168.134028029, "type": "ARRIVE"}
+{"compute_s": 0.928026691, "deadline": 180.657461696, "end": 169.216529704, "job": "j0041", "mem": 4.0, "node": "gpu-0", "req": [], "t": 168.134028029, "type": "START"}
+{"job": "j0041", "late": false, "node": "gpu-0", "t": 169.216529704, "type": "FINISH"}
+{"job": "j0038", "late": false, "node": "gpu-tee-0", "t": 177.769762249, "type": "FINISH"}
+{"job": "j0039", "reason": "DEADLINE_EXPIRED_WHILE_WAITING", "t": 177.769762249, "type": "EXPIRE"}
+{"job": "j0031", "late": false, "node": "gpu-tee-0", "t": 183.124055072, "type": "FINISH"}
+{"job": "j0042", "t": 184.267080739, "type": "ARRIVE"}
+{"compute_s": 1.483247566, "deadline": 200.484801311, "end": 185.838702197, "job": "j0042", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 184.267080739, "type": "START"}
+{"job": "j0043", "t": 184.415034587, "type": "ARRIVE"}
+{"compute_s": 1.08980989, "deadline": 196.563371113, "end": 185.770058105, "job": "j0043", "mem": 4.0, "node": "gpu-0", "req": [], "t": 184.415034587, "type": "START"}
+{"job": "j0043", "late": false, "node": "gpu-0", "t": 185.770058105, "type": "FINISH"}
+{"job": "j0042", "late": false, "node": "gpu-tee-0", "t": 185.838702197, "type": "FINISH"}
+{"job": "j0044", "t": 196.06975511, "type": "ARRIVE"}
+{"compute_s": 3.314770102, "deadline": 211.703167779, "end": 199.727853846, "job": "j0044", "mem": 2.0, "node": "gpu-0", "req": [], "t": 196.06975511, "type": "START"}
+{"job": "j0045", "t": 196.8804538, "type": "ARRIVE"}
+{"compute_s": 1.803216928, "deadline": 213.633150151, "end": 198.907108071, "job": "j0045", "mem": 2.0, "node": "gpu-0", "req": [], "t": 196.8804538, "type": "START"}
+{"job": "j0046", "t": 197.18346787, "type": "ARRIVE"}
+{"compute_s": 3.773554842, "deadline": 220.971197322, "end": 201.360853947, "job": "j0046", "mem": 2.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 197.18346787, "type": "START"}
+{"job": "j0045", "late": false, "node": "gpu-0", "t": 198.907108071, "type": "FINISH"}
+{"job": "j0044", "late": false, "node": "gpu-0", "t": 199.727853846, "type": "FINISH"}
+{"job": "j0047", "t": 200.729005208, "type": "ARRIVE"}
+{"compute_s": 2.61187319, "deadline": 216.352675055, "end": 203.474466069, "job": "j0047", "mem": 8.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 200.729005208, "type": "START"}
+{"job": "j0046", "late": false, "node": "gpu-tee-0", "t": 201.360853947, "type": "FINISH"}
+{"job": "j0047", "late": false, "node": "gpu-tee-0", "t": 203.474466069, "type": "FINISH"}
+{"job": "j0048", "t": 208.581768811, "type": "ARRIVE"}
+{"compute_s": 10.158077038, "deadline": 246.608443122, "end": 220.235740479, "job": "j0048", "mem": 24.0, "node": "gpu-0", "req": [], "t": 208.581768811, "type": "START"}
+{"job": "j0049", "t": 211.336059475, "type": "ARRIVE"}
+{"compute_s": 1.210255392, "deadline": 226.393031131, "end": 212.696683021, "job": "j0049", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 211.336059475, "type": "START"}
+{"job": "j0050", "t": 212.395188638, "type": "ARRIVE"}
+{"compute_s": 0.962327173, "deadline": 224.806132581, "end": 213.496445867, "job": "j0050", "mem": 4.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 212.395188638, "type": "START"}
+{"job": "j0049", "late": false, "node": "gpu-tee-0", "t": 212.696683021, "type": "FINISH"}
+{"job": "j0050", "late": false, "node": "gpu-tee-0", "t": 213.496445867, "type": "FINISH"}
+{"job": "j0051", "t": 214.498014467, "type": "ARRIVE"}
+{"compute_s": 1.667186425, "deadline": 231.341584375, "end": 216.66101231, "job": "j0051", "mem": 2.0, "node": "gpu-0", "req": [], "t": 214.498014467, "type": "START"}
+{"job": "j0052", "t": 215.420512864, "type": "ARRIVE"}
+{"compute_s": 54.254155096, "deadline": 397.610548992, "end": 270.88484789, "job": "j0052", "mem": 40.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 215.420512864, "type": "START"}
+{"job": "j0051", "late": false, "node": "gpu-0", "t": 216.66101231, "type": "FINISH"}
+{"job": "j0048", "late": false, "node": "gpu-0", "t": 220.235740479, "type": "FINISH"}
+{"job": "j0053", "t": 222.747698427, "type": "ARRIVE"}
+{"compute_s": 0.999128149, "deadline": 236.627073671, "end": 223.857967156, "job": "j0053", "mem": 4.0, "node": "gpu-0", "req": [], "t": 222.747698427, "type": "START"}
+{"job": "j0053", "late": false, "node": "gpu-0", "t": 223.857967156, "type": "FINISH"}
+{"job": "j0054", "t": 224.44125834, "type": "ARRIVE"}
+{"compute_s": 3.800947298, "deadline": 249.58889128, "end": 228.781475317, "job": "j0054", "mem": 2.0, "node": "gpu-0", "req": [], "t": 224.44125834, "type": "START"}
+{"job": "j0055", "t": 225.683126557, "type": "ARRIVE"}
+{"compute_s": 2.737478017, "deadline": 246.877149218, "end": 228.746047695, "job": "j0055", "mem": 2.0, "node": "gpu-0", "req": [], "t": 225.683126557, "type": "START"}
+{"job": "j0056", "t": 227.4650309, "type": "ARRIVE"}
+{"compute_s": 18.561612813, "deadline": 311.750703517, "end": 247.369599153, "job": "j0056", "mem": 24.0, "node": "gpu-tee-0", "req": [], "t": 227.4650309, "type": "START"}
+{"job": "j0055", "late": false, "node": "gpu-0", "t": 228.746047695, "type": "FINISH"}
+{"job": "j0054", "late": false, "node": "gpu-0", "t": 228.781475317, "type": "FINISH"}
+{"job": "j0057", "t": 232.258163165, "type": "ARRIVE"}
+{"job": "j0058", "t": 235.740074904, "type": "ARRIVE"}
+{"compute_s": 1.106138617, "deadline": 248.505995011, "end": 236.994809544, "job": "j0058", "mem": 4.0, "node": "gpu-0", "req": [], "t": 235.740074904, "type": "START"}
+{"job": "j0059", "t": 236.067854329, "type": "ARRIVE"}
+{"compute_s": 6.365488337, "deadline": 256.573724621, "end": 242.627057382, "job": "j0059", "mem": 2.0, "node": "cpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 236.067854329, "type": "START"}
+{"job": "j0058", "late": false, "node": "gpu-0", "t": 236.994809544, "type": "FINISH"}
+{"job": "j0060", "t": 239.682508443, "type": "ARRIVE"}
+{"compute_s": 1.172701946, "deadline": 254.698603885, "end": 240.968137949, "job": "j0060", "mem": 4.0, "node": "gpu-0", "req": [], "t": 239.682508443, "type": "START"}
+{"job": "j0060", "late": false, "node": "gpu-0", "t": 240.968137949, "type": "FINISH"}
+{"job": "j0059", "late": false, "node": "cpu-tee-0", "t": 242.627057382, "type": "FINISH"}
+{"job": "j0061", "t": 243.740337584, "type": "ARRIVE"}
+{"compute_s": 1.098710106, "deadline": 257.034542065, "end": 245.10176623, "job": "j0061", "mem": 4.0, "node": "gpu-0", "req": [], "t": 243.740337584, "type": "START"}
+{"job": "j0062", "t": 244.86165075, "type": "ARRIVE"}
+{"job": "j0057", "reason": "DEADLINE_EXPIRED_WHILE_WAITING", "t": 244.86165075, "type": "EXPIRE"}
+{"compute_s": 1.519220486, "deadline": 260.783222721, "end": 246.585451773, "job": "j0062", "mem": 4.0, "node": "gpu-0", "req": [], "t": 244.86165075, "type": "START"}
+{"job": "j0061", "late": false, "node": "gpu-0", "t": 245.10176623, "type": "FINISH"}
+{"job": "j0062", "late": false, "node": "gpu-0", "t": 246.585451773, "type": "FINISH"}
+{"job": "j0056", "late": false, "node": "gpu-tee-0", "t": 247.369599153, "type": "FINISH"}
+{"job": "j0063", "t": 249.774004527, "type": "ARRIVE"}
+{"compute_s": 49.355552573, "deadline": 457.897192931, "end": 301.582647131, "job": "j0063", "mem": 40.0, "node": "gpu-0", "req": [], "t": 249.774004527, "type": "START"}
+{"job": "j0064", "t": 252.446313883, "type": "ARRIVE"}
+{"compute_s": 11.596203466, "deadline": 309.994233109, "end": 264.655628083, "job": "j0064", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 252.446313883, "type": "START"}
+{"job": "j0065", "t": 255.612695934, "type": "ARRIVE"}
+{"job": "j0066", "t": 258.705809757, "type": "ARRIVE"}
+{"job": "j0067", "t": 260.260981838, "type": "ARRIVE"}
+{"job": "j0064", "late": false, "node": "gpu-tee-0", "t": 264.655628083, "type": "FINISH"}
+{"compute_s": 2.12831756, "deadline": 269.536607931, "end": 267.181663821, "job": "j0065", "mem": 2.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 264.655628083, "type": "START"}
+{"job": "j0065", "late": false, "node": "gpu-tee-0", "t": 267.181663821, "type": "FINISH"}
+{"compute_s": 1.314013595, "deadline": 272.810033928, "end": 268.552138411, "job": "j0066", "mem": 4.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 267.181663821, "type": "START"}
+{"job": "j0068", "t": 267.238391537, "type": "ARRIVE"}
+{"compute_s": 0.744229589, "deadline": 279.310479689, "end": 268.065585034, "job": "j0068", "mem": 4.0, "node": "gpu-0", "req": [], "t": 267.238391537, "type": "START"}
+{"job": "j0069", "t": 267.83914566, "type": "ARRIVE"}
+{"job": "j0068", "late": false, "node": "gpu-0", "t": 268.065585034, "type": "FINISH"}
+{"compute_s": 11.043556795, "deadline": 301.592992893, "end": 279.461406707, "job": "j0069", "mem": 24.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 268.065585034, "type": "START"}
+{"job": "j0070", "t": 268.516852357, "type": "ARRIVE"}
+{"job": "j0066", "late": false, "node": "gpu-tee-0", "t": 268.552138411, "type": "FINISH"}
+{"compute_s": 1.008854379, "deadline": 274.618773045, "end": 269.872388934, "job": "j0067", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 268.552138411, "type": "START"}
+{"job": "j0071", "t": 269.165057708, "type": "ARRIVE"}
+{"job": "j0072", "t": 269.730299889, "type": "ARRIVE"}
+{"job": "j0067", "late": false, "node": "gpu-tee-0", "t": 269.872388934, "type": "FINISH"}
+{"compute_s": 1.702230504, "deadline": 283.67124833, "end": 271.857282205, "job": "j0070", "mem": 8.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 269.872388934, "type": "START"}
+{"job": "j0052", "late": false, "node": "gpu-tee-0", "t": 270.88484789, "type": "FINISH"}
+{"compute_s": 13.012656527, "deadline": 317.773683385, "end": 284.839867359, "job": "j0071", "mem": 24.0, "node": "gpu-tee-0", "req": [], "t": 270.88484789, "type": "START"}
+{"job": "j0070", "late": false, "node": "gpu-tee-0", "t": 271.857282205, "type": "FINISH"}
+{"compute_s": 2.411707885, "deadline": 288.764202229, "end": 274.38083311, "job": "j0072", "mem": 4.0, "node": "gpu-tee-0", "req": [], "t": 271.857282205, "type": "START"}
+{"job": "j0073", "t": 273.35827415, "type": "ARRIVE"}
+{"job": "j0072", "late": false, "node": "gpu-tee-0", "t": 274.38083311, "type": "FINISH"}
+{"compute_s": 1.222040519, "deadline": 287.44021558, "end": 275.742906003, "job": "j0073", "mem": 4.0, "node": "gpu-tee-0", "req": [], "t": 274.38083311, "type": "START"}
+{"job": "j0073", "late": false, "node": "gpu-tee-0", "t": 275.742906003, "type": "FINISH"}
+{"job": "j0074", "t": 277.456308203, "type": "ARRIVE"}
+{"compute_s": 0.862338475, "deadline": 290.487810526, "end": 278.506289134, "job": "j0074", "mem": 8.0, "node": "gpu-tee-0", "req": [], "t": 277.456308203, "type": "START"}
+{"job": "j0074", "late": false, "node": "gpu-tee-0", "t": 278.506289134, "type": "FINISH"}
+{"job": "j0069", "late": false, "node": "gpu-0", "t": 279.461406707, "type": "FINISH"}
+{"job": "j0075", "t": 279.611105329, "type": "ARRIVE"}
+{"compute_s": 0.995640987, "deadline": 293.074969467, "end": 280.694867363, "job": "j0075", "mem": 4.0, "node": "gpu-0", "req": [], "t": 279.611105329, "type": "START"}
+{"job": "j0075", "late": false, "node": "gpu-0", "t": 280.694867363, "type": "FINISH"}
+{"job": "j0071", "late": false, "node": "gpu-tee-0", "t": 284.839867359, "type": "FINISH"}
+{"job": "j0076", "t": 285.285205259, "type": "ARRIVE"}
+{"compute_s": 5.208079235, "deadline": 315.467606336, "end": 290.921630211, "job": "j0076", "mem": 2.0, "node": "gpu-0", "req": [], "t": 285.285205259, "type": "START"}
+{"job": "j0077", "t": 287.39477716, "type": "ARRIVE"}
+{"compute_s": 17.914849278, "deadline": 345.160283548, "end": 305.974892898, "job": "j0077", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 287.39477716, "type": "START"}
+{"job": "j0076", "late": false, "node": "gpu-0", "t": 290.921630211, "type": "FINISH"}
+{"job": "j0078", "t": 293.248277646, "type": "ARRIVE"}
+{"compute_s": 1.17243234, "deadline": 305.462437067, "end": 294.64566946, "job": "j0078", "mem": 8.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 293.248277646, "type": "START"}
+{"job": "j0078", "late": false, "node": "gpu-0", "t": 294.64566946, "type": "FINISH"}
+{"job": "j0079", "t": 301.090191241, "type": "ARRIVE"}
+{"compute_s": 1.13672213, "deadline": 313.395463676, "end": 302.560552581, "job": "j0079", "mem": 4.0, "node": "gpu-0", "req": [], "t": 301.090191241, "type": "START"}
+{"job": "j0063", "late": false, "node": "gpu-0", "t": 301.582647131, "type": "FINISH"}
+{"job": "j0079", "late": false, "node": "gpu-0", "t": 302.560552581, "type": "FINISH"}
+{"job": "j0080", "t": 305.013705285, "type": "ARRIVE"}
+{"compute_s": 1.469541389, "deadline": 318.350592514, "end": 306.574366579, "job": "j0080", "mem": 4.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 305.013705285, "type": "START"}
+{"job": "j0081", "t": 305.427243459, "type": "ARRIVE"}
+{"compute_s": 12.217891093, "deadline": 355.141120964, "end": 318.515092166, "job": "j0081", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 305.427243459, "type": "START"}
+{"job": "j0077", "late": false, "node": "gpu-tee-0", "t": 305.974892898, "type": "FINISH"}
+{"job": "j0080", "late": false, "node": "gpu-0", "t": 306.574366579, "type": "FINISH"}
+{"job": "j0082", "t": 307.250405552, "type": "ARRIVE"}
+{"compute_s": 14.848949469, "deadline": 359.510172307, "end": 323.139098448, "job": "j0082", "mem": 24.0, "node": "gpu-0", "req": [], "t": 307.250405552, "type": "START"}
+{"job": "j0083", "t": 310.066828057, "type": "ARRIVE"}
+{"compute_s": 1.837271597, "deadline": 323.519003378, "end": 312.132471706, "job": "j0083", "mem": 4.0, "node": "gpu-0", "req": [], "t": 310.066828057, "type": "START"}
+{"job": "j0083", "late": false, "node": "gpu-0", "t": 312.132471706, "type": "FINISH"}
+{"job": "j0081", "late": false, "node": "gpu-tee-0", "t": 318.515092166, "type": "FINISH"}
+{"job": "j0084", "t": 319.616869357, "type": "ARRIVE"}
+{"compute_s": 1.370307206, "deadline": 332.729186279, "end": 321.394323643, "job": "j0084", "mem": 4.0, "node": "gpu-0", "req": [], "t": 319.616869357, "type": "START"}
+{"job": "j0084", "late": false, "node": "gpu-0", "t": 321.394323643, "type": "FINISH"}
+{"job": "j0082", "late": false, "node": "gpu-0", "t": 323.139098448, "type": "FINISH"}
+{"job": "j0085", "t": 323.536448254, "type": "ARRIVE"}
+{"compute_s": 1.758597527, "deadline": 340.320269667, "end": 325.521355857, "job": "j0085", "mem": 2.0, "node": "gpu-0", "req": [], "t": 323.536448254, "type": "START"}
+{"job": "j0086", "t": 324.640824033, "type": "ARRIVE"}
+{"compute_s": 3.870267411, "deadline": 342.81724649, "end": 328.654449485, "job": "j0086", "mem": 8.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 324.640824033, "type": "START"}
+{"job": "j0085", "late": false, "node": "gpu-0", "t": 325.521355857, "type": "FINISH"}
+{"job": "j0086", "late": false, "node": "gpu-0", "t": 328.654449485, "type": "FINISH"}
+{"job": "j0087", "t": 334.812081304, "type": "ARRIVE"}
+{"compute_s": 52.919855666, "deadline": 480.234391479, "end": 389.310403014, "job": "j0087", "mem": 40.0, "node": "gpu-0", "req": [], "t": 334.812081304, "type": "START"}
+{"job": "j0088", "t": 343.605777348, "type": "ARRIVE"}
+{"compute_s": 1.063068942, "deadline": 358.06298261, "end": 344.866136889, "job": "j0088", "mem": 4.0, "node": "gpu-0", "req": [], "t": 343.605777348, "type": "START"}
+{"job": "j0089", "t": 344.577558642, "type": "ARRIVE"}
+{"compute_s": 0.71644199, "deadline": 356.138348298, "end": 345.43623877, "job": "j0089", "mem": 4.0, "node": "gpu-tee-0", "req": [], "t": 344.577558642, "type": "START"}
+{"job": "j0088", "late": false, "node": "gpu-0", "t": 344.866136889, "type": "FINISH"}
+{"job": "j0089", "late": false, "node": "gpu-tee-0", "t": 345.43623877, "type": "FINISH"}
+{"job": "j0090", "t": 347.060897438, "type": "ARRIVE"}
+{"compute_s": 0.636622552, "deadline": 360.298512534, "end": 347.890138774, "job": "j0090", "mem": 4.0, "node": "gpu-0", "req": [], "t": 347.060897438, "type": "START"}
+{"job": "j0090", "late": false, "node": "gpu-0", "t": 347.890138774, "type": "FINISH"}
+{"job": "j0091", "t": 349.811755667, "type": "ARRIVE"}
+{"compute_s": 1.731306474, "deadline": 363.278495312, "end": 351.686211354, "job": "j0091", "mem": 2.0, "node": "gpu-0", "req": [], "t": 349.811755667, "type": "START"}
+{"job": "j0091", "late": false, "node": "gpu-0", "t": 351.686211354, "type": "FINISH"}
+{"job": "j0092", "t": 352.789954707, "type": "ARRIVE"}
+{"compute_s": 15.321324009, "deadline": 392.761383311, "end": 368.625251819, "job": "j0092", "mem": 24.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 352.789954707, "type": "START"}
+{"job": "j0093", "t": 355.266261018, "type": "ARRIVE"}
+{"compute_s": 0.931460822, "deadline": 369.445825129, "end": 356.31474373, "job": "j0093", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 355.266261018, "type": "START"}
+{"job": "j0093", "late": false, "node": "gpu-tee-0", "t": 356.31474373, "type": "FINISH"}
+{"job": "j0094", "t": 359.870751971, "type": "ARRIVE"}
+{"compute_s": 1.950027181, "deadline": 378.014398432, "end": 361.974299102, "job": "j0094", "mem": 4.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 359.870751971, "type": "START"}
+{"job": "j0095", "t": 360.741878077, "type": "ARRIVE"}
+{"compute_s": 0.969142335, "deadline": 374.412801613, "end": 361.919175892, "job": "j0095", "mem": 4.0, "node": "gpu-0", "req": [], "t": 360.741878077, "type": "START"}
+{"job": "j0095", "late": false, "node": "gpu-0", "t": 361.919175892, "type": "FINISH"}
+{"job": "j0094", "late": false, "node": "gpu-tee-0", "t": 361.974299102, "type": "FINISH"}
+{"job": "j0096", "t": 364.726128063, "type": "ARRIVE"}
+{"compute_s": 4.935571042, "deadline": 393.258702508, "end": 370.673863883, "job": "j0096", "mem": 2.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 364.726128063, "type": "START"}
+{"job": "j0092", "late": false, "node": "gpu-tee-0", "t": 368.625251819, "type": "FINISH"}
+{"job": "j0096", "late": false, "node": "gpu-0", "t": 370.673863883, "type": "FINISH"}
+{"job": "j0097", "t": 378.435886297, "type": "ARRIVE"}
+{"compute_s": 1.178566259, "deadline": 393.523526041, "end": 379.795325885, "job": "j0097", "mem": 4.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 378.435886297, "type": "START"}
+{"job": "j0098", "t": 378.631739428, "type": "ARRIVE"}
+{"compute_s": 1.034642997, "deadline": 390.700155443, "end": 379.742935084, "job": "j0098", "mem": 4.0, "node": "gpu-0", "req": [], "t": 378.631739428, "type": "START"}
+{"job": "j0098", "late": false, "node": "gpu-0", "t": 379.742935084, "type": "FINISH"}
+{"job": "j0097", "late": false, "node": "gpu-tee-0", "t": 379.795325885, "type": "FINISH"}
+{"job": "j0099", "t": 380.347175702, "type": "ARRIVE"}
+{"compute_s": 0.964079973, "deadline": 392.211584757, "end": 381.468983829, "job": "j0099", "mem": 4.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 380.347175702, "type": "START"}
+{"job": "j0099", "late": false, "node": "gpu-tee-0", "t": 381.468983829, "type": "FINISH"}
+{"job": "j0100", "t": 389.055404756, "type": "ARRIVE"}
+{"compute_s": 49.731977016, "deadline": 518.190154097, "end": 439.781882566, "job": "j0100", "mem": 40.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 389.055404756, "type": "START"}
+{"job": "j0087", "late": false, "node": "gpu-0", "t": 389.310403014, "type": "FINISH"}
+{"job": "j0101", "t": 392.314665077, "type": "ARRIVE"}
+{"compute_s": 17.823343172, "deadline": 431.292146944, "end": 410.999531482, "job": "j0101", "mem": 24.0, "node": "gpu-0", "req": [], "t": 392.314665077, "type": "START"}
+{"job": "j0102", "t": 399.172030051, "type": "ARRIVE"}
+{"compute_s": 0.8032328, "deadline": 411.372126785, "end": 400.126373018, "job": "j0102", "mem": 4.0, "node": "gpu-0", "req": [], "t": 399.172030051, "type": "START"}
+{"job": "j0102", "late": false, "node": "gpu-0", "t": 400.126373018, "type": "FINISH"}
+{"job": "j0103", "t": 406.824430221, "type": "ARRIVE"}
+{"compute_s": 1.14560933, "deadline": 419.7717474, "end": 408.113134051, "job": "j0103", "mem": 8.0, "node": "gpu-0", "req": [], "t": 406.824430221, "type": "START"}
+{"job": "j0103", "late": false, "node": "gpu-0", "t": 408.113134051, "type": "FINISH"}
+{"job": "j0104", "t": 410.42855094, "type": "ARRIVE"}
+{"compute_s": 1.077938904, "deadline": 425.274300969, "end": 411.744078624, "job": "j0104", "mem": 8.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 410.42855094, "type": "START"}
+{"job": "j0101", "late": false, "node": "gpu-0", "t": 410.999531482, "type": "FINISH"}
+{"job": "j0104", "late": false, "node": "gpu-tee-0", "t": 411.744078624, "type": "FINISH"}
+{"job": "j0105", "t": 415.592900381, "type": "ARRIVE"}
+{"compute_s": 2.006926537, "deadline": 434.219441756, "end": 417.815344188, "job": "j0105", "mem": 2.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 415.592900381, "type": "START"}
+{"job": "j0106", "t": 415.630969857, "type": "ARRIVE"}
+{"compute_s": 3.986411913, "deadline": 435.912440412, "end": 419.902843397, "job": "j0106", "mem": 2.0, "node": "gpu-0", "req": [], "t": 415.630969857, "type": "START"}
+{"job": "j0105", "late": false, "node": "gpu-tee-0", "t": 417.815344188, "type": "FINISH"}
+{"job": "j0106", "late": false, "node": "gpu-0", "t": 419.902843397, "type": "FINISH"}
+{"job": "j0107", "t": 420.027051293, "type": "ARRIVE"}
+{"compute_s": 0.698794671, "deadline": 433.368745719, "end": 420.904024387, "job": "j0107", "mem": 4.0, "node": "gpu-0", "req": [], "t": 420.027051293, "type": "START"}
+{"job": "j0107", "late": false, "node": "gpu-0", "t": 420.904024387, "type": "FINISH"}
+{"job": "j0108", "t": 422.36591557, "type": "ARRIVE"}
+{"compute_s": 0.883511831, "deadline": 434.066219746, "end": 423.440620957, "job": "j0108", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 422.36591557, "type": "START"}
+{"job": "j0108", "late": false, "node": "gpu-tee-0", "t": 423.440620957, "type": "FINISH"}
+{"job": "j0109", "t": 423.741118807, "type": "ARRIVE"}
+{"compute_s": 8.802002645, "deadline": 467.851606416, "end": 433.267283044, "job": "j0109", "mem": 24.0, "node": "gpu-0", "req": [], "t": 423.741118807, "type": "START"}
+{"job": "j0110", "t": 425.55677121, "type": "ARRIVE"}
+{"compute_s": 14.612696906, "deadline": 476.95363277, "end": 441.647266506, "job": "j0110", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 425.55677121, "type": "START"}
+{"job": "j0111", "t": 430.623080356, "type": "ARRIVE"}
+{"compute_s": 1.716289064, "deadline": 446.475747848, "end": 433.283488756, "job": "j0111", "mem": 2.0, "node": "gpu-0", "req": [], "t": 430.623080356, "type": "START"}
+{"job": "j0112", "t": 430.685653894, "type": "ARRIVE"}
+{"job": "j0109", "late": false, "node": "gpu-0", "t": 433.267283044, "type": "FINISH"}
+{"job": "j0111", "late": false, "node": "gpu-0", "t": 433.283488756, "type": "FINISH"}
+{"job": "j0100", "late": false, "node": "gpu-tee-0", "t": 439.781882566, "type": "FINISH"}
+{"compute_s": 1.2080703, "deadline": 444.102379798, "end": 441.077517585, "job": "j0112", "mem": 4.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 439.781882566, "type": "START"}
+{"job": "j0112", "late": false, "node": "gpu-tee-0", "t": 441.077517585, "type": "FINISH"}
+{"job": "j0110", "late": false, "node": "gpu-tee-0", "t": 441.647266506, "type": "FINISH"}
+{"job": "j0113", "t": 445.543671863, "type": "ARRIVE"}
+{"compute_s": 4.528929111, "deadline": 462.921562743, "end": 450.212792206, "job": "j0113", "mem": 2.0, "node": "gpu-0", "req": [], "t": 445.543671863, "type": "START"}
+{"job": "j0113", "late": false, "node": "gpu-0", "t": 450.212792206, "type": "FINISH"}
+{"job": "j0114", "t": 458.745010619, "type": "ARRIVE"}
+{"compute_s": 0.936841106, "deadline": 470.875049257, "end": 460.005978605, "job": "j0114", "mem": 4.0, "node": "gpu-0", "req": [], "t": 458.745010619, "type": "START"}
+{"job": "j0114", "late": false, "node": "gpu-0", "t": 460.005978605, "type": "FINISH"}
+{"job": "j0115", "t": 463.018968866, "type": "ARRIVE"}
+{"compute_s": 8.566489981, "deadline": 497.496269284, "end": 473.580643721, "job": "j0115", "mem": 24.0, "node": "gpu-0", "req": [], "t": 463.018968866, "type": "START"}
+{"job": "j0116", "t": 469.641878342, "type": "ARRIVE"}
+{"compute_s": 2.516050256, "deadline": 488.940815876, "end": 472.521318011, "job": "j0116", "mem": 2.0, "node": "gpu-0", "req": [], "t": 469.641878342, "type": "START"}
+{"job": "j0117", "t": 472.239340465, "type": "ARRIVE"}
+{"compute_s": 3.761936098, "deadline": 488.380856649, "end": 476.259088401, "job": "j0117", "mem": 2.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 472.239340465, "type": "START"}
+{"job": "j0116", "late": false, "node": "gpu-0", "t": 472.521318011, "type": "FINISH"}
+{"job": "j0118", "t": 473.351426821, "type": "ARRIVE"}
+{"compute_s": 1.817236359, "deadline": 488.07399708, "end": 475.37759762, "job": "j0118", "mem": 2.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 473.351426821, "type": "START"}
+{"job": "j0115", "late": false, "node": "gpu-0", "t": 473.580643721, "type": "FINISH"}
+{"job": "j0118", "late": false, "node": "gpu-0", "t": 475.37759762, "type": "FINISH"}
+{"job": "j0117", "late": false, "node": "gpu-tee-0", "t": 476.259088401, "type": "FINISH"}
+{"job": "j0119", "t": 477.730128903, "type": "ARRIVE"}
+{"compute_s": 0.769427368, "deadline": 490.710714168, "end": 479.025670891, "job": "j0119", "mem": 8.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 477.730128903, "type": "START"}
+{"job": "j0119", "late": false, "node": "gpu-0", "t": 479.025670891, "type": "FINISH"}
+{"job": "j0120", "t": 486.292300378, "type": "ARRIVE"}
+{"compute_s": 5.795633483, "deadline": 512.340009174, "end": 492.248332148, "job": "j0120", "mem": 2.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 486.292300378, "type": "START"}
+{"job": "j0121", "t": 487.634380757, "type": "ARRIVE"}
+{"compute_s": 1.772840184, "deadline": 504.272034939, "end": 489.881698841, "job": "j0121", "mem": 8.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 487.634380757, "type": "START"}
+{"job": "j0122", "t": 489.680114293, "type": "ARRIVE"}
+{"compute_s": 3.110311919, "deadline": 506.763301128, "end": 493.084853637, "job": "j0122", "mem": 2.0, "node": "gpu-0", "req": [], "t": 489.680114293, "type": "START"}
+{"job": "j0121", "late": false, "node": "gpu-tee-0", "t": 489.881698841, "type": "FINISH"}
+{"job": "j0120", "late": false, "node": "gpu-tee-0", "t": 492.248332148, "type": "FINISH"}
+{"job": "j0122", "late": false, "node": "gpu-0", "t": 493.084853637, "type": "FINISH"}
+{"job": "j0123", "t": 493.129194575, "type": "ARRIVE"}
+{"compute_s": 2.037369845, "deadline": 510.906245806, "end": 495.470149373, "job": "j0123", "mem": 8.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 493.129194575, "type": "START"}
+{"job": "j0123", "late": false, "node": "gpu-tee-0", "t": 495.470149373, "type": "FINISH"}
+{"job": "j0124", "t": 502.599728886, "type": "ARRIVE"}
+{"compute_s": 1.236038864, "deadline": 517.297482783, "end": 504.114104978, "job": "j0124", "mem": 4.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 502.599728886, "type": "START"}
+{"job": "j0124", "late": false, "node": "gpu-tee-0", "t": 504.114104978, "type": "FINISH"}
+{"job": "j0125", "t": 509.755065984, "type": "ARRIVE"}
+{"compute_s": 13.654180699, "deadline": 564.483995368, "end": 524.311254135, "job": "j0125", "mem": 24.0, "node": "gpu-0", "req": [], "t": 509.755065984, "type": "START"}
+{"job": "j0126", "t": 515.752572263, "type": "ARRIVE"}
+{"compute_s": 0.796786386, "deadline": 529.495792655, "end": 516.925240236, "job": "j0126", "mem": 4.0, "node": "gpu-0", "req": [], "t": 515.752572263, "type": "START"}
+{"job": "j0126", "late": false, "node": "gpu-0", "t": 516.925240236, "type": "FINISH"}
+{"job": "j0127", "t": 519.371702904, "type": "ARRIVE"}
+{"compute_s": 1.389999545, "deadline": 532.775650115, "end": 520.845144407, "job": "j0127", "mem": 4.0, "node": "gpu-0", "req": [], "t": 519.371702904, "type": "START"}
+{"job": "j0127", "late": false, "node": "gpu-0", "t": 520.845144407, "type": "FINISH"}
+{"job": "j0128", "t": 520.949997824, "type": "ARRIVE"}
+{"compute_s": 1.27364425, "deadline": 535.872829434, "end": 522.296728036, "job": "j0128", "mem": 4.0, "node": "gpu-0", "req": [], "t": 520.949997824, "type": "START"}
+{"job": "j0128", "late": false, "node": "gpu-0", "t": 522.296728036, "type": "FINISH"}
+{"job": "j0125", "late": false, "node": "gpu-0", "t": 524.311254135, "type": "FINISH"}
+{"job": "j0129", "t": 529.093805357, "type": "ARRIVE"}
+{"compute_s": 0.942958678, "deadline": 541.681706195, "end": 530.192703538, "job": "j0129", "mem": 4.0, "node": "gpu-0", "req": [], "t": 529.093805357, "type": "START"}
+{"job": "j0129", "late": false, "node": "gpu-0", "t": 530.192703538, "type": "FINISH"}
+{"job": "j0130", "t": 533.473069713, "type": "ARRIVE"}
+{"compute_s": 0.987109585, "deadline": 546.851747037, "end": 534.615287201, "job": "j0130", "mem": 4.0, "node": "gpu-0", "req": [], "t": 533.473069713, "type": "START"}
+{"job": "j0130", "late": false, "node": "gpu-0", "t": 534.615287201, "type": "FINISH"}
+{"job": "j0131", "t": 536.39913188, "type": "ARRIVE"}
+{"compute_s": 1.565202151, "deadline": 553.074519076, "end": 538.155711691, "job": "j0131", "mem": 2.0, "node": "gpu-0", "req": [], "t": 536.39913188, "type": "START"}
+{"job": "j0131", "late": false, "node": "gpu-0", "t": 538.155711691, "type": "FINISH"}
+{"job": "j0132", "t": 538.179086815, "type": "ARRIVE"}
+{"compute_s": 2.887551139, "deadline": 556.737493677, "end": 541.453601512, "job": "j0132", "mem": 2.0, "node": "gpu-0", "req": [], "t": 538.179086815, "type": "START"}
+{"job": "j0132", "late": false, "node": "gpu-0", "t": 541.453601512, "type": "FINISH"}
+{"job": "j0133", "t": 548.184601452, "type": "ARRIVE"}
+{"compute_s": 67.499740935, "deadline": 791.606094653, "end": 617.8186691, "job": "j0133", "mem": 40.0, "node": "gpu-0", "req": [], "t": 548.184601452, "type": "START"}
+{"job": "j0134", "t": 549.227177579, "type": "ARRIVE"}
+{"compute_s": 3.220166222, "deadline": 565.740084128, "end": 552.596157195, "job": "j0134", "mem": 2.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 549.227177579, "type": "START"}
+{"job": "j0135", "t": 551.537059304, "type": "ARRIVE"}
+{"compute_s": 17.617607952, "deadline": 592.472160647, "end": 569.783601427, "job": "j0135", "mem": 24.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 551.537059304, "type": "START"}
+{"job": "j0134", "late": false, "node": "gpu-tee-0", "t": 552.596157195, "type": "FINISH"}
+{"job": "j0136", "t": 561.105571839, "type": "ARRIVE"}
+{"compute_s": 1.784138967, "deadline": 575.48741183, "end": 563.285085871, "job": "j0136", "mem": 4.0, "node": "gpu-0", "req": [], "t": 561.105571839, "type": "START"}
+{"job": "j0136", "late": false, "node": "gpu-0", "t": 563.285085871, "type": "FINISH"}
+{"job": "j0135", "late": false, "node": "gpu-tee-0", "t": 569.783601427, "type": "FINISH"}
+{"job": "j0137", "t": 575.631031463, "type": "ARRIVE"}
+{"compute_s": 18.785203998, "deadline": 633.081554895, "end": 594.889871296, "job": "j0137", "mem": 24.0, "node": "gpu-0", "req": [], "t": 575.631031463, "type": "START"}
+{"job": "j0138", "t": 583.119255539, "type": "ARRIVE"}
+{"compute_s": 1.155640158, "deadline": 599.04717691, "end": 584.674227071, "job": "j0138", "mem": 4.0, "node": "gpu-tee-0", "req": [], "t": 583.119255539, "type": "START"}
+{"job": "j0138", "late": false, "node": "gpu-tee-0", "t": 584.674227071, "type": "FINISH"}
+{"job": "j0139", "t": 587.525957256, "type": "ARRIVE"}
+{"compute_s": 12.139149486, "deadline": 624.6308271, "end": 600.469729315, "job": "j0139", "mem": 24.0, "node": "gpu-tee-0", "req": [], "t": 587.525957256, "type": "START"}
+{"job": "j0140", "t": 593.893091764, "type": "ARRIVE"}
+{"compute_s": 5.238740595, "deadline": 625.076237436, "end": 599.61197296, "job": "j0140", "mem": 2.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 593.893091764, "type": "START"}
+{"job": "j0137", "late": false, "node": "gpu-0", "t": 594.889871296, "type": "FINISH"}
+{"job": "j0141", "t": 599.13804907, "type": "ARRIVE"}
+{"compute_s": 2.199802659, "deadline": 615.104334972, "end": 601.731399079, "job": "j0141", "mem": 2.0, "node": "gpu-0", "req": [], "t": 599.13804907, "type": "START"}
+{"job": "j0140", "late": false, "node": "gpu-tee-0", "t": 599.61197296, "type": "FINISH"}
+{"job": "j0139", "late": false, "node": "gpu-tee-0", "t": 600.469729315, "type": "FINISH"}
+{"job": "j0141", "late": false, "node": "gpu-0", "t": 601.731399079, "type": "FINISH"}
+{"job": "j0142", "t": 602.167547397, "type": "ARRIVE"}
+{"compute_s": 9.482048175, "deadline": 651.718234107, "end": 612.663812539, "job": "j0142", "mem": 24.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 602.167547397, "type": "START"}
+{"job": "j0143", "t": 603.003426213, "type": "ARRIVE"}
+{"compute_s": 21.519493965, "deadline": 683.600587231, "end": 625.45069479, "job": "j0143", "mem": 24.0, "node": "gpu-tee-0", "req": [], "t": 603.003426213, "type": "START"}
+{"job": "j0144", "t": 606.177482749, "type": "ARRIVE"}
+{"compute_s": 3.061709675, "deadline": 623.051566332, "end": 609.705535876, "job": "j0144", "mem": 8.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 606.177482749, "type": "START"}
+{"job": "j0145", "t": 606.381940963, "type": "ARRIVE"}
+{"job": "j0146", "t": 607.943348658, "type": "ARRIVE"}
+{"job": "j0147", "t": 609.315524116, "type": "ARRIVE"}
+{"job": "j0144", "late": false, "node": "gpu-tee-0", "t": 609.705535876, "type": "FINISH"}
+{"compute_s": 10.335763132, "deadline": 640.906439952, "end": 620.322347145, "job": "j0145", "mem": 24.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 609.705535876, "type": "START"}
+{"job": "j0148", "t": 609.774443641, "type": "ARRIVE"}
+{"job": "j0149", "t": 611.383611839, "type": "ARRIVE"}
+{"job": "j0142", "late": false, "node": "gpu-0", "t": 612.663812539, "type": "FINISH"}
+{"compute_s": 0.934535497, "deadline": 623.546895119, "end": 613.678756888, "job": "j0148", "mem": 4.0, "node": "gpu-0", "req": [], "t": 612.663812539, "type": "START"}
+{"job": "j0148", "late": false, "node": "gpu-0", "t": 613.678756888, "type": "FINISH"}
+{"compute_s": 1.634141513, "deadline": 625.578640461, "end": 615.489827279, "job": "j0149", "mem": 4.0, "node": "gpu-0", "req": [], "t": 613.678756888, "type": "START"}
+{"job": "j0150", "t": 614.106163648, "type": "ARRIVE"}
+{"job": "j0151", "t": 614.990294654, "type": "ARRIVE"}
+{"compute_s": 6.067567328, "deadline": 636.841269462, "end": 621.312718963, "job": "j0151", "mem": 2.0, "node": "cpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 614.990294654, "type": "START"}
+{"job": "j0152", "t": 615.339039578, "type": "ARRIVE"}
+{"job": "j0149", "late": false, "node": "gpu-0", "t": 615.489827279, "type": "FINISH"}
+{"compute_s": 0.660106717, "deadline": 627.009087595, "end": 616.343470151, "job": "j0150", "mem": 4.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 615.489827279, "type": "START"}
+{"job": "j0150", "late": false, "node": "gpu-0", "t": 616.343470151, "type": "FINISH"}
+{"job": "j0153", "t": 617.320945848, "type": "ARRIVE"}
+{"job": "j0133", "late": false, "node": "gpu-0", "t": 617.8186691, "type": "FINISH"}
+{"job": "j0154", "t": 618.665469148, "type": "ARRIVE"}
+{"compute_s": 0.573244976, "deadline": 631.739265423, "end": 619.570615476, "job": "j0154", "mem": 4.0, "node": "gpu-0", "req": [], "t": 618.665469148, "type": "START"}
+{"job": "j0154", "late": false, "node": "gpu-0", "t": 619.570615476, "type": "FINISH"}
+{"job": "j0146", "reason": "DEADLINE_EXPIRED_WHILE_WAITING", "t": 619.570615476, "type": "EXPIRE"}
+{"job": "j0155", "t": 620.041164223, "type": "ARRIVE"}
+{"job": "j0145", "late": false, "node": "gpu-tee-0", "t": 620.322347145, "type": "FINISH"}
+{"job": "j0147", "reason": "DEADLINE_EXPIRED_WHILE_WAITING", "t": 620.322347145, "type": "EXPIRE"}
+{"compute_s": 13.588678382, "deadline": 668.784153114, "end": 634.783773618, "job": "j0152", "mem": 24.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 620.322347145, "type": "START"}
+{"compute_s": 4.164044045, "deadline": 635.676462859, "end": 624.669965983, "job": "j0155", "mem": 2.0, "node": "cpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 620.322347145, "type": "START"}
+{"job": "j0151", "late": false, "node": "cpu-tee-0", "t": 621.312718963, "type": "FINISH"}
+{"job": "j0156", "t": 622.589529014, "type": "ARRIVE"}
+{"compute_s": 11.101386383, "deadline": 679.156371211, "end": 634.529927636, "job": "j0156", "mem": 24.0, "node": "gpu-0", "req": [], "t": 622.589529014, "type": "START"}
+{"job": "j0157", "t": 624.083005222, "type": "ARRIVE"}
+{"job": "j0155", "late": false, "node": "cpu-tee-0", "t": 624.669965983, "type": "FINISH"}
+{"job": "j0143", "late": false, "node": "gpu-tee-0", "t": 625.45069479, "type": "FINISH"}
+{"compute_s": 2.354820252, "deadline": 631.237139639, "end": 627.997530797, "job": "j0153", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 625.45069479, "type": "START"}
+{"job": "j0153", "late": false, "node": "gpu-tee-0", "t": 627.997530797, "type": "FINISH"}
+{"compute_s": 13.07906469, "deadline": 681.309436469, "end": 642.711027791, "job": "j0157", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 627.997530797, "type": "START"}
+{"job": "j0158", "t": 628.080868607, "type": "ARRIVE"}
+{"compute_s": 2.536306184, "deadline": 643.880017493, "end": 630.974719563, "job": "j0158", "mem": 2.0, "node": "gpu-0", "req": [], "t": 628.080868607, "type": "START"}
+{"job": "j0159", "t": 628.480042661, "type": "ARRIVE"}
+{"job": "j0160", "t": 630.614337896, "type": "ARRIVE"}
+{"job": "j0158", "late": false, "node": "gpu-0", "t": 630.974719563, "type": "FINISH"}
+{"compute_s": 1.686216354, "deadline": 641.644207205, "end": 632.827396758, "job": "j0159", "mem": 8.0, "node": "gpu-0", "req": [], "t": 630.974719563, "type": "START"}
+{"job": "j0159", "late": false, "node": "gpu-0", "t": 632.827396758, "type": "FINISH"}
+{"compute_s": 1.004969311, "deadline": 642.703902788, "end": 633.980379579, "job": "j0160", "mem": 4.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 632.827396758, "type": "START"}
+{"job": "j0160", "late": false, "node": "gpu-0", "t": 633.980379579, "type": "FINISH"}
+{"job": "j0156", "late": false, "node": "gpu-0", "t": 634.529927636, "type": "FINISH"}
+{"job": "j0152", "late": false, "node": "gpu-tee-0", "t": 634.783773618, "type": "FINISH"}
+{"job": "j0161", "t": 639.396669149, "type": "ARRIVE"}
+{"compute_s": 1.928862868, "deadline": 655.437910216, "end": 641.732986139, "job": "j0161", "mem": 2.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 639.396669149, "type": "START"}
+{"job": "j0162", "t": 640.707793377, "type": "ARRIVE"}
+{"compute_s": 1.032203773, "deadline": 655.175725891, "end": 642.131402503, "job": "j0162", "mem": 8.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 640.707793377, "type": "START"}
+{"job": "j0163", "t": 641.552057906, "type": "ARRIVE"}
+{"job": "j0161", "late": false, "node": "gpu-tee-0", "t": 641.732986139, "type": "FINISH"}
+{"compute_s": 0.608829777, "deadline": 653.92052522, "end": 642.769575445, "job": "j0163", "mem": 8.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 641.732986139, "type": "START"}
+{"job": "j0162", "late": false, "node": "gpu-0", "t": 642.131402503, "type": "FINISH"}
+{"job": "j0157", "late": false, "node": "gpu-tee-0", "t": 642.711027791, "type": "FINISH"}
+{"job": "j0163", "late": false, "node": "gpu-tee-0", "t": 642.769575445, "type": "FINISH"}
+{"job": "j0164", "t": 644.350547431, "type": "ARRIVE"}
+{"compute_s": 1.758774383, "deadline": 660.489559448, "end": 646.323134341, "job": "j0164", "mem": 8.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 644.350547431, "type": "START"}
+{"job": "j0164", "late": false, "node": "gpu-tee-0", "t": 646.323134341, "type": "FINISH"}
+{"job": "j0165", "t": 653.840304181, "type": "ARRIVE"}
+{"compute_s": 4.247789454, "deadline": 681.538362866, "end": 658.331162955, "job": "j0165", "mem": 2.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 653.840304181, "type": "START"}
+{"job": "j0166", "t": 656.88145603, "type": "ARRIVE"}
+{"compute_s": 0.507844103, "deadline": 667.852924099, "end": 657.492753951, "job": "j0166", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 656.88145603, "type": "START"}
+{"job": "j0167", "t": 657.131614009, "type": "ARRIVE"}
+{"job": "j0166", "late": false, "node": "gpu-tee-0", "t": 657.492753951, "type": "FINISH"}
+{"compute_s": 1.186616844, "deadline": 673.017193556, "end": 659.368087896, "job": "j0167", "mem": 8.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 657.492753951, "type": "START"}
+{"job": "j0165", "late": false, "node": "gpu-tee-0", "t": 658.331162955, "type": "FINISH"}
+{"job": "j0167", "late": false, "node": "gpu-tee-0", "t": 659.368087896, "type": "FINISH"}
+{"job": "j0168", "t": 662.30451319, "type": "ARRIVE"}
+{"compute_s": 16.161798224, "deadline": 701.9620477, "end": 679.058888295, "job": "j0168", "mem": 24.0, "node": "gpu-0", "req": [], "t": 662.30451319, "type": "START"}
+{"job": "j0169", "t": 662.635847, "type": "ARRIVE"}
+{"compute_s": 1.031738708, "deadline": 675.745015464, "end": 663.86474114, "job": "j0169", "mem": 8.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 662.635847, "type": "START"}
+{"job": "j0169", "late": false, "node": "gpu-0", "t": 663.86474114, "type": "FINISH"}
+{"job": "j0170", "t": 667.269270653, "type": "ARRIVE"}
+{"compute_s": 2.710366653, "deadline": 684.326141742, "end": 670.604442486, "job": "j0170", "mem": 2.0, "node": "gpu-0", "req": [], "t": 667.269270653, "type": "START"}
+{"job": "j0170", "late": false, "node": "gpu-0", "t": 670.604442486, "type": "FINISH"}
+{"job": "j0171", "t": 674.239942077, "type": "ARRIVE"}
+{"compute_s": 3.184685551, "deadline": 697.577660049, "end": 677.644127672, "job": "j0171", "mem": 2.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 674.239942077, "type": "START"}
+{"job": "j0171", "late": false, "node": "gpu-0", "t": 677.644127672, "type": "FINISH"}
+{"job": "j0172", "t": 678.767211983, "type": "ARRIVE"}
+{"compute_s": 1.350203308, "deadline": 694.185780203, "end": 680.46176603, "job": "j0172", "mem": 4.0, "node": "gpu-0", "req": [], "t": 678.767211983, "type": "START"}
+{"job": "j0168", "late": false, "node": "gpu-0", "t": 679.058888295, "type": "FINISH"}
+{"job": "j0173", "t": 680.217020073, "type": "ARRIVE"}
+{"compute_s": 1.891927985, "deadline": 694.05427078, "end": 682.585647992, "job": "j0173", "mem": 8.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 680.217020073, "type": "START"}
+{"job": "j0172", "late": false, "node": "gpu-0", "t": 680.46176603, "type": "FINISH"}
+{"job": "j0173", "late": false, "node": "gpu-tee-0", "t": 682.585647992, "type": "FINISH"}
+{"job": "j0174", "t": 689.560234476, "type": "ARRIVE"}
+{"compute_s": 1.019312513, "deadline": 702.702618116, "end": 690.971418245, "job": "j0174", "mem": 4.0, "node": "gpu-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT"], "t": 689.560234476, "type": "START"}
+{"job": "j0174", "late": false, "node": "gpu-0", "t": 690.971418245, "type": "FINISH"}
+{"job": "j0175", "t": 692.486991778, "type": "ARRIVE"}
+{"compute_s": 15.857575393, "deadline": 753.775704215, "end": 708.835423424, "job": "j0175", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 692.486991778, "type": "START"}
+{"job": "j0176", "t": 692.609365814, "type": "ARRIVE"}
+{"compute_s": 3.464221197, "deadline": 709.716987375, "end": 696.231056939, "job": "j0176", "mem": 2.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 692.609365814, "type": "START"}
+{"job": "j0177", "t": 692.961027166, "type": "ARRIVE"}
+{"compute_s": 4.930537588, "deadline": 716.041894501, "end": 698.122774103, "job": "j0177", "mem": 2.0, "node": "gpu-0", "req": [], "t": 692.961027166, "type": "START"}
+{"job": "j0178", "t": 693.451892896, "type": "ARRIVE"}
+{"job": "j0176", "late": false, "node": "gpu-tee-0", "t": 696.231056939, "type": "FINISH"}
+{"compute_s": 1.603966311, "deadline": 710.366777686, "end": 698.077945162, "job": "j0178", "mem": 4.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 696.231056939, "type": "START"}
+{"job": "j0179", "t": 697.057064178, "type": "ARRIVE"}
+{"compute_s": 1.534937124, "deadline": 713.420153221, "end": 698.77075516, "job": "j0179", "mem": 4.0, "node": "gpu-0", "req": [], "t": 697.057064178, "type": "START"}
+{"job": "j0178", "late": false, "node": "gpu-tee-0", "t": 698.077945162, "type": "FINISH"}
+{"job": "j0177", "late": false, "node": "gpu-0", "t": 698.122774103, "type": "FINISH"}
+{"job": "j0179", "late": false, "node": "gpu-0", "t": 698.77075516, "type": "FINISH"}
+{"job": "j0180", "t": 699.309100852, "type": "ARRIVE"}
+{"compute_s": 3.101899307, "deadline": 716.40083208, "end": 702.671850486, "job": "j0180", "mem": 2.0, "node": "gpu-0", "req": [], "t": 699.309100852, "type": "START"}
+{"job": "j0180", "late": false, "node": "gpu-0", "t": 702.671850486, "type": "FINISH"}
+{"job": "j0181", "t": 704.493597265, "type": "ARRIVE"}
+{"compute_s": 1.757404382, "deadline": 721.911465994, "end": 706.389940771, "job": "j0181", "mem": 4.0, "node": "gpu-0", "req": [], "t": 704.493597265, "type": "START"}
+{"job": "j0181", "late": false, "node": "gpu-0", "t": 706.389940771, "type": "FINISH"}
+{"job": "j0182", "t": 707.840252223, "type": "ARRIVE"}
+{"compute_s": 3.36853839, "deadline": 726.290362587, "end": 711.415230998, "job": "j0182", "mem": 2.0, "node": "gpu-tee-0", "req": ["ATTESTED", "ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_GPU"], "t": 707.840252223, "type": "START"}
+{"job": "j0175", "late": false, "node": "gpu-tee-0", "t": 708.835423424, "type": "FINISH"}
+{"job": "j0183", "t": 709.659620356, "type": "ARRIVE"}
+{"compute_s": 26.820319151, "deadline": 825.632129688, "end": 738.08167703, "job": "j0183", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 709.659620356, "type": "START"}
+{"job": "j0182", "late": false, "node": "gpu-tee-0", "t": 711.415230998, "type": "FINISH"}
+{"job": "j0184", "t": 713.921652977, "type": "ARRIVE"}
+{"compute_s": 22.524649745, "deadline": 789.198943547, "end": 737.776111914, "job": "j0184", "mem": 24.0, "node": "gpu-0", "req": [], "t": 713.921652977, "type": "START"}
+{"job": "j0185", "t": 715.739516766, "type": "ARRIVE"}
+{"compute_s": 0.632113068, "deadline": 729.567659329, "end": 716.707754498, "job": "j0185", "mem": 4.0, "node": "gpu-0", "req": [], "t": 715.739516766, "type": "START"}
+{"job": "j0185", "late": false, "node": "gpu-0", "t": 716.707754498, "type": "FINISH"}
+{"job": "j0186", "t": 716.822117914, "type": "ARRIVE"}
+{"compute_s": 1.28392942, "deadline": 728.987664595, "end": 718.182516404, "job": "j0186", "mem": 8.0, "node": "gpu-0", "req": [], "t": 716.822117914, "type": "START"}
+{"job": "j0187", "t": 717.18543763, "type": "ARRIVE"}
+{"compute_s": 1.210251259, "deadline": 732.060936975, "end": 718.514171654, "job": "j0187", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 717.18543763, "type": "START"}
+{"job": "j0188", "t": 717.434689832, "type": "ARRIVE"}
+{"job": "j0189", "t": 718.168584681, "type": "ARRIVE"}
+{"job": "j0186", "late": false, "node": "gpu-0", "t": 718.182516404, "type": "FINISH"}
+{"compute_s": 2.506601418, "deadline": 736.662095961, "end": 720.903741462, "job": "j0189", "mem": 2.0, "node": "gpu-0", "req": [], "t": 718.182516404, "type": "START"}
+{"job": "j0187", "late": false, "node": "gpu-tee-0", "t": 718.514171654, "type": "FINISH"}
+{"compute_s": 1.85110493, "deadline": 734.305694873, "end": 720.462790822, "job": "j0188", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 718.514171654, "type": "START"}
+{"job": "j0188", "late": false, "node": "gpu-tee-0", "t": 720.462790822, "type": "FINISH"}
+{"job": "j0189", "late": false, "node": "gpu-0", "t": 720.903741462, "type": "FINISH"}
+{"job": "j0190", "t": 727.821630451, "type": "ARRIVE"}
+{"compute_s": 18.81130465, "deadline": 781.845863161, "end": 747.894775242, "job": "j0190", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 727.821630451, "type": "START"}
+{"job": "j0191", "t": 734.938081989, "type": "ARRIVE"}
+{"compute_s": 16.364479634, "deadline": 791.583348309, "end": 752.147013865, "job": "j0191", "mem": 24.0, "node": "gpu-0", "req": [], "t": 734.938081989, "type": "START"}
+{"job": "j0192", "t": 735.969416611, "type": "ARRIVE"}
+{"compute_s": 3.312545751, "deadline": 757.773193642, "end": 740.187736185, "job": "j0192", "mem": 2.0, "node": "cpu-tee-0", "req": [], "t": 735.969416611, "type": "START"}
+{"job": "j0193", "t": 737.386195954, "type": "ARRIVE"}
+{"job": "j0184", "late": false, "node": "gpu-0", "t": 737.776111914, "type": "FINISH"}
+{"job": "j0183", "late": false, "node": "gpu-tee-0", "t": 738.08167703, "type": "FINISH"}
+{"compute_s": 5.867685359, "deadline": 768.983473666, "end": 744.323236977, "job": "j0193", "mem": 2.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 738.08167703, "type": "START"}
+{"job": "j0192", "late": false, "node": "cpu-tee-0", "t": 740.187736185, "type": "FINISH"}
+{"job": "j0194", "t": 741.459605409, "type": "ARRIVE"}
+{"compute_s": 0.975864556, "deadline": 753.693493439, "end": 742.732873021, "job": "j0194", "mem": 4.0, "node": "gpu-0", "req": [], "t": 741.459605409, "type": "START"}
+{"job": "j0194", "late": false, "node": "gpu-0", "t": 742.732873021, "type": "FINISH"}
+{"job": "j0193", "late": false, "node": "gpu-tee-0", "t": 744.323236977, "type": "FINISH"}
+{"job": "j0195", "t": 745.964887517, "type": "ARRIVE"}
+{"compute_s": 1.106490821, "deadline": 758.946218901, "end": 747.266756713, "job": "j0195", "mem": 4.0, "node": "gpu-0", "req": [], "t": 745.964887517, "type": "START"}
+{"job": "j0196", "t": 746.603658585, "type": "ARRIVE"}
+{"compute_s": 0.826339032, "deadline": 759.634136506, "end": 747.535491414, "job": "j0196", "mem": 4.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 746.603658585, "type": "START"}
+{"job": "j0195", "late": false, "node": "gpu-0", "t": 747.266756713, "type": "FINISH"}
+{"job": "j0196", "late": false, "node": "gpu-tee-0", "t": 747.535491414, "type": "FINISH"}
+{"job": "j0190", "late": false, "node": "gpu-tee-0", "t": 747.894775242, "type": "FINISH"}
+{"job": "j0197", "t": 748.456886591, "type": "ARRIVE"}
+{"compute_s": 1.523949027, "deadline": 761.486903678, "end": 750.114727995, "job": "j0197", "mem": 4.0, "node": "gpu-0", "req": [], "t": 748.456886591, "type": "START"}
+{"job": "j0197", "late": false, "node": "gpu-0", "t": 750.114727995, "type": "FINISH"}
+{"job": "j0198", "t": 750.658221483, "type": "ARRIVE"}
+{"compute_s": 15.325465448, "deadline": 823.381462082, "end": 766.648281381, "job": "j0198", "mem": 24.0, "node": "gpu-tee-0", "req": ["ENC_AT_REST", "ENC_IN_TRANSIT", "TEE_CPU"], "t": 750.658221483, "type": "START"}
+{"job": "j0199", "t": 750.783582935, "type": "ARRIVE"}
+{"compute_s": 1.666235463, "deadline": 766.040736832, "end": 752.742169949, "job": "j0199", "mem": 8.0, "node": "gpu-0", "req": [], "t": 750.783582935, "type": "START"}
+{"job": "j0191", "late": false, "node": "gpu-0", "t": 752.147013865, "type": "FINISH"}
+{"job": "j0199", "late": false, "node": "gpu-0", "t": 752.742169949, "type": "FINISH"}
+{"job": "j0198", "late": false, "node": "gpu-tee-0", "t": 766.648281381, "type": "FINISH"}

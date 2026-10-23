@@ -1,0 +1,37 @@
+# A0 poster
+
+* `poster.pdf` — print-ready A0 portrait (841 × 1189 mm), fully vector: every figure, diagram and the QR
+  code are vector; all fonts embedded (checked with `pdfimages -list` and `pdffonts`).
+* `poster.tex` — editable source. Architecture and roadmap diagrams are TikZ; result figures are the
+  vector PDFs in `../figures/`; **every number** comes from `generated/results.tex`, written by
+  `seas report` from `results/`. Nothing is typed by hand.
+
+## Design
+
+Reproduces the SciFig **A0 Portrait — Classic** template specification in the **Navy** scheme
+(scifig.ai/scientific-poster-templates/a0): three columns in a 1.2 : 1.6 : 1.2 ratio, title 85 pt,
+author line 40 pt, section headings 45 pt, body 26 pt, captions 24 pt (references 22.5 pt), Navy
+`#1B365D` title band and headings on white, body text `#1A1A1A`, Liberation Sans (Arial-metric).
+The original `.pptx` could not be downloaded in the build environment, so the template's grid, type
+scale and colours were rebuilt in LaTeX; this guarantees a vector PDF (PowerPoint export often
+rasterises imported figures).
+
+Classic was chosen over Spotlight: Spotlight is built around one dominant headline result, and the
+honest Stage-1 headline (small energy effect, refuted H2) does not warrant that framing.
+
+## Build
+
+```bash
+seas report            # refresh generated/results.tex from results/
+xelatex poster.tex && xelatex poster.tex   # two passes (header and column placement use overlays)
+pdfinfo poster.pdf | grep "Page size"      # 2383.94 x 3370.39 pts (A0)
+pdffonts poster.pdf                        # all 'emb' = yes
+pdfimages -list poster.pdf                 # no entries: fully vector
+```
+
+The build log prints `COLHEIGHT A=… B=… C=… AVAIL=…`; keep every column below `AVAIL`.
+
+## Before printing
+
+* Add the UNSTPB and PRECIS logos (vector preferred) in the header band, left of the QR code.
+* Print at 100 % on matte stock; order a small test print first.

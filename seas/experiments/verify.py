@@ -89,7 +89,7 @@ def verify_scenario(sc_dir: Path, rerun: bool = True) -> list[str]:
                 name, params = parse_policy(pspec)
                 res = simulate(cluster, jobs, make(name, **params), record_decisions=False)
                 h = hashlib.sha256(res.events_jsonl().encode()).hexdigest()
-                stored_file = sc_dir / point_label(point) / pspec / f"seed_{seed}" / "trace.sha256"
-                if stored_file.read_text().strip() != h:
+                row = df[(df["point"] == point_label(point)) & (df["policy_spec"] == pspec) & (df["seed"] == seed)]
+                if row.empty or row["trace_sha256"].iloc[0] != h:
                     errors.append(f"{sc.id}/{point_label(point)}/{pspec}: non-deterministic trace for seed {seed}")
     return errors

@@ -1,0 +1,43 @@
+scenario:
+  id: S6
+  status: correctness
+  description: Infeasibility handling. C-A has no TEE_GPU node; finetune memory raised
+    to 160 GB (> any node). Checks reason codes, not performance.
+  cluster: configs/clusters/C-A.yaml
+  workload: configs/workloads/baseline-mix.yaml
+  policies:
+  - fifo-ff
+  - eft
+  - eft-slack
+  - energy-greedy
+  - seas
+  - seas-eps
+  seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  sweep: {}
+  overrides:
+    memory_gb:
+      prep: 2
+      infer_small: 4
+      infer_large: 24
+      finetune: 160
+      pipe_stage: 8
+  noise: null
+scenario_file: configs/scenarios/S6.yaml
+scenario_sha256: c307df88c9d8e0372a48a5f797f8f15a83135adf0290d9d51ed125061bc2ca72
+workload_sha256: 0bb5d5eaade46620e8f912fe413b35f3a479172a72faff689322319927f1f049
+cluster_sha256: 9bc1580f5ffac34aa08b8dcbfe2b7281b4ce1d945cb29438cef8c0afeadc4a78
+seeds_run:
+- 0
+- 1
+- 2
+- 3
+- 4
+git_sha: dc30ad37cebb16032e1f1dca2973ce846664d3e0
+seas_version: 0.1.0
+python: 3.13.17
+platform: Linux-6.18.44-fc-v153-x86_64-with-glibc2.39

@@ -1,0 +1,110 @@
+# seas — Secure Energy-Efficient Scheduling for AI Workloads
+
+**PhD research, Stage 1.** Costin-Alexandru Deonise · Supervisor: Prof. Dr. Eng. Florin Pop
+Faculty of Automatic Control and Computers, National University of Science and Technology POLITEHNICA Bucharest · PRECIS Research Centre
+
+`seas` (Security-Eligible, Energy-Aware Scheduler) is a reproducible research prototype: a deterministic
+discrete-event simulator and benchmark harness for placing AI jobs on heterogeneous CPU/GPU clusters when
+jobs carry **security-capability requirements**, deadlines and an energy/latency preference, and every
+placement must be explainable.
+
+> **What this is and is not.** Everything here is **simulated**. Energies are **modelled** from synthetic
+> power/throughput profiles, not measured. Security is **simulated capability eligibility** (a job may run
+> only on nodes that *declare* the capabilities it requires); no enclave, encryption or attestation is
+> executed. Real TEE execution, hardware calibration, continual learning and QPUs are future stages.
+
+<p align="center"><img src="poster/poster_preview.png" width="420" alt="A0 poster preview"></p>
+
+## Quickstart
+
+```bash
+git clone https://github.com/Maxxtra/phd && cd phd
+python -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+pytest -q                                              # 25 tests, incl. property-based invariants
+seas run configs/scenarios/S1.yaml --workers 2         # 6 policies x 30 seeds, ~10 s
+seas explain results/S1/base/seas/seed_0 --job j0006   # why was this job placed there?
+```
+
+Reproduce every number and figure:
+
+```bash
+for s in S1 S4 S7 S2 S3 S5 S6 E-load; do seas run configs/scenarios/$s.yaml --workers 2; done
+seas scaling            # exploratory wall-clock benchmark (slow, machine-dependent)
+seas analyze            # summaries, paired tests, confirmatory evaluation (results/CONFIRMATORY.json)
+seas verify             # eligibility, capacity, memory, conservation, preregistration hashes, determinism
+seas report             # results/RESULTS.md and poster/generated/results.tex
+seas plot               # figures/*.pdf|svg and figures/MANIFEST.md
+cd poster && xelatex poster.tex && xelatex poster.tex
+```
+
+## Results (Stage 1, generated in [`results/RESULTS.md`](results/RESULTS.md))
+
+Main scenario S1: 200 AI jobs, 50 % with security requirements, cluster of 4 CPU confidential-VM nodes,
+1 GPU node and 1 confidential-GPU node; 30 paired seeds; hypotheses preregistered in
+[`docs/preregistration.md`](docs/preregistration.md) before any confirmatory run.
+
+| | Outcome (Holm-corrected) |
+|---|---|
+| **H1** seas uses less dynamic energy than EFT *and* is non-inferior on deadline misses | **Supported** (p = 0.040). Energy −0.6 % [95 % CI −1.1, −0.1]; misses 3.7 % vs 7.8 % |
+| **H2** the gain grows with the share of security-constrained jobs | **Not supported — the opposite**: 1.4 % at 0 % secure jobs → 0.2 % at 80 % |
+| **H3** H1's energy gain and a miss-rate advantage over energy-greedy survive ±25 % estimation error | **Supported** (p = 0.002) |
+| H4 (descriptive) deadlines are binding | Yes: energy-greedy saves 4.8 % energy vs seas but misses 11.5 pp more deadlines |
+
+What these numbers mean, stated plainly:
+
+* **The miss-rate gain mostly comes from least-slack ordering** (the `eft-slack` ablation reaches the same
+  miss rate); the energy term then saves 1.6 % relative to that ordering.
+* **Placement has little energy leverage in this setting.** Idle power is ~82 % of always-on energy, so
+  total energy changes by −0.06 %. Under ideal power-gating the saving disappears (+0.2 %, CI −0.2…+0.6),
+  because seas keeps CPU nodes busy longer.
+* seas completes 3.2 % more work, so its dynamic energy per unit of completed work is −3.6 %
+  (secondary, not preregistered).
+* **Security constraints reduce, rather than amplify, the room for energy-aware placement** (H2).
+* The energy weight α behaves as a switch here: α ≥ 0.25 yields identical schedules.
+
+The research consequence: energy-aware placement must be co-optimised with power states and evaluated
+with measured energy — which is exactly what Stages 2–3 address.
+
+## Repository map
+
+```
+seas/                 package: models, estimators, sim (engine), policies, experiments, viz, cli
+configs/              clusters (synthetic profiles), workloads, scenarios (S1/S4/S7 confirmatory, frozen)
+docs/                 methodology_decisions.md, preregistration.md, model.md, assumptions.md, references.bib
+results/              runs.csv, summary.csv, pairwise.csv per scenario; RESULTS.md; CONFIRMATORY.json
+figures/              vector PDF/SVG figures + MANIFEST.md (figure → source data → commit)
+poster/               poster.tex (A0, SciFig Classic/Navy specification), poster.pdf, generated macros
+tests/                unit, policy scenarios, property-based invariants, statistics, CLI
+```
+
+Per-run traces are regenerated by `seas run`; only seed-0 traces used by figures are committed.
+
+## Methodology in one paragraph
+
+Jobs are generated once per seed and shared by all policies (paired design, common random numbers).
+Every policy sees only security- and memory-eligible nodes, and the same expiry rule drops waiting jobs
+that can no longer meet their deadline, so no baseline can win by violating a constraint
+(`eligibility_violations = 0` in all runs, checked by independent trace replay). The arrival rate was
+set a priori from workload and cluster parameters only. Non-inferiority uses a one-sided paired *t*-test
+with a 2 pp margin; superiority uses Wilcoxon signed-rank tests; Holm correction across H1–H3. Decisions
+that differ from the original plan are documented in
+[`docs/methodology_decisions.md`](docs/methodology_decisions.md).
+
+## Limitations
+
+1. Simulation only; synthetic profiles; energies modelled.
+2. Simulated security eligibility; no TEE, encryption or attestation; side channels out of scope.
+3. Additive power model without contention between co-located jobs.
+4. Independent, non-preemptive jobs; no failures; one cluster; simple staging-time model.
+5. Online greedy heuristic; no optimality bound beyond a relaxation for dynamic energy.
+
+## Contributing and research opportunities
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Open work packages: scheduling & optimisation (exact bounds,
+power-state-aware policies), energy profiling (RAPL/NVML calibration), secure execution (measured TEE
+overhead), continual-learning workloads, and a quantum-classical resource class.
+
+## Citation
+
+See [CITATION.cff](CITATION.cff). Licence: Apache-2.0.
