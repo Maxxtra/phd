@@ -1,0 +1,21 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -e ".[dev]"
+      - run: ruff check . && ruff format --check .
+      - run: mypy seas
+      - run: pytest -q --cov=seas --cov-report=term
+      - name: Smoke experiment (development seeds, correctness scenario)
+        run: |
+          seas run configs/scenarios/S6.yaml --out results/smoke --workers 1 --seeds 1000,1001
+          seas verify results/smoke
+      - name: Verify committed confirmatory aggregates reproduce (seed 0 re-run, hashes)
+        run: |
+          seas run configs/scenarios/S1.yaml --out results/ci --workers 2
+          python -c "import pandas as pd; a=pd.read_csv('results/S1/runs.csv'); b=pd.read_csv('results/ci/S1/runs.csv'); assert (a.trace_sha256.values==b.trace_sha256.values).all(), 'S1 traces differ'"
