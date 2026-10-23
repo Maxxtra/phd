@@ -109,24 +109,42 @@ def _ci_bar(ax: Any, x: float, vals: np.ndarray, color: str, width: float = 0.72
 
 
 def fig_s1_energy_miss(root: Path, out: Path) -> list[Path]:
-    """Figure B: S1 (confirmatory) modelled dynamic energy and deadline-miss rate per policy."""
+    """Figure B: S1 (confirmatory) modelled dynamic energy and deadline-miss rate per policy.
+    Linear axes; the FIFO-FF energy bar is truncated at the axis limit and its value printed."""
     style(21)
     df = _runs(root, "S1")
     df = df[df.point == "base"]
     pols = [p for p in ORDER if p in set(df.policy_spec)]
     fig, axes = plt.subplots(1, 2, figsize=(290 * MM, 120 * MM))
-    fig.subplots_adjust(left=0.105, right=0.99, bottom=0.25, top=0.88, wspace=0.32)
+    fig.subplots_adjust(left=0.1, right=0.99, bottom=0.27, top=0.88, wspace=0.3)
+    others = [df[df.policy_spec == p].energy_dyn_J.mean() / 1e3 for p in pols if p != "fifo-ff"]
+    ymax = max(others) * 1.22
     for i, p in enumerate(pols):
         g = df[df.policy_spec == p].sort_values("seed")
-        _ci_bar(axes[0], i, g.energy_dyn_J.to_numpy(), COL[p], scale=1e-3)
+        e = g.energy_dyn_J.to_numpy()
+        if p == "fifo-ff":
+            axes[0].bar(i, ymax, width=0.72, color=COL[p], edgecolor="none")
+            axes[0].text(
+                i,
+                ymax * 0.93,
+                f"{e.mean() / 1e3:,.0f}",
+                ha="center",
+                va="top",
+                fontsize=17,
+                color="white",
+                fontweight="bold",
+            )
+            axes[0].plot([i - 0.36, i + 0.36], [ymax * 0.985, ymax * 1.015], color="white", lw=3)
+        else:
+            _ci_bar(axes[0], i, e, COL[p], scale=1e-3)
         _ci_bar(axes[1], i, g.miss_rate.to_numpy(), COL[p], scale=100)
+    axes[0].set_ylim(0, ymax)
     for ax in axes:
         ax.set_xticks(range(len(pols)), [LABEL[p] for p in pols], rotation=35, ha="right")
     axes[0].set_ylabel("Dynamic energy (kJ, modelled)")
     axes[1].set_ylabel("Deadline-miss rate (%)")
     axes[0].set_title("Energy", loc="left", fontweight="bold", color=NAVY)
     axes[1].set_title("Missed deadlines", loc="left", fontweight="bold", color=NAVY)
-    axes[0].set_yscale("log")
     return save(fig, out, "figB_S1_energy_miss")
 
 
@@ -157,8 +175,8 @@ def fig_s4_gain(root: Path, out: Path, conf: dict[str, Any]) -> list[Path]:
     x = np.array(h2["levels"]) * 100
     m = np.array(h2["mean_gain_by_level"]) * 100
     ci = np.array(h2["gain_ci_by_level"]) * 100
-    fig, ax = plt.subplots(figsize=(205 * MM, 110 * MM))
-    fig.subplots_adjust(left=0.2, right=0.97, bottom=0.2, top=0.95)
+    fig, ax = plt.subplots(figsize=(180 * MM, 110 * MM))
+    fig.subplots_adjust(left=0.21, right=0.97, bottom=0.2, top=0.95)
     ax.fill_between(x, ci[:, 0], ci[:, 1], color=COL["seas"], alpha=0.22, lw=0)
     ax.plot(x, m, "-o", color=COL["seas"], ms=9)
     ax.axhline(0, color=GREY, lw=1.4, ls="--")
@@ -168,72 +186,106 @@ def fig_s4_gain(root: Path, out: Path, conf: dict[str, Any]) -> list[Path]:
 
 
 def fig_s7_robustness(root: Path, out: Path) -> list[Path]:
-    style(21)
+    """S7 (confirmatory H3): paired energy relative to EFT and miss rate vs estimation error."""
+    style(20)
     df = _runs(root, "S7")
     pts = sorted(df.point.unique(), key=lambda s: float(s.split("=")[1]))
-    sig = [float(s.split("=")[1]) for s in pts]
+    sig = np.array([float(s.split("=")[1]) for s in pts])
     fig, axes = plt.subplots(1, 2, figsize=(290 * MM, 105 * MM))
-    fig.subplots_adjust(left=0.1, right=0.99, bottom=0.2, top=0.86, wspace=0.3)
+    fig.subplots_adjust(left=0.115, right=0.99, bottom=0.2, top=0.95, wspace=0.34)
+    for k, p in enumerate(["energy-greedy", "seas"]):
+        ms, lo, hi = [], [], []
+        for pt in pts:
+            r = paired_rel(df, pt, p, "eft", "energy_dyn_J") * 100
+            ms.append(r.mean())
+            a, b = bootstrap_ci(r)
+            lo.append(a)
+            hi.append(b)
+        off = (k - 0.5) * 0.012
+        axes[0].errorbar(
+            sig + off,
+            ms,
+            yerr=[np.subtract(ms, lo), np.subtract(hi, ms)],
+            fmt="-o",
+            color=COL[p],
+            capsize=5,
+            ms=8,
+            label=LABEL[p],
+        )
+    axes[0].axhline(0, color=COL["eft"], lw=1.6, ls="--")
+    axes[0].text(sig[0], 0.25, "EFT = 0", color=COL["eft"], ha="left", va="bottom", fontsize=16)
     for p in ["eft", "energy-greedy", "seas"]:
-        for ax, metric, sc in ((axes[0], "energy_dyn_J", 1e-3), (axes[1], "miss_rate", 100)):
-            ms, los, his = [], [], []
-            for pt in pts:
-                v = df[(df.point == pt) & (df.policy_spec == p)].sort_values("seed")[metric].to_numpy() * sc
-                ms.append(v.mean())
-                lo, hi = bootstrap_ci(v)
-                los.append(lo)
-                his.append(hi)
-            ax.fill_between(sig, los, his, color=COL[p], alpha=0.18, lw=0)
-            ax.plot(sig, ms, "-o", color=COL[p], label=LABEL[p], ms=8)
-    axes[0].set_ylabel("Dynamic energy (kJ, modelled)")
+        ms, lo, hi = [], [], []
+        for pt in pts:
+            v = df[(df.point == pt) & (df.policy_spec == p)].sort_values("seed").miss_rate.to_numpy() * 100
+            ms.append(v.mean())
+            a, b = bootstrap_ci(v)
+            lo.append(a)
+            hi.append(b)
+        axes[1].fill_between(sig, lo, hi, color=COL[p], alpha=0.18, lw=0)
+        axes[1].plot(sig, ms, "-o", color=COL[p], label=LABEL[p], ms=8)
+    axes[0].set_ylabel("Energy vs EFT (%, modelled)")
     axes[1].set_ylabel("Deadline-miss rate (%)")
     for ax in axes:
         ax.set_xlabel("Estimation error σ")
         ax.set_xticks(sig)
-    axes[1].legend(frameon=False, loc="upper left")
+    axes[1].legend(frameon=False, loc="upper left", fontsize=16)
+    axes[0].legend(frameon=False, loc="lower left", fontsize=16)
     return save(fig, out, "figS7_robustness")
 
 
 def fig_s2_tradeoff(root: Path, out: Path) -> list[Path]:
-    style(20)
+    """Exploratory S2: energy vs deadline-miss rate for the alpha / epsilon sweeps (2-D 95% CIs).
+    Configurations with identical outcomes are merged into one labelled marker."""
+    style(19)
     df = _runs(root, "S2")
     fig, ax = plt.subplots(figsize=(205 * MM, 125 * MM))
-    fig.subplots_adjust(left=0.2, right=0.97, bottom=0.17, top=0.95)
-
-    def pt(spec: str) -> tuple[float, float, float, float]:
+    fig.subplots_adjust(left=0.2, right=0.98, bottom=0.17, top=0.96)
+    pts: dict[tuple[float, float], list[str]] = {}
+    stats_: dict[str, tuple[float, float, tuple[float, float], tuple[float, float]]] = {}
+    for spec in [x for x in df.policy_spec.unique() if x != "fifo-ff"]:
         g = df[df.policy_spec == spec].sort_values("seed")
         x = g.miss_rate.to_numpy() * 100
-        y = g.energy_dyn_J.to_numpy() / 1e3
-        return x.mean(), y.mean(), *(np.diff(bootstrap_ci(y)) / 2)
-
-    for fam, specs, col, lab in (
-        ("seas", [s for s in df.policy_spec.unique() if s.startswith("seas(")], COL["seas"], "seas, α sweep"),
-        (
-            "seas-eps",
-            [s for s in df.policy_spec.unique() if s.startswith("seas-eps(")],
-            COL["seas-eps"],
-            "seas-ε, ε sweep",
-        ),
-    ):
-        specs = sorted(specs, key=lambda s: float(s.split("=")[1].rstrip(")")))
-        xy = np.array([pt(s)[:2] for s in specs])
-        ax.plot(xy[:, 0], xy[:, 1], "-o", color=col, label=lab, ms=8)
-        for s, (x, y) in zip(specs, xy, strict=True):
-            v = s.split("=")[1].rstrip(")")
-            ax.annotate(
-                ("α=" if fam == "seas" else "ε=") + v,
-                (x, y),
-                textcoords="offset points",
-                xytext=(8, 4 if fam == "seas" else -18),
-                fontsize=15,
-                color=col,
-            )
-    for p in ["eft", "eft-slack", "energy-greedy"]:
-        x, y, _, _ = pt(p)
-        ax.plot(x, y, "s", color=COL[p], ms=11, label=LABEL[p])
+        y = paired_rel(df, "base", spec, "eft", "energy_dyn_J") * 100
+        stats_[spec] = (x.mean(), y.mean(), bootstrap_ci(x), bootstrap_ci(y))
+        pts.setdefault((round(x.mean() * 4) / 4, round(y.mean() * 4) / 4), []).append(spec)
+    for (_, _), specs in pts.items():
+        spec = specs[0]
+        xm, ym, (xl, xh), (yl, yh) = stats_[spec]
+        base = spec.split("(")[0]
+        col = COL.get(base, GREY)
+        marker = "o" if base.startswith("seas") else "s"
+        ax.errorbar(
+            xm,
+            ym,
+            xerr=[[xm - xl], [xh - xm]],
+            yerr=[[ym - yl], [yh - ym]],
+            fmt=marker,
+            color=col,
+            ms=10,
+            capsize=4,
+            lw=1.4,
+        )
+        labels = []
+        for sp in specs:
+            if "(" in sp:
+                k, v = sp.split("(")[1].rstrip(")").split("=")
+                labels.append(("α" if k == "alpha" else "ε") + "=" + v)
+            else:
+                labels.append(LABEL[sp])
+        ax.annotate(
+            "\n".join(", ".join(labels[i : i + 3]) for i in range(0, len(labels), 3)),
+            (xm, ym),
+            textcoords="offset points",
+            xytext=(12, -6),
+            fontsize=13,
+            color=col,
+            va="top",
+        )
+    ax.set_xlim(0, None)
+    ax.axhline(0, color=GREY, lw=1.2, ls="--")
     ax.set_xlabel("Deadline-miss rate (%)")
-    ax.set_ylabel("Dynamic energy (kJ, modelled)")
-    ax.legend(frameon=False, fontsize=15, loc="upper right")
+    ax.set_ylabel("Energy vs EFT (%, modelled, paired)")
     return save(fig, out, "figD_S2_tradeoff")
 
 
@@ -247,39 +299,39 @@ def _lanes(starts_ends: list[tuple[float, float, str]], capacity: int) -> dict[s
     return lane
 
 
-def fig_gantt(root: Path, out: Path, window: float = 420.0) -> list[Path]:
+def fig_gantt(root: Path, out: Path, window: float = 300.0) -> list[Path]:
     """Figure F: S1 seed 0, EFT vs seas, first `window` seconds. Hatched = requires TEE (simulated)."""
     style(17)
     cl = load_cluster("configs/clusters/C-B.yaml")
-    fig, axes = plt.subplots(2, 1, figsize=(290 * MM, 150 * MM), sharex=True)
-    fig.subplots_adjust(left=0.135, right=0.99, bottom=0.2, top=0.93, hspace=0.32)
+    fig, axes = plt.subplots(2, 1, figsize=(290 * MM, 175 * MM), sharex=True)
+    fig.subplots_adjust(left=0.13, right=0.99, bottom=0.17, top=0.95, hspace=0.25)
     for ax, pol in zip(axes, ["eft", "seas"], strict=True):
         ev = [json.loads(x) for x in (root / "S1" / "base" / pol / "seed_0" / "events.jsonl").read_text().splitlines()]
         starts = [e for e in ev if e["type"] == "START"]
-        ylabels, y = [], 0
+        ylabels, y = [], 0.0
         for node in cl.nodes:
+            lh = 1.5 if node.cls.value == "GPU" else 0.55
             ss = [(e["t"], e["end"], e["job"]) for e in starts if e["node"] == node.id]
             lane = _lanes(ss, node.capacity)
             for e in [x for x in starts if x["node"] == node.id]:
                 if e["t"] > window:
                     continue
-                yy = y + lane[e["job"]]
-                jt = next(d for d in ev if d["type"] == "START" and d["job"] == e["job"])
-                tee = any(r in ("TEE_CPU", "TEE_GPU") for r in jt["req"])
+                yy = y + lane[e["job"]] * lh
+                tee = any(r in ("TEE_CPU", "TEE_GPU") for r in e["req"])
                 jtype = _job_type_lookup(root, pol, e["job"])
                 ax.add_patch(
                     Rectangle(
-                        (e["t"], yy + 0.1),
+                        (e["t"], yy + 0.08 * lh),
                         min(e["end"], window) - e["t"],
-                        0.8,
+                        0.84 * lh,
                         facecolor=TYPE_COL[jtype],
                         edgecolor=TEXT,
                         lw=0.4,
                         hatch="////" if tee else None,
                     )
                 )
-            ylabels.append((y + (node.capacity - 1) / 2 + 0.5, node.id))
-            y += node.capacity
+            ylabels.append((y + node.capacity * lh / 2, node.id))
+            y += node.capacity * lh
             ax.axhline(y, color=GREY, lw=0.6)
         ax.set_ylim(0, y)
         ax.set_yticks([p for p, _ in ylabels], [n for _, n in ylabels], fontsize=13)
@@ -364,7 +416,7 @@ def fig_explanation(root: Path, out: Path) -> tuple[list[Path], dict[str, Any]]:
     style(17)
     r = pick_explanation(root)
     rows = [("ineligible", c) for c in r["ineligible_detail"]] + [("eligible", c) for c in r["candidates"]]
-    fig, ax = plt.subplots(figsize=(205 * MM, 128 * MM))
+    fig, ax = plt.subplots(figsize=(205 * MM, 116 * MM))
     fig.subplots_adjust(left=0.01, right=0.99, bottom=0.01, top=0.99)
     ax.set_xlim(0, 100)
     ax.set_ylim(0, 100)
@@ -390,7 +442,7 @@ def fig_explanation(root: Path, out: Path) -> tuple[list[Path], dict[str, Any]]:
         va="center",
     )
     hdr_y = 70
-    for x, h in ((3, "Node"), (33, "est. time"), (52, "est. energy"), (73, "decision")):
+    for x, h in ((3, "Node"), (27, "est. time"), (44, "est. energy"), (62, "decision")):
         ax.text(x, hdr_y, h, fontsize=15, fontweight="bold", color=GREY, va="center")
     y = hdr_y - 9
     for kind, c in rows:
@@ -408,9 +460,9 @@ def fig_explanation(root: Path, out: Path) -> tuple[list[Path], dict[str, Any]]:
         ax.text(
             3, y, node, fontsize=15, va="center", fontweight="bold" if kind == "eligible" and c.get("chosen") else None
         )
-        ax.text(33, y, f"{c['T']:.1f} s", fontsize=15, va="center")
-        ax.text(52, y, f"{c['E']:.0f} J", fontsize=15, va="center")
-        ax.text(73, y, verdict, fontsize=14, va="center", color=col)
+        ax.text(27, y, f"{c['T']:.1f} s", fontsize=15, va="center")
+        ax.text(44, y, f"{c['E']:.0f} J", fontsize=15, va="center")
+        ax.text(62, y, verdict, fontsize=14, va="center", color=col)
         y -= 10
     paths = save(fig, out, "figC_decision_example")
     return paths, r

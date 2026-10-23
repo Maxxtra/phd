@@ -21,7 +21,7 @@ def replicate(cl: Cluster, k: int) -> Cluster:
 
 def run_scaling(
     out_root: str = "results",
-    ks: tuple[int, ...] = (1, 4, 16, 64),
+    ks: tuple[int, ...] = (1, 4, 16, 32),
     seeds: tuple[int, ...] = (0, 1, 2),
     jobs_per_replica: int = 100,
 ) -> pd.DataFrame:
@@ -49,8 +49,7 @@ def run_scaling(
                         "miss_rate": m["miss_rate"],
                     }
                 )
-    df = pd.DataFrame(rows)
-    d = Path(out_root) / "scaling"
-    d.mkdir(parents=True, exist_ok=True)
-    df.to_csv(d / "runs.csv", index=False)
-    return df
+                d = Path(out_root) / "scaling"
+                d.mkdir(parents=True, exist_ok=True)
+                pd.DataFrame(rows).to_csv(d / "runs.csv", index=False)  # written incrementally
+    return pd.DataFrame(rows)

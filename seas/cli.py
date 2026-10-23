@@ -146,7 +146,7 @@ def plot(results: str = "results", out: str = "figures") -> None:
 
 
 @app.command()
-def explain(run_dir: str, job: str) -> None:
+def explain(run_dir: str, job: str = typer.Option(..., "--job", help="job id, e.g. j0006")) -> None:
     """Print the decision record of one job."""
     for line in (Path(run_dir) / "decisions.jsonl").read_text().splitlines():
         r = json.loads(line)
