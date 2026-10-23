@@ -1,8 +1,10 @@
 % Secure Energy-Efficient Scheduling for AI Workloads — A0 portrait research poster
-% Layout reproduces the SciFig "A0 Portrait — Classic" template specification (Navy):
-%   3 columns in a 1.2 : 1.6 : 1.2 ratio, title 85 pt, authors 56 pt, section headings 45 pt,
-%   body 26 pt, captions/references 24 pt, Navy #1B365D on white, body text #1A1A1A, Arial-metric font.
-% Build:  cd poster && lualatex poster.tex   (two passes; requires `seas report` to have written generated/results.tex)
+% Grid and type scale follow the SciFig "A0 Portrait — Classic" specification (Navy scheme):
+%   3 columns 1.2 : 1.6 : 1.2, title 85 pt, section headings 44 pt, body 26 pt, captions 23 pt,
+%   Navy #1B365D on white, body text #1A1A1A, Arial-metric font (Liberation Sans).
+% Every number is a macro from generated/results.tex (written by `seas report` from results/).
+% Build:  cd poster && xelatex poster.tex && xelatex poster.tex
+%         the log prints COLHEIGHT A/B/C and AVAIL; every column must stay below AVAIL.
 \documentclass{article}
 \usepackage[paperwidth=841mm,paperheight=1189mm,margin=0mm]{geometry}
 \usepackage{fontspec}
@@ -21,228 +23,231 @@
 \usepackage[hidelinks]{hyperref}
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
+\hyphenpenalty=2000
+\exhyphenpenalty=2000
 
 \definecolor{navy}{HTML}{1B365D}
 \definecolor{ink}{HTML}{1A1A1A}
 \definecolor{muted}{HTML}{5A5A5A}
-\definecolor{seas}{HTML}{009E73}
-\definecolor{eftc}{HTML}{0072B2}
-\definecolor{warn}{HTML}{C0392B}
+\definecolor{seas}{HTML}{007A5A}
+\definecolor{amber}{HTML}{A35F00}
+\definecolor{warn}{HTML}{B03A2E}
 \definecolor{tint}{HTML}{EEF2F7}
-\definecolor{tintgreen}{HTML}{E6F5EF}
-\definecolor{tintred}{HTML}{FBECEA}
+\definecolor{tintgreen}{HTML}{E6F4EE}
+\definecolor{tintamber}{HTML}{FCF1DE}
+\definecolor{planbg}{HTML}{F4F4F4}
+\definecolor{rule}{HTML}{C9D3DF}
 
 \input{generated/results.tex}
 \newcommand{\seasname}{\leavevmode{\bfseries\color{seas}seas}}
 
-% ---------- type scale (SciFig) ----------
-\newcommand{\bodysize}{\fontsize{26}{33}\selectfont}
-\newcommand{\capsize}{\fontsize{24}{29}\selectfont}
-\newcommand{\refsize}{\fontsize{22.5}{27}\selectfont}
-\newcommand{\headsize}{\fontsize{45}{52}\selectfont}
+% ---------- type scale ----------
+\newcommand{\bodysize}{\fontsize{26}{34}\selectfont}
+\newcommand{\capsize}{\fontsize{23}{29}\selectfont}
+\newcommand{\refsize}{\fontsize{20}{25}\selectfont}
+\newcommand{\headsize}{\fontsize{44}{50}\selectfont}
 
 \renewcommand{\section}[1]{%
-  \par\vspace{14mm}{\headsize\bfseries\color{navy}#1\par}\vspace{3mm}%
-  {\color{navy}\rule{\linewidth}{1.6mm}}\par\vspace{7mm}}
+  \par\vspace{12mm plus 1fill}{\headsize\bfseries\color{navy}#1\par}\vspace{2.5mm}%
+  {\color{navy}\rule{\linewidth}{1.4mm}}\par\vspace{6mm}}
 \newcommand{\firstsection}[1]{%
-  {\headsize\bfseries\color{navy}#1\par}\vspace{3mm}%
-  {\color{navy}\rule{\linewidth}{1.6mm}}\par\vspace{7mm}}
-\providecommand{\caption}{}\renewcommand{\caption}[1]{\par\vspace{3mm}{\capsize\color{muted}#1\par}}
+  {\headsize\bfseries\color{navy}#1\par}\vspace{2.5mm}%
+  {\color{navy}\rule{\linewidth}{1.4mm}}\par\vspace{6mm}}
+\providecommand{\caption}{}\renewcommand{\caption}[1]{\par\vspace{2mm}{\capsize\color{muted}#1\par}}
 \newcommand{\figfile}[2][]{\begin{center}\includegraphics[#1]{#2.pdf}\end{center}}
+\newcommand{\statustag}[2]{{\setlength{\fboxsep}{1.6mm}\colorbox{#1}{\color{white}\fontsize{19}{22}\selectfont\bfseries\strut\,#2\,}}}
 
-\setlist[itemize]{leftmargin=9mm,labelsep=4mm,itemsep=3mm,topsep=3mm,parsep=0mm,label={\color{navy}\rule[2.5mm]{3.2mm}{3.2mm}}}
-
-\newcommand{\pill}[2]{{\setlength{\fboxsep}{2mm}\colorbox{#1}{\color{white}\bfseries\strut\,#2\,}}}
-\newcommand{\verdictbox}[3]{% color, label, text
-  \begin{tikzpicture}
-    \node[draw=#1,line width=1.4mm,fill=white,rounded corners=4mm,inner sep=7mm,text width=\linewidth-16mm,align=left]
-      {{\bfseries\color{#1}#2}\\[2mm]#3};
-  \end{tikzpicture}}
+\setlist[itemize]{leftmargin=8mm,labelsep=4mm,itemsep=3mm,topsep=2mm,parsep=0mm,label={\color{navy}\rule[2.4mm]{3mm}{3mm}}}
 
 % column geometry: 841 - 2*30 margins - 2*20 gutters = 741 mm; ratio 1.2 : 1.6 : 1.2
 \newlength{\colA}\setlength{\colA}{222.3mm}
 \newlength{\colB}\setlength{\colB}{296.4mm}
 \newlength{\gut}\setlength{\gut}{20mm}
-
+\newlength{\fullw}\setlength{\fullw}{781mm}
 \newsavebox{\boxA}\newsavebox{\boxB}\newsavebox{\boxC}
-\newlength{\toppos}\setlength{\toppos}{224mm}
+\newlength{\colH}
+\newlength{\toppos}\setlength{\toppos}{318mm}   % top of the three columns
+\newlength{\footpos}\setlength{\footpos}{1116mm}% top of the reference footer
+\setlength{\colH}{\dimexpr\footpos-\toppos-14mm\relax}% columns are stretched to this height
+
+% key-finding tile: big number, statement, qualifier
+\newcommand{\finding}[4]{% colour, number, statement, qualifier
+  \begin{minipage}[t]{181mm}
+    {\color{#1}\rule{181mm}{2.2mm}}\par\vspace{4mm}
+    {\fontsize{60}{64}\selectfont\bfseries\color{#1}#2\par}\vspace{2.5mm}
+    {\fontsize{26}{31}\selectfont\bfseries\color{ink}#3\par}\vspace{2mm}
+    {\fontsize{21}{26}\selectfont\color{muted}#4\par}
+  \end{minipage}}
+
 \begin{document}
 \color{ink}\bodysize
 
 % ===================== HEADER BAND =====================
 \begin{tikzpicture}[remember picture,overlay]
-  \fill[navy] (current page.north west) rectangle ([yshift=-202mm]current page.north east);
-  \node[anchor=north west,text width=640mm,align=left,inner sep=0] at ([xshift=30mm,yshift=-26mm]current page.north west)
-    {\color{white}\fontsize{85}{94}\selectfont\bfseries\spaceskip=0.42em\relax Secure Energy-Efficient Scheduling\\for AI Workloads};
-  \node[anchor=north west,text width=650mm,align=left,inner sep=0] at ([xshift=30mm,yshift=-114mm]current page.north west)
-    {\color{white}\fontsize{36}{44}\selectfont Security-eligible, energy-aware placement of AI jobs on heterogeneous CPU/GPU clusters:\\a first reproducible prototype and a research programme};
-  \node[anchor=north west,text width=650mm,align=left,inner sep=0] at ([xshift=30mm,yshift=-158mm]current page.north west)
-    {\color{white}\fontsize{40}{48}\selectfont\bfseries Costin-Alexandru Deonise\quad{\mdseries\color{white!80!navy}·\quad Supervisor: Prof.\ Dr.\ Eng.\ Florin Pop}};
-  \node[anchor=north west,text width=720mm,align=left,inner sep=0] at ([xshift=30mm,yshift=-179mm]current page.north west)
-    {\color{white!85!navy}\fontsize{26}{32}\selectfont Faculty of Automatic Control and Computers, National University of Science and Technology POLITEHNICA Bucharest \,·\, PRECIS Research Centre};
-  % QR in header (vector)
-  \node[anchor=north east,fill=white,inner sep=4mm,rounded corners=2mm] (qr) at ([xshift=-30mm,yshift=-26mm]current page.north east)
-    {\qrcode[height=100mm,level=M]{https://github.com/Maxxtra/phd}};
-  \node[anchor=north,text width=120mm,align=center,inner sep=0] at ([yshift=-5mm]qr.south)
-    {\color{white}\fontsize{24}{28}\selectfont github.com/Maxxtra/phd};
+  \fill[navy] (current page.north west) rectangle ([yshift=-196mm]current page.north east);
+  \node[anchor=north west,text width=640mm,align=left,inner sep=0] at ([xshift=30mm,yshift=-24mm]current page.north west)
+    {\color{white}\fontsize{85}{94}\selectfont\bfseries\spaceskip=0.3em plus 0.1em\relax Secure Energy-Efficient Scheduling\\for AI Workloads};
+  \node[anchor=north west,text width=650mm,align=left,inner sep=0] at ([xshift=30mm,yshift=-111mm]current page.north west)
+    {\color{white}\fontsize{34}{42}\selectfont Placing AI jobs only where they are allowed to run, at the lowest energy that still meets the deadline: a reproducible simulation study and a PhD research programme};
+  \node[anchor=north west,text width=660mm,align=left,inner sep=0] at ([xshift=30mm,yshift=-154mm]current page.north west)
+    {\color{white}\fontsize{38}{46}\selectfont\bfseries Costin-Alexandru Deonise\quad{\mdseries\color{white!80!navy}·\quad Supervisor: Prof.\ Dr.\ Eng.\ Florin Pop}};
+  \node[anchor=north west,text width=700mm,align=left,inner sep=0] at ([xshift=30mm,yshift=-174mm]current page.north west)
+    {\color{white!85!navy}\fontsize{24}{30}\selectfont Faculty of Automatic Control and Computers, National University of Science and Technology POLITEHNICA Bucharest \,·\, PRECIS Research Centre};
+  \node[anchor=north east,fill=white,inner sep=4mm,rounded corners=2mm] (qr) at ([xshift=-30mm,yshift=-22mm]current page.north east)
+    {\qrcode[height=96mm,level=M]{https://github.com/Maxxtra/phd}};
+  \node[anchor=north,text width=130mm,align=center,inner sep=0] at ([yshift=-4mm]qr.south)
+    {\color{white}\fontsize{23}{27}\selectfont\bfseries github.com/Maxxtra/phd\\[-1mm]{\mdseries\fontsize{20}{24}\selectfont code · data · every figure}};
+\end{tikzpicture}
+
+% ===================== KEY-FINDINGS STRIP =====================
+\begin{tikzpicture}[remember picture,overlay]
+  \node[anchor=north west,inner sep=0] at ([xshift=30mm,yshift=-210mm]current page.north west)
+    {\fontsize{24}{28}\selectfont\bfseries\color{navy}KEY FINDINGS\quad{\mdseries\color{muted}Stage 1 · simulated cluster · modelled energy from synthetic profiles · 30 paired seeds · preregistered}};
+  \node[anchor=north west,inner sep=0] at ([xshift=30mm,yshift=-226mm]current page.north west) {%
+    \finding{navy}{\HOneMissEft\,\%\,→\,\HOneMissSeas\,\%}{fewer missed deadlines than EFT}{Comes from least-slack-first ordering: the EFT-slack ablation also reaches \HOneMissSeas\,\%.}\hspace{19mm}%
+    \finding{seas}{\HOneEnergyRel\,\%}{dynamic energy vs EFT}{95\,\% CI [\HOneEnergyLo, \HOneEnergyHi]; H1 supported (Holm $p=\HOnePHolm$). Small: lower in \SeasWinsSeeds{} of \NSeeds{} seeds.}\hspace{19mm}%
+    \finding{amber}{≤\,\HeadroomShare\,\%}{of total energy left for placement}{\seasname{} is close to the placement floor; \IdleEmptyShare\,\% is idle power while nodes are empty.}\hspace{19mm}%
+    \finding{warn}{\HTwoGainZero\,\%\,→\,\HTwoGainMax\,\%}{energy gain as secure jobs rise to 80\,\%}{H2 not supported: security constraints shrink the gain instead of growing it.}};
 \end{tikzpicture}
 
 % ===================== COLUMN 1 =====================
-\begin{lrbox}{\boxA}\begin{minipage}[t]{\colA}\vspace{0pt}
-\firstsection{Motivation}
-Schedulers decide where every AI job runs, yet rarely ask what a placement costs in energy, and check whether a node may \emph{see the data} outside that decision.
+\begin{lrbox}{\boxA}\begin{minipage}[t][\colH][s]{\colA}\vspace{0pt}\raggedright
+\firstsection{Why it matters}
+Schedulers decide where AI jobs run, but treat \emph{who may see the data} and \emph{what it costs in energy} as separate problems.
 \begin{itemize}
-  \item AI's energy, carbon, water and land footprints are measurable and under-reported [7,\,8,\,9]; deployed inference is a major share [7].
-  \item Confidential GPUs exist, but protected execution costs throughput (3–7\,\% for LLM inference on H100) [6]: secure nodes are slower and scarcer.
-  \item Energy-aware schedulers [1–3] and intra-job energy tools [4] assume every node may run every job.
+  \item AI's energy and environmental footprint is large and under-reported [7,\,8,\,9].
+  \item Protected execution costs up to ≈\,7\,\% throughput for LLM inference on confidential H100 GPUs [6]; secure nodes are scarcer and slower.
+  \item Energy-aware schedulers [1–4] assume any node may run any job.
 \end{itemize}
 
-\section{Research question}
-With security eligibility as a hard constraint, how much \emph{modelled} energy can placement on heterogeneous CPU/GPU clusters recover without missing more deadlines — and does security help or hurt?
-
-\vspace{5mm}
-{\capsize
-\begin{tabular}{@{}p{14mm}p{\dimexpr\colA-16mm}@{}}
-\textbf{\color{navy}H1} & \seasname{} uses less dynamic energy than EFT \emph{and} is non-inferior on misses (margin 2\,pp).\\[2mm]
-\textbf{\color{navy}H2} & The gain grows with the share of security-constrained jobs.\\[2mm]
-\textbf{\color{navy}H3} & Both hold under ±25\,\% execution-time estimation error.\\
-\end{tabular}\par}
-\vspace{3mm}
-{\capsize\color{muted}Preregistered (configs hashed before any run); 30 paired seeds; Holm; non-inferiority by one-sided paired $t$-test.\par}
-
-\section{Formal model}
-Job $j$: work $w_j$, memory $m_j$, release $r_j$, deadline $d_j$, required capabilities $R_j$, energy weight $\alpha_j$. Node $n$: slots, memory $M_n$, capabilities $C_n$, throughput $\theta_{n,\tau}$, powers $P^{\mathrm{idle}}_n,P^{\mathrm{load}}_{n,\tau}$, protected slowdown $\sigma_n$.
-\begin{center}
-$\displaystyle S_{jn}=\mathbb{1}\!\left[R_j\subseteq C_n,\ m_j\le M_n\right]$\\[2mm]
-$\displaystyle E_{jn}=\bigl(P^{\mathrm{load}}_{n,\tau_j}-P^{\mathrm{idle}}_n\bigr)\,\rho_{jn}\,\frac{w_j}{\theta_{n,\tau_j}}$\\[2mm]
-$\displaystyle n^{*}=\operatorname*{arg\,min}_{\substack{n:\,S_{jn}=1\\ \mathrm{est}_{jn}+T_{jn}\le d_j}} \alpha_j\,\hat E_{jn}+(1-\alpha_j)\,\hat R_{jn}$
-\end{center}
-$\hat E,\hat R$: energy and predicted response time, normalised by the job's best option. Online, non-preemptive, least-slack-first; jobs that can no longer meet their deadline expire (same rule for all policies). Greedy heuristic; no optimality claim.
-
-\section{Why a node is chosen}
-\figfile{figC_decision_example}
-\caption{A real decision record (S1, seed 0): the non-TEE GPU is fastest but ineligible; CPU confidential VMs would miss the deadline; the confidential GPU is chosen.}
-
-\section{Limitations}
-{\capsize
+\section{Contribution}
 \begin{itemize}
-  \item \textbf{Simulation only}: energies are modelled from synthetic profiles; no contention between co-located jobs; independent, non-preemptive jobs; one cluster.
-  \item \textbf{Simulated security}: capability eligibility only; no enclave, encryption or attestation runs [5].
-\end{itemize}\par}
+  \item \seasname{}: eligibility first, then energy vs response time; every decision explained.
+  \item A preregistered, reproducible benchmark with ablations.
+  \item Evidence of where placement-only energy optimisation stops paying off.
+\end{itemize}
+
+\section{Question \& hypotheses}
+If security eligibility is a hard constraint, how much \emph{modelled} energy can placement still save without missing more deadlines?\par\vspace{4mm}
+{\capsize
+\begin{tabular}{@{}p{13mm}p{\dimexpr\colA-17mm}@{}}
+\textbf{\color{navy}H1} & \seasname{} uses less dynamic energy than EFT \emph{and} is non-inferior on misses (margin \HOneNIMargin\,pp).\\[2mm]
+\textbf{\color{navy}H2} & The gain grows with the share of security-constrained jobs.\\[2mm]
+\textbf{\color{navy}H3} & Both hold under ±25\,\% runtime-estimation error.\\
+\end{tabular}\par\vspace{3mm}
+\color{muted}Preregistered; paired tests; Holm correction.\par}
+
+\section{How \seasname{} decides}
+A node is \emph{eligible} only if it offers every required capability and enough memory:
+\[ S_{jn}=\mathbb{1}\!\left[R_j\subseteq C_n,\ m_j\le M_n\right] \]
+Among eligible nodes that still meet the deadline, \seasname{} picks
+\[ n^{*}=\operatorname*{arg\,min}_{n}\ \alpha\,\hat E_{jn}+(1-\alpha)\,\hat R_{jn} \]
+($\hat E$ energy, $\hat R$ response time, both relative to the best option). Least-slack first, online, non-preemptive; a greedy heuristic.
+\figfile{figC_decision_example}
+\caption{A real decision record (S1, seed 0). The plain GPU would be cheaper but lacks the required TEE; the confidential CPU VMs would miss the deadline; the confidential GPU is chosen.}
 \end{minipage}\end{lrbox}%
 % ===================== COLUMN 2 =====================
-\begin{lrbox}{\boxB}\begin{minipage}[t]{\colB}\vspace{0pt}
-\firstsection{System and prototype}
+\begin{lrbox}{\boxB}\begin{minipage}[t][\colH][s]{\colB}\vspace{0pt}\raggedright
+\firstsection{What is built and tested}
 \begin{center}
 \begin{tikzpicture}[
-    font=\fontsize{22}{26}\selectfont,
-    box/.style={draw=navy,line width=0.9mm,rounded corners=3mm,align=center,inner sep=4mm,fill=white},
-    impl/.style={box},
-    plan/.style={draw=muted,line width=0.7mm,dashed,rounded corners=3mm,align=center,inner sep=3.5mm,fill=black!4,text=muted},
+    font=\fontsize{21}{25}\selectfont,
+    box/.style={draw=navy,line width=0.9mm,rounded corners=3mm,align=center,inner sep=3.5mm,fill=white},
     arr/.style={-{Stealth[length=6mm,width=5mm]},line width=1.1mm,draw=navy}]
-  \hyphenpenalty=10000
-  \node[impl,text width=70mm] (jobs) {\textbf{Job stream}\\[1mm]type · deadline\\requirements $R_j$\\energy weight $\alpha_j$};
-  \node[impl,text width=58mm,right=12mm of jobs,fill=tint] (filt) {\textbf{Eligibility filter}\\[1mm]$R_j\subseteq C_n$\\$m_j\le M_n$\\{\fontsize{18}{21}\selectfont shared by every policy}};
-  \node[impl,text width=72mm,right=12mm of filt] (pol) {\textbf{Policy}\\[1mm]FIFO-FF · EFT\\EFT-slack\\Energy-greedy\\\textbf{\color{seas}seas} · seas-ε};
-  \node[impl,text width=100mm,below=15mm of pol.south east,anchor=north east] (nodes) {\textbf{Simulated nodes}\\[1mm]4 × CPU confidential VM\\GPU · confidential GPU\\{\fontsize{18}{21}\selectfont per-slot throughput and power}};
-  \node[impl,text width=128mm,below=15mm of jobs.south west,anchor=north west,fill=tintgreen] (out) {\textbf{Outputs}\\[1mm]event trace · metrics\\explanation of every decision\\paired statistics · figures};
+  \node[box,text width=56mm] (jobs) {\textbf{Job stream}\\type · deadline\\required capabilities};
+  \node[box,text width=84mm,right=10mm of jobs,fill=tint] (filt) {\textbf{Eligibility filter}\\$R_j\subseteq C_n$,\ $m_j\le M_n$\\{\fontsize{18}{21}\selectfont same for every policy}};
+  \node[box,text width=82mm,right=10mm of filt] (pol) {\textbf{Policies}\\FIFO-FF · EFT\\EFT-slack · energy-greedy\\\textbf{\color{seas}seas}};
+  \node[box,text width=118mm,below=12mm of pol.south east,anchor=north east] (nodes) {\textbf{Simulated cluster}\\4 confidential CPU VMs\\1 GPU · 1 confidential GPU};
+  \node[box,text width=140mm,below=12mm of jobs.south west,anchor=north west,fill=tintgreen] (out) {\textbf{Evidence}\\event traces · decision records\\paired statistics · figures};
   \draw[arr] (jobs) -- (filt);
   \draw[arr] (filt) -- (pol);
   \draw[arr] (pol.south) -- (pol.south |- nodes.north);
   \draw[arr] (nodes) -- (out);
-  \node[plan,text width=116mm,below=12mm of out.south west,anchor=north west] (p2) {Stage 2: calibrated CPU/GPU power};
-  \node[plan,text width=116mm,below=12mm of nodes.south east,anchor=north east] (p3) {Stage 3: real TEEs, attestation, recovery};
-  \node[plan,text width=116mm,below=5mm of p2] (p4) {Stage 4: continual-learning retraining};
-  \node[plan,text width=116mm,below=5mm of p3] (p5) {Stage 5: QPU resource class};
 \end{tikzpicture}
 \end{center}
-\caption{Solid: implemented and tested. Dashed: planned, not implemented.}
-\vspace{4mm}
-Open-source Python package \seasname{}: deterministic discrete-event engine, six policies (incl. an EFT-slack ablation), explainable decision records, a paired experiment runner, statistics and verification gates. \textbf{\Violations\ eligibility violations} across \NRuns\ runs; every trace replayed independently against the cluster configuration.
+\vspace{1mm}
+\statustag{seas}{IMPLEMENTED \& TESTED}\enspace Open-source Python: deterministic discrete-event simulator, 6 policies incl.\ an ablation, explainable decisions, verification gates, CI that re-runs the confirmatory experiment. \textbf{\Violations\ eligibility violations} in \NRuns\ runs, each trace replayed independently.\par
+\vspace{2mm}{\capsize\color{muted}Security is \emph{simulated} as capability eligibility: no enclave, encryption or attestation is executed [5].\par}
 
-\section{Results (S1, 30 paired seeds)}
-\begin{tikzpicture}
-  \node[fill=tint,rounded corners=4mm,inner sep=8mm,text width=\colB-16mm,align=left] {%
-    {\fontsize{30}{37}\selectfont\bfseries\color{navy}Security-eligible, deadline-aware placement halved missed deadlines (\HOneMissEft\,\% $\rightarrow$ \HOneMissSeas\,\%) at slightly lower dynamic energy (\HOneEnergyRel\,\%).}\\[4mm]
-    {\capsize H1 \textbf{\HOneVerdict} (Holm $p=\HOnePHolm$). Energy vs EFT \HOneEnergyRel\,\% [95\,\% CI \HOneEnergyLo, \HOneEnergyHi]; misses non-inferior (one-sided 95\,\% upper bound \HOneNIUpper\,pp $<$ \HOneNIMargin\,pp). Ablation: least-slack ordering alone changes energy by +\AblSlackVsEft\,\%; adding the energy term changes it by \AblSeasVsSlack\,\%.}};
-\end{tikzpicture}
+\section{Results: deadlines and energy (H1)}
 \figfile{figB_S1_energy_miss}
-\caption{Modelled dynamic energy and deadline-miss rate per policy; mean and 95\,\% bootstrap CI over 30 paired seeds. FIFO-FF bar truncated (value printed).}
-\figfile{figB2_S1_rel_energy}
-\caption{Same runs, paired per seed: dynamic energy relative to EFT. Dots = seeds, diamonds = mean with 95\,\% CI.}
+\caption{S1, 30 paired seeds. Left: mean miss rate with 95\,\% bootstrap CI. Right: each dot is one seed; diamond = mean with 95\,\% CI.}
+\vspace{3mm}
+\begin{tikzpicture}
+  \node[fill=tint,rounded corners=4mm,inner sep=6mm,text width=\colB-12mm,align=left] {%
+    {\bfseries\color{navy}H1 supported} (Holm $p=\HOnePHolm$): energy \HOneEnergyRel\,\% [\HOneEnergyLo, \HOneEnergyHi] and misses non-inferior (upper bound \HOneNIUpper\,pp $<$ \HOneNIMargin\,pp).\\[2mm]
+    {\capsize \textbf{Where the gains come from.} Ordering jobs by slack (EFT-slack) cuts misses to \HOneMissSeas\,\% but costs +\AblSlackVsEft\,\% energy; the energy term in \seasname{} then saves \AblSeasVsSlack\,\% against that same ordering. Deadline-blind energy-greedy saves \GreedyEnergyRel\,\% more but misses +\HFourDiff\,pp.}};
+\end{tikzpicture}
 
-\section{Security constraints shrink the gain (H2 refuted)}
+\section{Security shrinks the gain (H2)}
 \begin{minipage}[c]{180mm}\includegraphics{figS4_gain_vs_security.pdf}\end{minipage}\hfill
-\begin{minipage}[c]{\dimexpr\colB-186mm}\capsize\raggedright
-H2 \textbf{\HTwoVerdict}: the gain fell from \HTwoGainZero\,\% to \HTwoGainMax\,\% as secure jobs rose to 80\,\% (slope \HTwoSlope\,pp per 100\,\% secure jobs, CI [\HTwoSlopeLo, \HTwoSlopeHi]). Constraints remove choices before energy can be optimised.
+\begin{minipage}[c]{\dimexpr\colB-186mm}\raggedright
+{\bfseries\color{warn}H2 not supported.}\par\vspace{2mm}
+{\capsize The gain fell from \HTwoGainZero\,\% to \HTwoGainMax\,\% (slope \HTwoSlope\,pp per 100\,\% secure jobs; post hoc two-sided $p\HTwoPTwoSided$). Eligibility removes choices before energy can be optimised.\par}
 \end{minipage}
+\caption{Energy saved vs EFT, mean and 95\,\% CI over 30 paired seeds per level (S4).}
 \end{minipage}\end{lrbox}%
 % ===================== COLUMN 3 =====================
-\begin{lrbox}{\boxC}\begin{minipage}[t]{\colA}\vspace{0pt}
-\firstsection{What the numbers mean}
+\begin{lrbox}{\boxC}\begin{minipage}[t][\colH][s]{\colA}\vspace{0pt}\raggedright
+\firstsection{Limits of placement alone}
+\figfile{figE_energy_budget}
+\caption{Where \seasname{}'s modelled energy goes (S1, always-on nodes over the service window). The floor is a relaxation bound: each completed job on its cheapest eligible node.}
 \begin{itemize}
-  \item \textbf{Placement leverage is small here.} Even deadline-blind energy-greedy changes energy by only \GreedyEnergyRel\,\% vs \seasname{}, while missing \HFourDiff\,pp more deadlines (H4: deadlines \HFourVerdict).
-  \item \textbf{Idle power dominates.} Dynamic energy is \DynShare\,\% of the always-on total; vs EFT, total energy changes by \TotCommonRel\,\%.
-  \item \textbf{Under ideal power-gating} the saving vanishes (\TotGatedRel\,\%, CI [\TotGatedLo, \TotGatedHi]): \seasname{} keeps CPUs busy longer.
-  \item \seasname{} completes \WorkRel\,\% more work, so its energy per unit of completed work changes by \PerWorkRel\,\% [\PerWorkLo, \PerWorkHi] {\color{muted}(secondary, not preregistered)}.
-  \item Robust to estimation error (H3 \HThreeVerdict, Holm $p=\HThreePHolm$). The energy weight acts as a switch: $\alpha\ge0.25$ gives identical schedules.
+  \item Placement only moves dynamic energy, and \seasname{} is within \GapSeas\,\% of its floor (EFT: \GapEft\,\%).
+  \item Under ideal power gating the energy saving disappears (total \TotGatedRel\,\%, CI [\TotGatedLo, \TotGatedHi]).
+  \item Robust to ±25\,\% estimation error (H3 supported, Holm $p=\HThreePHolm$). The weight $\alpha$ barely matters: identical schedules for $\alpha\ge0.25$ in \AlphaSameSeeds{} of \AlphaNSeeds{} seeds.
 \end{itemize}
-\vspace{3mm}
-{\bfseries\color{navy}Next question:} placement must be co-optimised with power states and measured, not modelled, energy.
+\vspace{2mm}
+{\bfseries\color{navy}Negative results set the agenda:} the remaining energy is in \emph{when nodes are on}, and in whether the model matches hardware.
 
-\section{Research roadmap}
-\begin{center}
-\begin{tikzpicture}[font=\fontsize{20}{23}\selectfont,
-   st/.style={draw=navy,line width=0.8mm,rounded corners=3mm,minimum height=24mm,text width=150mm,align=left,inner sep=4mm},
-   done/.style={st,fill=navy,text=white},
-   todo/.style={st,fill=white},
-   yr/.style={font=\fontsize{20}{23}\selectfont\bfseries,text=muted,anchor=east}]
-  \node[done] (s1) {\textbf{1 · PoC (this poster)}\, security-eligible scheduler, benchmark};
-  \node[todo,below=4mm of s1] (s2) {\textbf{2 · Hardware calibration}\, RAPL/NVML profiles, modelled vs measured};
-  \node[todo,below=4mm of s2] (s3) {\textbf{3 · Confidential \& resilient execution}\, measured TEE overhead [5,\,6], attestation, checkpointing};
-  \node[todo,below=4mm of s3] (s4) {\textbf{4 · Continual-learning-aware scheduling}\, drift-triggered retraining jobs};
-  \node[todo,below=4mm of s4] (s5) {\textbf{5 · Quantum-classical resources}\, QPU cost model [10], simulators first};
-  \node[todo,below=4mm of s5] (s6) {\textbf{6 · Integrated runtime}\, each capability evaluated independently};
-  \node[yr] at ([xshift=-4mm]s1.west) {Y1};
-  \node[yr] at ([xshift=-4mm]s3.west) {Y2};
-  \node[yr] at ([xshift=-4mm]s5.west) {Y3};
+\section{Next steps}
+\begin{tikzpicture}
+  \node[fill=tintamber,rounded corners=3mm,inner sep=5mm,text width=\colA-10mm,align=left] (a) {%
+    {\bfseries\color{amber}1 · Power-state-aware scheduling}\\{\capsize Decide placement together with node sleep/wake-up and frequency, including wake-up costs; compare with an exact bound on small instances.}};
+  \node[fill=tintamber,rounded corners=3mm,inner sep=5mm,text width=\colA-10mm,align=left,below=4mm of a] {%
+    {\bfseries\color{amber}2 · Hardware energy calibration}\\{\capsize Measure CPU (RAPL) and GPU (NVML) power per job type; report modelled-vs-measured error before any energy claim.}};
 \end{tikzpicture}
-\end{center}
 
-\section{Open research work}
+\section{PhD roadmap}
 {\capsize
-\begin{itemize}
-  \item \textbf{Scheduling \& optimisation} — exact bounds, power-state-aware policies.
-  \item \textbf{Energy profiling} — calibrate CPU/GPU power; validate the model.
-  \item \textbf{Secure execution} — measure TEE overhead per job type.
-  \item \textbf{Continual learning} — retraining streams and staleness metrics.
-  \item \textbf{Quantum-classical} — a QPU node class in the same model.
-\end{itemize}
+\statustag{seas}{IMPLEMENTED}\enspace Stage 1: security-eligible energy-aware scheduler in simulation, benchmark, statistics.\par\vspace{4mm}
+\statustag{muted}{PLANNED}\enspace {\color{muted}Not yet implemented; long-term objectives:}\par\vspace{2mm}
+\begin{tikzpicture}[st/.style={draw=muted,dashed,line width=0.6mm,rounded corners=3mm,fill=planbg,text width=\colA-12mm,align=left,inner sep=3mm}]
+  \node[st] (p2) {\textbf{2 ·} Hardware calibration (measured energy)};
+  \node[st,below=3mm of p2] (p3) {\textbf{3 ·} Real TEEs: measured overhead, attestation, recovery};
+  \node[st,below=3mm of p3] (p4) {\textbf{4 ·} Continual-learning retraining as scheduled jobs};
+  \node[st,below=3mm of p4] (p5) {\textbf{5 ·} QPU as a resource class, simulators first [10]};
+\end{tikzpicture}\par}
+
+\section{Get involved}
+{\capsize Open problems for students and collaborators: power-state policies, exact bounds, energy measurement, TEE benchmarks. One command reproduces every figure.\par}
 \vspace{3mm}
-Contributions start from a labelled first issue in the repository; reproducing every figure takes one command.\par}
-\vspace{4mm}
-{\bfseries\color{navy}Contact:} costin.deonise@upb.ro
-
-\section{References}
-{\refsize
-[1]~Wang et al., DVFS-enabled heterogeneous clusters, \emph{IEEE TPDS} 33(12), 2022.
-[2]~Chau et al., DVFS for CPU-GPU systems, \emph{ACM e-Energy}, 2017.
-[3]~Topcuoglu et al., HEFT, \emph{IEEE TPDS} 13(3), 2002.
-[4]~You et al., Zeus, \emph{USENIX NSDI}, 2023.
-[5]~Mo et al., ML with confidential computing (SoK), \emph{ACM CSUR} 56(11), 2024.
-[6]~Zhu et al., Confidential computing on H100, arXiv:2409.03992, 2024.
-[7]~Luccioni et al., Power hungry processing, \emph{ACM FAccT}, 2024.
-[8]~Schwartz et al., Green AI, \emph{CACM} 63(12), 2020.
-[9]~Aczel et al., Environmental cost of AI's energy use, UNU-INWEH, 2026.
-[10]~Beck et al., QC in HPC ecosystems, \emph{FGCS} 161, 2024.\par}
-
-\vspace{8mm}
-{\refsize\color{muted}\textbf{Acknowledgements.} Supervision: Prof.\ Dr.\ Eng.\ Florin Pop. PRECIS Research Centre, National University of Science and Technology POLITEHNICA Bucharest. State-funded doctoral position; no project grant is associated with this work.\par}
+{\bfseries\color{navy}Contact:} deonisealex@gmail.com
 \end{minipage}\end{lrbox}%
-\typeout{COLHEIGHT A=\the\dimexpr\ht\boxA+\dp\boxA\relax\space B=\the\dimexpr\ht\boxB+\dp\boxB\relax\space C=\the\dimexpr\ht\boxC+\dp\boxC\relax\space AVAIL=\the\dimexpr 1189mm-\toppos-26mm\relax}%
+\typeout{COLHEIGHT A=\the\dimexpr\ht\boxA+\dp\boxA\relax\space B=\the\dimexpr\ht\boxB+\dp\boxB\relax\space C=\the\dimexpr\ht\boxC+\dp\boxC\relax\space AVAIL=\the\dimexpr\footpos-\toppos-10mm\relax}%
 \begin{tikzpicture}[remember picture,overlay]
   \node[anchor=north west,inner sep=0] at ([xshift=30mm,yshift=-\toppos]current page.north west) {\usebox{\boxA}};
   \node[anchor=north west,inner sep=0] at ([xshift=30mm+\colA+\gut,yshift=-\toppos]current page.north west) {\usebox{\boxB}};
   \node[anchor=north west,inner sep=0] at ([xshift=30mm+\colA+\colB+2\gut,yshift=-\toppos]current page.north west) {\usebox{\boxC}};
+  % footer: references and scope statement
+  \draw[rule,line width=0.8mm] ([xshift=30mm,yshift=-\footpos]current page.north west) -- ([xshift=-30mm,yshift=-\footpos]current page.north east);
+  \node[anchor=north west,inner sep=0,text width=\fullw,align=left] at ([xshift=30mm,yshift=-\footpos+(-5mm)]current page.north west) {\refsize\color{muted}%
+    \begin{minipage}[t]{250mm}
+    [1]~Wang et al., DVFS-enabled heterogeneous clusters, \emph{IEEE TPDS} 33(12), 2022.\par
+    [2]~Chau et al., DVFS for CPU-GPU systems, \emph{ACM e-Energy}, 2017.\par
+    [3]~Topcuoglu et al., HEFT, \emph{IEEE TPDS} 13(3), 2002.\par
+    [4]~You et al., Zeus, \emph{USENIX NSDI}, 2023.
+    \end{minipage}\hspace{15mm}%
+    \begin{minipage}[t]{250mm}
+    [5]~Mo et al., ML with confidential computing, \emph{ACM CSUR} 56(11), 2024.\par
+    [6]~Zhu et al., Confidential computing on H100, arXiv:2409.03992, 2024.\par
+    [7]~Luccioni et al., Power hungry processing, \emph{ACM FAccT}, 2024.\par
+    [8]~Schwartz et al., Green AI, \emph{CACM} 63(12), 2020.
+    \end{minipage}\hspace{15mm}%
+    \begin{minipage}[t]{251mm}
+    [9]~Aczel et al., Environmental cost of AI's energy use, UNU-INWEH, 2026.\par
+    [10]~Beck et al., QC in HPC ecosystems, \emph{FGCS} 161, 2024.\par\vspace{2mm}
+    \textbf{Scope.} All results are simulated; energy is modelled, not measured. No project grant is associated with this work.
+    \end{minipage}};
 \end{tikzpicture}
 \end{document}

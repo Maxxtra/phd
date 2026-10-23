@@ -96,11 +96,11 @@ Choices and their consequences, all stated in `docs/assumptions.md`:
    accounting is biased: charging idle power over each policy's own makespan
    penalises a policy for finishing later even though the machines would be powered
    anyway. We therefore report:
-   * `E_idle_common` — always-on regime: `Σ_n P^idle_n × H`, with `H` the common
-     horizon (latest completion over **all** policies for that scenario and seed).
-     This term is identical across policies, so in the always-on regime differences in
-     total energy equal differences in dynamic energy. We state this rather than hide
-     it.
+   * `E_idle_window` — always-on regime: `Σ_n P^idle_n × W`, with `W` the **service
+     window** of the job stream (first release to last deadline; extended to a policy's
+     own makespan if it finishes later). The window depends only on the workload, so the
+     term is identical for every policy that finishes within it. *(Originally the
+     latest completion over all policies — see MD‑7 for why this was corrected.)*
    * `E_idle_busy` — idealised power-gating regime (exploratory S8): idle power only
      while a node has at least one running job, with zero wake-up cost. This is an
      optimistic bound and is labelled as such.
@@ -161,3 +161,29 @@ semantics, and `docs/model.md` presents the formal model with this distinction:
 * Reference metadata was checked on 2026‑10‑23; entries whose page ranges or venues
   could not be re-confirmed are given with their arXiv identifier and the confirmed
   venue only (see `docs/references.bib`).
+
+## MD‑7 Audit correction: idle-energy window (post-hoc, 2026‑10‑23)
+
+An independent re-computation during the pre-presentation audit found that the
+"common horizon" of MD‑4 (latest completion over *all* policies) was set by the FIFO
+baseline, whose backlog runs ≈ 2.8× longer than the service window. This inflated the
+always-on idle term for every policy and made dynamic energy look like only ≈ 18 % of
+the total (the earlier "idle ≈ 82 %" statement). The horizon is now the service window
+(first release to last deadline, mean 947 s in S1); `seas`, EFT, EFT-slack and
+energy-greedy always finish inside it. Under this accounting dynamic energy is ≈ 51 %
+of `seas`'s always-on total, and the total-energy difference vs EFT is −0.28 %
+(CI −0.53 … −0.00).
+
+What did **not** change: simulator, policies, workloads, seeds, confirmatory configs
+(hashes unchanged) and the preregistered primary metric (dynamic energy). H1–H3 are
+unaffected because they are tested on dynamic energy and miss rate. All 4,380 runs were
+re-executed after the fix and their event traces are bit-identical to the confirmatory
+runs at `dc30ad3`; only the derived `service_window_s` column and the secondary
+accounting changed. The per-policy own-makespan variant gives the same picture
+(dynamic share 54 %, total −0.21 %).
+
+The same audit also tightened two wordings: the α sweep yields *identical schedules in
+27 of 30 seeds* (energy within 0.01 %), not identical schedules everywhere; and the
+miss-rate reduction vs EFT is attributed to least-slack-first ordering (the `eft-slack`
+ablation reaches the same 3.7 %), while the energy term contributes −1.6 % vs that
+ordering.

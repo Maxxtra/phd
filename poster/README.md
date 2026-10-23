@@ -10,14 +10,16 @@
 
 Reproduces the SciFig **A0 Portrait — Classic** template specification in the **Navy** scheme
 (scifig.ai/scientific-poster-templates/a0): three columns in a 1.2 : 1.6 : 1.2 ratio, title 85 pt,
-author line 40 pt, section headings 45 pt, body 26 pt, captions 24 pt (references 22.5 pt), Navy
+author line 38 pt, section headings 44 pt, body 26 pt, captions 23 pt (references 20 pt), Navy
 `#1B365D` title band and headings on white, body text `#1A1A1A`, Liberation Sans (Arial-metric).
 The original `.pptx` could not be downloaded in the build environment, so the template's grid, type
 scale and colours were rebuilt in LaTeX; this guarantees a vector PDF (PowerPoint export often
 rasterises imported figures).
 
 Classic was chosen over Spotlight: Spotlight is built around one dominant headline result, and the
-honest Stage-1 headline (small energy effect, refuted H2) does not warrant that framing.
+honest Stage-1 headline (small energy effect, H2 not supported) does not warrant that framing. A
+full-width key-findings strip gives the 60-second reading path; implemented work is tagged
+**IMPLEMENTED** (solid, green) and future objectives **PLANNED** (dashed, grey).
 
 ## Build
 
@@ -29,7 +31,8 @@ pdffonts poster.pdf                        # all 'emb' = yes
 pdfimages -list poster.pdf                 # no entries: fully vector
 ```
 
-The build log prints `COLHEIGHT A=… B=… C=… AVAIL=…`; keep every column below `AVAIL`.
+Columns are stretched to a fixed height; an `Overfull \vbox` warning in `build.log` means a column
+is too long. `poster_preview.png` is rendered with `pdftoppm -png -singlefile -scale-to-x 1200 -scale-to-y -1 poster.pdf poster_preview`.
 
 ## Before printing
 

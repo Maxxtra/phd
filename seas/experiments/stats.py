@@ -94,15 +94,20 @@ def non_inferiority(d: np.ndarray, margin: float = NI_MARGIN) -> dict[str, float
 
 
 def add_common_idle(df: pd.DataFrame) -> pd.DataFrame:
-    """Always-on idle energy over the common horizon (latest completion over all policies), MD-4."""
+    """Idle-energy accounting (MD-4, corrected by audit MD-7).
+
+    Always-on regime: every node draws idle power over the *service window* — from the first release to
+    the last job deadline, which depends only on the workload — or over the policy's own makespan if it
+    finishes later (machines must stay on to finish its work). The window is identical for every policy
+    that finishes within it, so the term is not set by the slowest policy (the pre-audit definition used
+    the latest completion over all policies, which FIFO-FF inflated ~8x).
+    Power-gated regime (ideal, zero wake-up cost): idle power only while a node runs a job.
+    """
     df = df.copy()
-    keys = ["scenario", "point", "seed"]
-    if "cluster_path" in df.columns:
-        keys.append("cluster_path")
-    horizon = df.groupby(keys)["makespan_s"].transform("max")
-    df["horizon_common_s"] = horizon
-    df["energy_idle_common_J"] = df["P_idle_total_W"] * horizon
-    df["energy_total_common_J"] = df["energy_dyn_J"] + df["energy_idle_common_J"]
+    window = np.maximum(df["service_window_s"], df["makespan_s"])
+    df["horizon_window_s"] = window
+    df["energy_idle_window_J"] = df["P_idle_total_W"] * window
+    df["energy_total_window_J"] = df["energy_dyn_J"] + df["energy_idle_window_J"]
     df["energy_total_gated_J"] = df["energy_dyn_J"] + df["energy_idle_busy_J"]
     return df
 
@@ -114,8 +119,8 @@ SUMMARY_METRICS = [
     "expire_rate",
     "rejected_ineligible",
     "energy_per_work_J",
-    "energy_idle_common_J",
-    "energy_total_common_J",
+    "energy_idle_window_J",
+    "energy_total_window_J",
     "energy_idle_busy_J",
     "energy_total_gated_J",
     "makespan_s",

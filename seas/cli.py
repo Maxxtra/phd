@@ -120,6 +120,7 @@ def plot(results: str = typer.Argument("results", help="results directory"), out
     for fn, src in (
         (F.fig_s1_energy_miss, "results/S1/runs.csv"),
         (F.fig_s1_rel_energy, "results/S1/runs.csv"),
+        (F.fig_energy_budget, "results/S1/runs.csv"),
         (F.fig_s7_robustness, "results/S7/runs.csv"),
         (F.fig_gantt, "results/S1/base/{eft,seas}/seed_0/"),
         (F.fig_s2_tradeoff, "results/S2/runs.csv"),

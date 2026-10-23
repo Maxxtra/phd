@@ -42,7 +42,7 @@ def policy_table(df: pd.DataFrame, point: str) -> str:
 
 SECONDARY = [
     ("dynamic energy", "energy_dyn_J"),
-    ("total energy, always-on idle (common horizon)", "energy_total_common_J"),
+    ("total energy, always-on idle over service window", "energy_total_window_J"),
     ("total energy, ideal power-gating", "energy_total_gated_J"),
     ("idle energy, ideal power-gating", "energy_idle_busy_J"),
     ("work completed", "work_completed"),
@@ -148,19 +148,34 @@ def write_report(root: Path, conf: dict[str, Any], poster_dir: Path) -> None:
         if sc == "S1":
             g = df[df.point == "base"]
             md += [
-                "Energy accounting (S1, mean over seeds, kJ): dynamic / idle always-on over common horizon / "
+                "Energy accounting (S1, mean over seeds, kJ): dynamic / idle always-on over the service window (first release to last deadline) / "
                 "idle with ideal power-gating (exploratory S8):",
                 "",
-                "| policy | dynamic | idle (always-on, common horizon) | idle (power-gated, ideal) | dyn. relaxation LB |",
+                "| policy | dynamic | idle (always-on, service window) | idle (power-gated, ideal) | dyn. relaxation LB |",
                 "|---|---|---|---|---|",
             ]
             for p in POLS:
                 h = g[g.policy_spec == p]
                 md.append(
-                    f"| {p} | {h.energy_dyn_J.mean() / 1e3:.1f} | {h.energy_idle_common_J.mean() / 1e3:.1f} | "
+                    f"| {p} | {h.energy_dyn_J.mean() / 1e3:.1f} | {h.energy_idle_window_J.mean() / 1e3:.1f} | "
                     f"{h.energy_idle_busy_J.mean() / 1e3:.1f} | {h.energy_lb_J.mean() / 1e3:.1f} |"
                 )
+            gap = {
+                p: float(
+                    (
+                        (g[g.policy_spec == p].energy_dyn_J - g[g.policy_spec == p].energy_lb_J)
+                        / g[g.policy_spec == p].energy_lb_J
+                    ).mean()
+                )
+                * 100
+                for p in POLS
+            }
             md += [
+                "",
+                "Gap to the relaxation bound for the jobs each policy completed (dynamic energy above the "
+                "minimum-energy eligible node for every completed job): "
+                + ", ".join(f"{p} {v:.1f} %" for p, v in gap.items())
+                + ".",
                 "",
                 f"No-choice fraction (jobs with exactly one eligible node): {g.no_choice_fraction.mean():.3f}.",
                 "",
@@ -215,6 +230,7 @@ def write_report(root: Path, conf: dict[str, Any], poster_dir: Path) -> None:
         "HTwoSlopeLo": f"{h2['slope_ci'][0] * 100:.1f}",
         "HTwoSlopeHi": f"{h2['slope_ci'][1] * 100:.1f}",
         "HTwoPHolm": _p(s["H2"]["p_holm"]),
+        "HTwoPTwoSided": _p(2 * min(h2["p_slope_greater"], 1 - h2["p_slope_greater"])),
         "HTwoVerdict": "supported" if s["H2"]["supported"] else "not supported",
         "HTwoGainZero": _pct(h2["mean_gain_by_level"][0], 1),
         "HTwoGainMax": _pct(h2["mean_gain_by_level"][-1], 1),
@@ -228,31 +244,50 @@ def write_report(root: Path, conf: dict[str, Any], poster_dir: Path) -> None:
         "FifoEnergyKJ": f"{mean('fifo-ff', 'energy_dyn_J') / 1e3:.0f}",
         "EftEnergyKJ": f"{mean('eft', 'energy_dyn_J') / 1e3:.0f}",
         "SeasEnergyKJ": f"{mean('seas', 'energy_dyn_J') / 1e3:.0f}",
-        "IdleCommonKJ": f"{mean('seas', 'energy_idle_common_J') / 1e3:.0f}",
-        "IdleShare": _pct(mean("seas", "energy_idle_common_J") / mean("seas", "energy_total_common_J"), 0),
+        "IdleWindowKJ": f"{mean('seas', 'energy_idle_window_J') / 1e3:.0f}",
         "NoChoice": _pct(float(gb.no_choice_fraction.mean()), 0),
         "Violations": str(int(s1["eligibility_violations"].sum())),
-        "DynShare": _pct(float((gb.energy_dyn_J / gb.energy_total_common_J).mean()), 0),
+        "DynShare": _pct(
+            float(
+                (gb[gb.policy_spec == "seas"].energy_dyn_J / gb[gb.policy_spec == "seas"].energy_total_window_J).mean()
+            ),
+            0,
+        ),
     }
     sec = {r["key"]: r for r in secondary_accounting(s1)}
     for key, name in (
-        ("energy_total_common_J", "TotCommon"),
+        ("energy_total_window_J", "TotWindow"),
         ("energy_total_gated_J", "TotGated"),
         ("energy_per_work_J", "PerWork"),
         ("work_completed", "Work"),
     ):
-        mac[name + "Rel"] = f"{sec[key]['rel']:+.1f}"
-        mac[name + "Lo"] = f"{sec[key]['lo']:+.1f}"
-        mac[name + "Hi"] = f"{sec[key]['hi']:+.1f}"
+        nd = 2 if name in ("TotWindow", "TotGated") else 1
+        mac[name + "Rel"] = f"{sec[key]['rel']:+.{nd}f}"
+        mac[name + "Lo"] = f"{sec[key]['lo']:+.{nd}f}"
+        mac[name + "Hi"] = f"{sec[key]['hi']:+.{nd}f}"
+    for pol, name in (("seas", "GapSeas"), ("eft", "GapEft"), ("energy-greedy", "GapGreedy")):
+        h = gb[gb.policy_spec == pol]
+        mac[name] = f"{float(((h.energy_dyn_J - h.energy_lb_J) / h.energy_lb_J).mean()) * 100:.1f}"
+    pv = gb.pivot(index="seed", columns="policy_spec", values="energy_dyn_J")
+    mac["SeasWinsSeeds"] = str(int((pv["seas"] < pv["eft"]).sum()))
+    mac["NSeeds"] = str(len(pv))
+    sb = gb[gb.policy_spec == "seas"]
+    tot = (sb.energy_dyn_J + sb.energy_idle_window_J).mean()
+    mac["IdleEmptyShare"] = f"{(sb.energy_idle_window_J - sb.energy_idle_busy_J).mean() / tot * 100:.0f}"
+    mac["HeadroomShare"] = f"{(sb.energy_dyn_J - sb.energy_lb_J).mean() / tot * 100:.1f}"
     s2f = root / "S2" / "runs.csv"
     if s2f.exists():
         s2 = pd.read_csv(s2f)
         e = s2.groupby("policy_spec")["energy_dyn_J"].mean()
-        same = all(
-            abs(e[f"seas(alpha={a})"] - e["seas(alpha=0.5)"]) / e["seas(alpha=0.5)"] < 1e-3
-            for a in ("0.25", "0.75", "1")
+        tr = s2.pivot(index="seed", columns="policy_spec", values="trace_sha256")
+        same = tr["seas(alpha=0.25)"] == tr["seas(alpha=1)"]
+        for a in ("0.5", "0.75"):
+            same &= tr[f"seas(alpha={a})"] == tr["seas(alpha=1)"]
+        mac["AlphaSameSeeds"] = str(int(same.sum()))
+        mac["AlphaNSeeds"] = str(len(same))
+        mac["AlphaMaxDiff"] = (
+            f"{max(abs(e[f'seas(alpha={a})'] / e['seas(alpha=1)'] - 1) for a in ('0.25', '0.5', '0.75')) * 100:.2f}"
         )
-        mac["AlphaSwitch"] = "yes" if same else "no"
         mac["AlphaZeroIsSlack"] = "yes" if abs(e["seas(alpha=0)"] - e["eft-slack"]) < 1e-6 else "no"
 
     for sc in ("S4", "S7", "S2", "S3", "S5", "E-load"):

@@ -46,14 +46,20 @@ def parse_policy(spec: str) -> tuple[str, dict[str, float]]:
 
 
 def git_sha() -> str:
+    """HEAD commit; suffixed with '+dirty' if code or configs differ from it (provenance)."""
+    root = Path(__file__).resolve().parents[2]
     try:
-        return subprocess.run(
-            ["git", "rev-parse", "HEAD"],
+        sha = subprocess.run(
+            ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True, cwd=root
+        ).stdout.strip()
+        dirty = subprocess.run(
+            ["git", "status", "--porcelain", "--", "seas", "configs", "pyproject.toml"],
             capture_output=True,
             text=True,
             check=True,
-            cwd=Path(__file__).resolve().parents[2],
+            cwd=root,
         ).stdout.strip()
+        return sha + ("+dirty" if dirty else "")
     except Exception:
         return "unknown"
 

@@ -38,11 +38,26 @@ re-runs (also checked on a simulated fresh clone).
 | H3 robustness to ±25 % estimation error | supported, Holm p = 0.002 |
 | H4 deadlines binding | yes (energy-greedy +11.5 pp misses, −4.8 % energy) |
 
-Secondary (not preregistered): idle energy ≈ 82 % of always-on total (total change −0.06 %); under ideal
-power-gating the saving disappears (+0.2 %, CI −0.2…+0.6); seas completes 3.2 % more work, −3.6 % dynamic
-energy per unit of completed work; α ≥ 0.25 gives identical schedules (the knob acts as a switch); miss
-gains come from least-slack ordering (EFT-slack matches them). Scaling (exploratory): p95 decision time
-≈ 0.15 ms at 6 nodes, ≈ 5 ms at 192 nodes (Python implementation; machine-dependent).
+Secondary (not preregistered; accounting corrected in audit, MD-7): with always-on nodes over the
+service window, dynamic energy is ≈ 51 % of seas's total and the total changes by −0.28 % [−0.53, −0.00];
+under ideal power gating the saving disappears (+0.17 %, CI −0.24…+0.62). seas is 0.4 % above the
+relaxation floor for the jobs it completes (EFT 2.4 %), i.e. ≤ 0.2 % of total energy is left for placement,
+while idle power on empty nodes is ≈ 36 %. seas completes 3.2 % more work, −3.6 % dynamic energy per unit of
+completed work. α ∈ {0.25 … 1} gives identical schedules in 27 of 30 seeds (energy within 0.01 %). The miss
+reduction comes from least-slack ordering (EFT-slack matches it); the energy term gives −1.6 % against that
+ordering. Scaling (exploratory): p95 decision time ≈ 0.15 ms at 6 nodes, ≈ 5 ms at 192 nodes (Python
+implementation; machine-dependent).
+
+## 3a. Pre-presentation audit (2026-10-23)
+
+* Independent recomputation of all confirmatory statistics from `runs.csv` (separate script, no reuse of
+  `seas.experiments.stats`) reproduced H1–H3, the ablation, H4 and the secondary comparisons.
+* Found and fixed: the always-on idle horizon was set by FIFO's long backlog, inflating idle energy for
+  all policies (MD-7); poster/README overstatements (α "identical schedules" — true in 27/30 seeds;
+  miss gain attributed to the whole of seas rather than to least-slack ordering; "consistent across
+  seeds" — seas is lower than EFT in 20/30 seeds; H2 "refuted" → not supported, opposite trend post hoc).
+* All 4,380 runs re-executed after the fix; event traces bit-identical to the confirmatory runs at
+  `dc30ad3`. Provenance now records `+dirty` when code differs from the recorded commit.
 
 ## 4. Poster
 
@@ -56,10 +71,10 @@ were rebuilt in LaTeX (`poster/poster.tex`, editable). Logos are not included (n
 * Synthetic, uncalibrated profiles; no contention model; independent non-preemptive jobs; one cluster.
 * No real TEE, attestation or encryption; σ from literature/assumption.
 * No exact optimisation bound (MILP deferred); only a relaxation lower bound on dynamic energy.
-* The energy weight α is not a smooth control in this setting; a better-designed knob is open work.
+* The energy weight α is not a useful control in this setting (identical schedules in 27/30 seeds for α ≥ 0.25); a better-designed knob is open work.
 * Scaling beyond ~200 nodes is slow in the current implementation (per-decision cost grows with
   queue length × nodes); vectorisation or indexing of candidate evaluation is needed.
 
-Next steps that follow directly from the evidence: (1) power-state-aware placement (idle power dominates);
+Next steps that follow directly from the evidence: (1) power-state-aware placement (placement headroom ≤ 0.2 %, idle on empty nodes ≈ 36 %);
 (2) Stage-2 calibration with RAPL/NVML so energies become measured; (3) measured TEE overhead per job
 type (Stage 3a); (4) an exact small-instance bound to size the remaining headroom.

@@ -13,7 +13,7 @@ provenance-tagged profiles.
 | idle power | 60 W | 70 W | per node, excluding host for GPU (simplification) |
 | per-slot dynamic power | 35–45 W | 100–210 W | increases with job intensity |
 | throughput prep / infer_small / infer_large / finetune / pipe_stage (units/s/slot) | 2 / 0.8 / 0.05 / 0.02 / 1 | 2.5 / 20 / 4 / 1.5 / 8 | GPU ≈ CPU for preprocessing; 25–80× faster for neural compute |
-| σ (protected slowdown) | 1.10 | 1.07 | GPU from the upper end of the 3–7 % throughput overhead measured for H100 CC LLM inference (Zhu et al. 2024); CPU is an assumption |
+| σ (protected slowdown) | 1.10 | 1.07 | GPU set at the ≈7 % upper end of the throughput overhead measured for H100 CC LLM inference (Zhu et al. 2024); CPU is an assumption |
 
 Consequences: per unit of work, CPUs are the energy-cheaper choice only for `prep`; GPUs are cheaper
 and faster for all neural job types. The energy leverage of placement therefore comes from
@@ -24,7 +24,7 @@ and faster for all neural job types. The energy leverage of placement therefore 
 * Additive per-slot power, **no contention** between co-located jobs (optimistic for shared memory
   bandwidth and GPU sharing).
 * Data staging occupies the slot but adds no node power.
-* Idle power: always-on (reported over the common horizon; identical across policies) or ideal
+* Idle power: always-on (reported over the service window, MD‑7; identical across policies that finish within it) or ideal
   power gating with zero wake-up cost (exploratory, optimistic bound).
 
 ## Workload (`configs/workloads/baseline-mix.yaml`)

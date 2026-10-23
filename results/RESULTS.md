@@ -53,16 +53,18 @@ Energy-greedy minus seas miss rate: 11.50 pp (CI 9.43 … 13.75); criterion ≥ 
 | seas | 375.3 | 3.7 | 1.0 | 2.8 | 0.0 | 0.75 | 13.2 |
 | seas-eps | 376.5 | 3.7 | 1.0 | 2.7 | 0.0 | 0.78 | 13.2 |
 
-Energy accounting (S1, mean over seeds, kJ): dynamic / idle always-on over common horizon / idle with ideal power-gating (exploratory S8):
+Energy accounting (S1, mean over seeds, kJ): dynamic / idle always-on over the service window (first release to last deadline) / idle with ideal power-gating (exploratory S8):
 
-| policy | dynamic | idle (always-on, common horizon) | idle (power-gated, ideal) | dyn. relaxation LB |
+| policy | dynamic | idle (always-on, service window) | idle (power-gated, ideal) | dyn. relaxation LB |
 |---|---|---|---|---|
 | fifo-ff | 2146.9 | 2689.9 | 1268.9 | 372.0 |
-| eft | 377.2 | 2689.9 | 95.1 | 368.6 |
-| eft-slack | 381.0 | 2689.9 | 94.6 | 373.6 |
-| energy-greedy | 356.4 | 2689.9 | 91.3 | 356.4 |
-| seas | 375.3 | 2689.9 | 97.9 | 373.7 |
-| seas-eps | 376.5 | 2689.9 | 97.3 | 373.7 |
+| eft | 377.2 | 360.0 | 95.1 | 368.6 |
+| eft-slack | 381.0 | 360.0 | 94.6 | 373.6 |
+| energy-greedy | 356.4 | 360.0 | 91.3 | 356.4 |
+| seas | 375.3 | 360.0 | 97.9 | 373.7 |
+| seas-eps | 376.5 | 360.0 | 97.3 | 373.7 |
+
+Gap to the relaxation bound for the jobs each policy completed (dynamic energy above the minimum-energy eligible node for every completed job): fifo-ff 487.3 %, eft 2.4 %, eft-slack 2.1 %, energy-greedy 0.0 %, seas 0.4 %, seas-eps 0.7 %.
 
 No-choice fraction (jobs with exactly one eligible node): 0.101.
 
@@ -71,7 +73,7 @@ No-choice fraction (jobs with exactly one eligible node): 0.101.
 | metric | mean paired relative difference | 95 % CI | p (seas < eft) | p (seas > eft) |
 |---|---|---|---|---|
 | dynamic energy | -0.61 % | -1.11 … -0.09 % | 0.020 | 0.981 |
-| total energy, always-on idle (common horizon) | -0.06 % | -0.12 … +0.01 % | 0.020 | 0.981 |
+| total energy, always-on idle over service window | -0.28 % | -0.53 … -0.00 % | 0.020 | 0.981 |
 | total energy, ideal power-gating | +0.17 % | -0.24 … +0.62 % | 0.476 | 0.532 |
 | idle energy, ideal power-gating | +3.15 % | +2.23 … +4.14 % | 1.000 | < 0.001 |
 | work completed | +3.16 % | +2.30 … +4.08 % | 1.000 | < 0.001 |

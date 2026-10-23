@@ -13,3 +13,10 @@ Per-seed trace directories for all other runs are not committed (≈100 MB); `se
 bit-identically (`seas verify` re-runs the first seed of every configuration and checks the hashes).
 
 Confirmatory: S1, S4, S7. Exploratory: S2, S3, S5, E-load, scaling. Correctness: S6.
+
+## Provenance
+
+The confirmatory runs were first executed at commit `dc30ad3`. During the pre-presentation audit
+(2026-10-23) every scenario was re-executed after adding the derived `service_window_s` column
+(MD-7); all 4,380 event traces were bit-identical to the original ones. `config.resolved.yaml` records the
+commit of the latest execution (suffixed `+dirty` if the working tree differed from it).

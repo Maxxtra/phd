@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="430" viewBox="0 0 960 430" font-family="Liberation Sans, Arial, Helvetica, sans-serif">
+  <title>seas overview: implemented Stage-1 pipeline and planned PhD objectives</title>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1B365D"/>
+    </marker>
+  </defs>
+  <rect width="960" height="430" fill="#FFFFFF"/>
+
+  <!-- implemented -->
+  <rect x="20" y="18" width="182" height="26" rx="4" fill="#007A5A"/>
+  <text x="111" y="36" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">IMPLEMENTED &amp; TESTED</text>
+  <text x="214" y="36" font-size="14" fill="#444">Stage 1 · simulated cluster · modelled energy</text>
+
+  <g font-size="14" fill="#1A1A1A" text-anchor="middle">
+    <rect x="20" y="62" width="140" height="92" rx="8" fill="#FFF" stroke="#1B365D" stroke-width="2"/>
+    <text x="90" y="90" font-weight="700">Job stream</text>
+    <text x="90" y="112">type · deadline</text>
+    <text x="90" y="132">required capabilities</text>
+
+    <rect x="188" y="62" width="160" height="92" rx="8" fill="#EEF2F7" stroke="#1B365D" stroke-width="2"/>
+    <text x="268" y="90" font-weight="700">Eligibility filter</text>
+    <text x="268" y="112">R ⊆ C, memory fits</text>
+    <text x="268" y="132" font-size="12" fill="#555">same for every policy</text>
+
+    <rect x="376" y="62" width="180" height="92" rx="8" fill="#FFF" stroke="#1B365D" stroke-width="2"/>
+    <text x="466" y="90" font-weight="700">Policy</text>
+    <text x="466" y="112">FIFO-FF · EFT · EFT-slack</text>
+    <text x="466" y="132">energy-greedy · <tspan font-weight="700" fill="#007A5A">seas</tspan></text>
+
+    <rect x="584" y="62" width="190" height="92" rx="8" fill="#FFF" stroke="#1B365D" stroke-width="2"/>
+    <text x="679" y="90" font-weight="700">Simulated cluster</text>
+    <text x="679" y="112">4 confidential CPU VMs</text>
+    <text x="679" y="132">GPU · confidential GPU</text>
+
+    <rect x="802" y="62" width="138" height="92" rx="8" fill="#E6F4EE" stroke="#1B365D" stroke-width="2"/>
+    <text x="871" y="90" font-weight="700">Evidence</text>
+    <text x="871" y="112">traces · decisions</text>
+    <text x="871" y="132">statistics · figures</text>
+  </g>
+  <g stroke="#1B365D" stroke-width="2" marker-end="url(#a)">
+    <line x1="160" y1="108" x2="186" y2="108"/>
+    <line x1="348" y1="108" x2="374" y2="108"/>
+    <line x1="556" y1="108" x2="582" y2="108"/>
+    <line x1="774" y1="108" x2="800" y2="108"/>
+  </g>
+  <text x="20" y="182" font-size="13.5" fill="#444">0 eligibility violations in 4,380 runs · preregistered hypotheses · CI re-runs the confirmatory experiment and compares trace hashes</text>
+
+  <!-- planned -->
+  <rect x="20" y="214" width="268" height="26" rx="4" fill="#5A5A5A"/>
+  <text x="154" y="232" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">PLANNED · NOT YET IMPLEMENTED</text>
+
+  <g font-size="14" text-anchor="middle">
+    <rect x="20" y="256" width="440" height="66" rx="8" fill="#FCF1DE" stroke="#A35F00" stroke-width="2" stroke-dasharray="7 5"/>
+    <text x="240" y="282" font-weight="700" fill="#A35F00">Next: power-state-aware scheduling</text>
+    <text x="240" y="304" fill="#1A1A1A">placement co-decided with node sleep / wake-up and frequency</text>
+
+    <rect x="500" y="256" width="440" height="66" rx="8" fill="#FCF1DE" stroke="#A35F00" stroke-width="2" stroke-dasharray="7 5"/>
+    <text x="720" y="282" font-weight="700" fill="#A35F00">Next: hardware energy calibration</text>
+    <text x="720" y="304" fill="#1A1A1A">RAPL / NVML measurements; modelled-vs-measured error</text>
+
+    <rect x="20" y="342" width="290" height="66" rx="8" fill="#F4F4F4" stroke="#777" stroke-width="2" stroke-dasharray="7 5"/>
+    <text x="165" y="368" font-weight="700" fill="#333">Real TEEs</text>
+    <text x="165" y="390" fill="#555">measured overhead · attestation · recovery</text>
+
+    <rect x="335" y="342" width="290" height="66" rx="8" fill="#F4F4F4" stroke="#777" stroke-width="2" stroke-dasharray="7 5"/>
+    <text x="480" y="368" font-weight="700" fill="#333">Continual learning</text>
+    <text x="480" y="390" fill="#555">retraining as scheduled jobs</text>
+
+    <rect x="650" y="342" width="290" height="66" rx="8" fill="#F4F4F4" stroke="#777" stroke-width="2" stroke-dasharray="7 5"/>
+    <text x="795" y="368" font-weight="700" fill="#333">Quantum-classical</text>
+    <text x="795" y="390" fill="#555">QPU as a resource class, simulators first</text>
+  </g>
+</svg>

@@ -80,6 +80,7 @@ def compute_metrics(res: SimResult) -> dict[str, Any]:
         "energy_per_work_J": e_dyn / work if work > 0 else float("nan"),
         "last_end_s": last_end,
         "makespan_s": horizon,
+        "service_window_s": max((j.deadline for j in res.jobs), default=res.first_arrival) - res.first_arrival,
         "energy_idle_own_J": idle_own,
         "energy_idle_busy_J": idle_busy,
         **util,

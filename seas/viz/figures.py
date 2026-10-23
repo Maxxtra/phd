@@ -109,43 +109,101 @@ def _ci_bar(ax: Any, x: float, vals: np.ndarray, color: str, width: float = 0.72
 
 
 def fig_s1_energy_miss(root: Path, out: Path) -> list[Path]:
-    """Figure B: S1 (confirmatory) modelled dynamic energy and deadline-miss rate per policy.
-    Linear axes; the FIFO-FF energy bar is truncated at the axis limit and its value printed."""
-    style(21)
+    """Figure B (S1, confirmatory): deadline-miss rate per policy (mean, 95 % bootstrap CI) and
+    modelled dynamic energy relative to EFT, paired per seed (dots = seeds, diamond = mean, 95 % CI).
+    FIFO-FF is far off the energy scale; its paired mean is printed instead of plotted."""
+    style(22)
     df = _runs(root, "S1")
     df = df[df.point == "base"]
     pols = [p for p in ORDER if p in set(df.policy_spec)]
-    fig, axes = plt.subplots(1, 2, figsize=(290 * MM, 120 * MM))
-    fig.subplots_adjust(left=0.1, right=0.99, bottom=0.27, top=0.88, wspace=0.3)
-    others = [df[df.policy_spec == p].energy_dyn_J.mean() / 1e3 for p in pols if p != "fifo-ff"]
-    ymax = max(others) * 1.22
+    fig, axes = plt.subplots(1, 2, figsize=(296 * MM, 150 * MM), gridspec_kw={"width_ratios": [1.0, 1.25]})
+    fig.subplots_adjust(left=0.085, right=0.985, bottom=0.25, top=0.86, wspace=0.42)
     for i, p in enumerate(pols):
         g = df[df.policy_spec == p].sort_values("seed")
-        e = g.energy_dyn_J.to_numpy()
-        if p == "fifo-ff":
-            axes[0].bar(i, ymax, width=0.72, color=COL[p], edgecolor="none")
-            axes[0].text(
-                i,
-                ymax * 0.93,
-                f"{e.mean() / 1e3:,.0f}",
-                ha="center",
-                va="top",
-                fontsize=17,
-                color="white",
-                fontweight="bold",
-            )
-            axes[0].plot([i - 0.36, i + 0.36], [ymax * 0.985, ymax * 1.015], color="white", lw=3)
-        else:
-            _ci_bar(axes[0], i, e, COL[p], scale=1e-3)
-        _ci_bar(axes[1], i, g.miss_rate.to_numpy(), COL[p], scale=100)
-    axes[0].set_ylim(0, ymax)
-    for ax in axes:
-        ax.set_xticks(range(len(pols)), [LABEL[p] for p in pols], rotation=35, ha="right")
-    axes[0].set_ylabel("Dynamic energy (kJ, modelled)")
-    axes[1].set_ylabel("Deadline-miss rate (%)")
-    axes[0].set_title("Energy", loc="left", fontweight="bold", color=NAVY)
-    axes[1].set_title("Missed deadlines", loc="left", fontweight="bold", color=NAVY)
+        _ci_bar(axes[0], i, g.miss_rate.to_numpy(), COL[p], scale=100)
+    axes[0].set_xticks(range(len(pols)), [LABEL[p] for p in pols], rotation=35, ha="right")
+    axes[0].set_ylabel("Missed deadlines (%)")
+    axes[0].set_title("Missed deadlines", loc="left", fontweight="bold", color=NAVY)
+    rel_pols = [p for p in ["eft-slack", "energy-greedy", "seas", "seas-eps"] if p in set(df.policy_spec)][::-1]
+    ax = axes[1]
+    for i, p in enumerate(rel_pols):
+        rel = paired_rel(df, "base", p, "eft", "energy_dyn_J") * 100
+        rng = np.random.default_rng(i)
+        ax.scatter(rel, i + rng.uniform(-0.2, 0.2, rel.size), s=26, color=COL[p], alpha=0.6, edgecolors="none")
+        lo, hi = bootstrap_ci(rel)
+        m = float(rel.mean())
+        ax.errorbar(m, i, xerr=[[m - lo], [hi - m]], fmt="D", color=TEXT, ms=10, capsize=7, lw=2.2)
+    ax.axvline(0, color=COL["eft"], lw=1.8, ls="--")
+    ax.text(0.2, len(rel_pols) - 0.3, "EFT", color=COL["eft"], fontsize=18, va="bottom", ha="left")
+    ax.set_yticks(range(len(rel_pols)), [LABEL[p] for p in rel_pols])
+    ax.set_ylim(-0.6, len(rel_pols) + 0.1)
+    ax.set_xlabel("vs EFT (%, paired by seed)")
+    ax.set_title("Modelled dynamic energy", loc="left", fontweight="bold", color=NAVY)
+    if "fifo-ff" in pols:
+        f = paired_rel(df, "base", "fifo-ff", "eft", "energy_dyn_J").mean() * 100
+        ax.text(
+            1.0,
+            -0.33,
+            f"FIFO-FF: {f:+.0f} % (off scale)",
+            transform=ax.transAxes,
+            ha="right",
+            va="top",
+            fontsize=17,
+            color=GREY,
+        )
     return save(fig, out, "figB_S1_energy_miss")
+
+
+def fig_energy_budget(root: Path, out: Path) -> list[Path]:
+    """Where seas's modelled energy goes (S1 mean over seeds): the dynamic-energy floor that any
+    placement must pay (relaxation bound for the jobs seas completed), the part placement can still
+    change (seas above that floor), idle power while nodes run jobs, and idle power while nodes
+    are empty (avoidable only by power-state control; ideal gating, no wake-up cost)."""
+    style(21)
+    g = _runs(root, "S1")
+    g = g[(g.point == "base") & (g.policy_spec == "seas")]
+    floor = g.energy_lb_J.mean() / 1e3
+    head = (g.energy_dyn_J - g.energy_lb_J).mean() / 1e3
+    busy = g.energy_idle_busy_J.mean() / 1e3
+    empty = (g.energy_idle_window_J - g.energy_idle_busy_J).mean() / 1e3
+    tot = floor + head + busy + empty
+    segs = [
+        (floor, "#9DB3CF", "Dynamic-energy floor\n(unavoidable for this work)"),
+        (head, COL["seas"], "Remaining placement headroom"),
+        (busy, "#C9D3DF", "Idle while\nbusy"),
+        (empty, "#E69F00", "Idle while empty\n(power-state lever)"),
+    ]
+    fig, ax = plt.subplots(figsize=(222 * MM, 108 * MM))
+    fig.subplots_adjust(left=0.01, right=0.99, bottom=0.03, top=0.97)
+    x = 0.0
+    for v, c, _ in segs:
+        ax.barh(0, v, left=x, height=0.62, color=c, edgecolor="white", lw=2)
+        x += v
+    ax.set_xlim(0, tot)
+    ax.set_ylim(-1.45, 1.3)
+    ax.axis("off")
+    x = 0.0
+    for k, (v, _c, lab) in enumerate(segs):
+        mid = x + v / 2
+        pct = v / tot * 100
+        val = f"{pct:.1f} %" if pct < 1 else f"{pct:.0f} %"
+        if k == 1:
+            ax.annotate(
+                f"{lab}: ≤ {val} of total",
+                xy=(x + v / 2, 0.3),
+                xytext=(tot * 0.12, 1.0),
+                fontsize=21,
+                fontweight="bold",
+                color=COL["seas"],
+                va="center",
+                ha="left",
+                arrowprops={"arrowstyle": "-", "color": COL["seas"], "lw": 2},
+            )
+        else:
+            ax.text(mid, 0, val, ha="center", va="center", fontsize=26, fontweight="bold", color=TEXT)
+            ax.text(mid, -0.45, lab, ha="center", va="top", fontsize=19, color=TEXT, linespacing=1.1)
+        x += v
+    return save(fig, out, "figE_energy_budget")
 
 
 def fig_s1_rel_energy(root: Path, out: Path) -> list[Path]:
@@ -175,7 +233,7 @@ def fig_s4_gain(root: Path, out: Path, conf: dict[str, Any]) -> list[Path]:
     x = np.array(h2["levels"]) * 100
     m = np.array(h2["mean_gain_by_level"]) * 100
     ci = np.array(h2["gain_ci_by_level"]) * 100
-    fig, ax = plt.subplots(figsize=(180 * MM, 110 * MM))
+    fig, ax = plt.subplots(figsize=(180 * MM, 140 * MM))
     fig.subplots_adjust(left=0.21, right=0.97, bottom=0.2, top=0.95)
     ax.fill_between(x, ci[:, 0], ci[:, 1], color=COL["seas"], alpha=0.22, lw=0)
     ax.plot(x, m, "-o", color=COL["seas"], ms=9)
@@ -413,10 +471,10 @@ def pick_explanation(root: Path) -> dict[str, Any]:
 
 def fig_explanation(root: Path, out: Path) -> tuple[list[Path], dict[str, Any]]:
     """Figure C: one real decision record of seas (S1, seed 0)."""
-    style(17)
+    style(21)
     r = pick_explanation(root)
     rows = [("ineligible", c) for c in r["ineligible_detail"]] + [("eligible", c) for c in r["candidates"]]
-    fig, ax = plt.subplots(figsize=(205 * MM, 116 * MM))
+    fig, ax = plt.subplots(figsize=(222 * MM, 132 * MM))
     fig.subplots_adjust(left=0.01, right=0.99, bottom=0.01, top=0.99)
     ax.set_xlim(0, 100)
     ax.set_ylim(0, 100)
@@ -429,7 +487,7 @@ def fig_explanation(root: Path, out: Path) -> tuple[list[Path], dict[str, Any]]:
         3,
         91,
         f"Job {r['job']}  ·  {r['type']}  ·  requires {req}",
-        fontsize=17,
+        fontsize=22,
         fontweight="bold",
         color=NAVY,
         va="center",
@@ -438,31 +496,31 @@ def fig_explanation(root: Path, out: Path) -> tuple[list[Path], dict[str, Any]]:
         3,
         82,
         f"deadline in {r['deadline'] - r['t']:.1f} s  ·  α = {r['alpha']}  ·  score = α·Ê + (1−α)·R̂",
-        fontsize=15,
+        fontsize=20,
         va="center",
     )
     hdr_y = 70
-    for x, h in ((3, "Node"), (27, "est. time"), (44, "est. energy"), (62, "decision")):
-        ax.text(x, hdr_y, h, fontsize=15, fontweight="bold", color=GREY, va="center")
+    for x, h in ((3, "Node"), (26, "time"), (41, "energy"), (57, "decision")):
+        ax.text(x, hdr_y, h, fontsize=19, fontweight="bold", color=GREY, va="center")
     y = hdr_y - 9
     for kind, c in rows:
         node = c["node"]
         if kind == "ineligible":
             ax.add_patch(Rectangle((1, y - 4.2), 98, 8.4, fc="white", ec="#C0392B", lw=1.4, ls="--"))
-            verdict, col = "rejected: lacks " + "+".join(m for m in c["missing"] if m.startswith("TEE")), "#C0392B"
+            verdict, col = "ineligible: no " + "+".join(m for m in c["missing"] if m.startswith("TEE")), "#C0392B"
         elif c["chosen"]:
             ax.add_patch(Rectangle((1, y - 4.2), 98, 8.4, fc="#E3F4EE", ec=COL["seas"], lw=2.2))
-            verdict, col = "chosen (lowest score)", COL["seas"]
+            verdict, col = "chosen: lowest score", COL["seas"]
         else:
             ax.add_patch(Rectangle((1, y - 4.2), 98, 8.4, fc="white", ec="#BBBBBB", lw=1.0))
             verdict = "higher score" if c["feasible"] else "misses deadline"
             col = TEXT
         ax.text(
-            3, y, node, fontsize=15, va="center", fontweight="bold" if kind == "eligible" and c.get("chosen") else None
+            3, y, node, fontsize=20, va="center", fontweight="bold" if kind == "eligible" and c.get("chosen") else None
         )
-        ax.text(27, y, f"{c['T']:.1f} s", fontsize=15, va="center")
-        ax.text(44, y, f"{c['E']:.0f} J", fontsize=15, va="center")
-        ax.text(62, y, verdict, fontsize=14, va="center", color=col)
+        ax.text(26, y, f"{c['T']:.1f} s", fontsize=20, va="center")
+        ax.text(41, y, f"{c['E']:.0f} J", fontsize=20, va="center")
+        ax.text(57, y, verdict, fontsize=19, va="center", color=col)
         y -= 10
     paths = save(fig, out, "figC_decision_example")
     return paths, r
