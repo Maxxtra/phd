@@ -22,6 +22,8 @@ def test_run_and_verify_correctness_scenario(tmp_path: Path) -> None:
     assert (df.eligibility_violations == 0).all()
     assert df.filter(like="reason_NO_ELIGIBLE_NODE").sum().sum() > 0  # TEE_GPU and 160 GB jobs rejected
     assert verify_scenario(out / "S6") == []
+    r = runner.invoke(app, ["verify", str(out)])
+    assert r.exit_code == 0, r.output
 
 
 def test_confirmatory_seed_override_refused(tmp_path: Path) -> None:

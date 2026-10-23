@@ -53,7 +53,7 @@ def run(
 
 
 @app.command()
-def analyze(results: str = "results") -> None:
+def analyze(results: str = typer.Argument("results", help="results directory")) -> None:
     """Summaries and secondary pairwise tests for every scenario; confirmatory evaluation."""
     root = Path(results)
     for f in sorted(root.glob("*/runs.csv")):
@@ -73,7 +73,7 @@ def analyze(results: str = "results") -> None:
 
 
 @app.command()
-def report(results: str = "results", poster: str = "poster") -> None:
+def report(results: str = typer.Argument("results", help="results directory"), poster: str = "poster") -> None:
     """Write results/RESULTS.md and poster/generated/results.tex."""
     from seas.experiments.report import write_report
 
@@ -83,7 +83,7 @@ def report(results: str = "results", poster: str = "poster") -> None:
 
 
 @app.command()
-def verify(results: str = "results", rerun: bool = True) -> None:
+def verify(results: str = typer.Argument("results", help="results directory"), rerun: bool = True) -> None:
     """Validation gates: eligibility, capacity, memory, conservation, hashes, determinism."""
     from seas.experiments.verify import verify_scenario
 
@@ -109,7 +109,7 @@ def scaling(out: str = "results") -> None:
 
 
 @app.command()
-def plot(results: str = "results", out: str = "figures") -> None:
+def plot(results: str = typer.Argument("results", help="results directory"), out: str = "figures") -> None:
     """Regenerate every figure from results/ and write figures/MANIFEST.md."""
     from seas.experiments.runner import git_sha
     from seas.viz import figures as F
